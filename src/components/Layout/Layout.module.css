@@ -1,0 +1,25 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+}
+
+@media (min-width: 393px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    padding: 0 108px;
+  }
+}

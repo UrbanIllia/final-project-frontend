@@ -1,7 +1,7 @@
 import css from "./RecipeCard.module.css";
 
 const RecipeCard = () => {
-  return <div className={css.recipe}>RecipeCard</div>;
+  return <li className={css.recipe_card}>RecipeCard</li>;
 };
 
 export default RecipeCard;

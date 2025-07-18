@@ -34,12 +34,17 @@
   --font-family: "Montserrat", sans-serif;
   --second-family: "DM Sans", sans-serif;
 }
+/* * {
+  box-sizing: border-box;
+} */
 body {
   font-family: var(--font-family);
+  /* box-sizing: border-box; */
 }
 html {
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
+  /* box-sizing: border-box; */
 }
 h1,
 h2,
@@ -65,7 +70,6 @@ a {
 }
 
 button {
-  all: unset;
   cursor: pointer;
   color: currentColor;
 }

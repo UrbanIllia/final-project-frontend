@@ -1,14 +1,26 @@
 .formContainer {
   padding: 48px 32px;
-  margin: 200px 0;
+  margin: 200px auto;
   border-radius: 32px;
   background-color: var(--light-beige);
   display: flex;
   flex-direction: column;
   gap: 20px;
   justify-content: center;
-  align-items: center;
-  max-width: 420px;
+  max-width: 362px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .formContainer {
+    max-width: 522px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .formContainer {
+    max-width: 420px;
+  }
 }
 
 .title {
@@ -30,32 +42,26 @@
   flex-direction: column;
 }
 
-.fieldGroup1 {
-  margin-bottom: 16px;
-  position: relative;
-}
-.fieldGroup2 {
-  margin-bottom: 27px;
-  position: relative;
-}
-
 .input {
   padding: 8px;
   border: 1px solid var(--light-gray);
   border-radius: 8px;
   font-weight: 400;
   font-size: 16px;
-  width: 356px;
+  width: 100%;
   height: 41px;
   background-color: var(--white);
 }
+
 .input::placeholder {
   font-weight: 400;
   font-size: 16px;
   line-height: 155%;
   color: var(--gray-3);
 }
-
+.input_mb {
+  margin-bottom: 16px;
+}
 .error {
   position: absolute;
   bottom: 0;
@@ -78,10 +84,11 @@
   align-items: center;
   font-weight: 600;
   font-size: 16px;
-  width: 356px;
+  width: 100%;
   height: 36px;
   outline: none;
   transition: background-color 200ms ease-in-out;
+  margin-top: 27px;
 }
 .button:focus,
 .button:hover {
@@ -104,6 +111,8 @@
 .registerwrapp {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+
   gap: 4px;
   font-weight: 400;
   font-size: 16px;
@@ -119,10 +128,14 @@
 
 .toggleIcon {
   position: absolute;
-  top: 45%;
+  top: 50%;
   right: 8px;
-  /* transform: translateY(-50%); */
+  transform: translateY(-50%);
   cursor: pointer;
   width: 24px;
   height: 24px;
+}
+
+.passwordWrapper {
+  position: relative;
 }

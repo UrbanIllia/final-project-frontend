@@ -87,35 +87,27 @@ const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className={css.form}>
-            <div className={css.fieldGroup1}>
-              <label htmlFor="email" className={css.label}>
-                Email
-              </label>
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                placeholder="email@gmail.com"
-                className={css.input}
-                autoComplete="off"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={css.error}
-              />
-            </div>
-            <div className={css.fieldGroup2}>
-              <label htmlFor="password" className={css.label}>
-                Password
-              </label>
-              <Field name="password" component={PasswordField} />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className={css.error}
-              />
-            </div>
+            <label htmlFor="email" className={css.label}>
+              Email
+            </label>
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              placeholder="email@gmail.com"
+              className={[css.input, css.input_mb].join(" ")}
+              autoComplete="off"
+            />
+            <ErrorMessage name="email" component="div" className={css.error} />
+            <label htmlFor="password" className={css.label}>
+              Password
+            </label>
+            <Field name="password" component={PasswordField} />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className={css.error}
+            />
             <button
               type="submit"
               disabled={isSubmitting}

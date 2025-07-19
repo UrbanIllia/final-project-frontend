@@ -2,13 +2,13 @@ import Filters from "../../components/Filters/Filters";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipesList from "../../components/RecipesList/RecipesList";
-import SearchBox from "../../components/SearchBox/SearchBox";
+import Banner from "../../components/Banner/Banner";
 import css from "./MainPage.module.css";
 
 const MainPage = () => (
   <div className={css.main}>
     <p>Main Page with Recipes</p>
-    <SearchBox />
+    <Banner />
     <Filters />
     <RecipesList>
       <RecipeCard />

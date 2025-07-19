@@ -1,0 +1,18 @@
+.recipe_list {
+  display: grid;
+  gap: 24px;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .recipe_list {
+    grid-template-columns: repeat(auto-fit, 339px);
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .recipe_list {
+    grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+  }
+}

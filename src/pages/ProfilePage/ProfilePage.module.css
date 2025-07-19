@@ -1,0 +1,29 @@
+.profile {
+  max-width: 100%;
+  margin: 48px 0;
+}
+
+.title_container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.title {
+  color: var(--black);
+  font-size: 40px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 18px;
+  color: var(--black);
+  font-weight: 600;
+}
+
+@media (min-width: 1440px) {
+  .profile {
+    margin: 46px 0;
+  }
+}

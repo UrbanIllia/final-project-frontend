@@ -1,16 +1,18 @@
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import ProfileNavigation from "../../components/ProfileNavigation/ProfileNavigation";
-import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import RecipesList from "../../components/RecipesList/RecipesList";
 import css from "./ProfilePage.module.css";
 
 const ProfilePage = () => (
   <div className={css.profile}>
-    <p>Profile Page</p>
-    <ProfileNavigation />
-    <RecipesList>
-      <RecipeCard />
-    </RecipesList>
+    <div className={css.title_container}>
+      <h2 className={css.title}>My profile</h2>
+      <ProfileNavigation />
+      <p>96 recipes</p>
+    </div>
+    <div className={css.list_wrapper}>
+      <RecipesList />
+    </div>
     <LoadMoreBtn />
   </div>
 );

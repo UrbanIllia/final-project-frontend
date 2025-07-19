@@ -7,18 +7,18 @@ const ProfileNavigation = () => {
       <NavLink
         to="/profile/own"
         className={({ isActive }) =>
-          isActive ? "text-blue-600" : "text-gray-600"
+          `${css.link} ${isActive ? css.active : ""}`
         }
       >
-        Own Recipes
+        My Recipes
       </NavLink>
       <NavLink
         to="/profile/favorites"
         className={({ isActive }) =>
-          isActive ? "text-blue-600" : "text-gray-600"
+          `${css.link} ${isActive ? css.active : ""}`
         }
       >
-        Favorites
+        Saved Recipes
       </NavLink>
     </nav>
   );

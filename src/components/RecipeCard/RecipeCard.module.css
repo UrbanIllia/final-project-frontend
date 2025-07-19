@@ -1,0 +1,21 @@
+.recipe_card {
+  background-color: var(--light-beige);
+  width: 361px;
+  height: 479px;
+  border-radius: 16px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .recipe_card {
+    width: 339px;
+    height: 483px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .recipe_card {
+    width: 288px;
+    height: 431px;
+  }
+}

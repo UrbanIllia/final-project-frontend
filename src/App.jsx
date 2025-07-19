@@ -14,20 +14,23 @@ const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
   return (
-    <Router>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<MainPage />} />
-            <Route path="/recipes/:id" element={<RecipeViewPage />} />
-            <Route path="/add-recipe" element={<AddRecipePage />} />
-            <Route path="/profile/:recipeType" element={<ProfilePage />} />
-            <Route path="/auth/:authType" element={<AuthPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </Router>
+    <>
+      <Router>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<MainPage />} />
+              <Route path="/recipes/:id" element={<RecipeViewPage />} />
+              <Route path="/add-recipe" element={<AddRecipePage />} />
+              <Route path="/profile/:recipeType" element={<ProfilePage />} />
+              <Route path="/auth/:authType" element={<AuthPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </Router>
+      <ToastContainer />
+    </>
   );
 };
 

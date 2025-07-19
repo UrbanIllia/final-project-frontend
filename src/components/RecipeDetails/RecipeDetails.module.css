@@ -1,0 +1,19 @@
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.recipeTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 39px;
+  color: var(--black);
+}
+.imageWrapper {
+  border-radius: 8px;
+  width: 361px;
+  height: 276px;
+  background-color: aquamarine;
+  order: -1;
+}

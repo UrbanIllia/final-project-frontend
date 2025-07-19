@@ -36,18 +36,18 @@
 
 .boxTitle {
   position: absolute;
-  top: 40%; 
+  top: 53%; 
   left: 0;
   z-index: 2;
   width: 100%;
-  height: 100%;
+  
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transform: translateY(-50%);
-
+gap: 24px;
 }
 
 .titleBanner {

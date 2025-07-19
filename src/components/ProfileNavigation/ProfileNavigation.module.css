@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  gap: 38px;
+}
+
+.link {
+  font-size: 18px;
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.active {
+  font-size: 18px;
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+  .link {
+    font-size: 12px;
+  }
+}

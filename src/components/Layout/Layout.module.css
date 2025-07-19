@@ -4,22 +4,22 @@
   display: flex;
   flex-direction: column;
   padding: 0 16px;
-}
-
-@media (min-width: 393px) {
-  .container {
-    padding: 0 16px;
-  }
+  background-color: rgb(204, 204, 255);
+  max-width: 393px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .container {
     padding: 0 32px;
+    width: 768px;
   }
 }
 
 @media (min-width: 1440px) {
   .container {
     padding: 0 108px;
+    width: 1440px;
   }
 }

@@ -1,5 +1,4 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import {
   loginUserThunk,
   logoutUserThunk,
@@ -24,12 +23,6 @@ const initialState = {
 const authReducer = createSlice({
   name: "user",
   initialState,
-  selectors: {
-    selectIsLoggedIn: (state) => state.isLoggedIn,
-    selectIsRefreshing: (state) => state.isRefreshing,
-    selectIsLoading: (state) => state.isLoading,
-    selectToken: (state) => state.token,
-  },
   extraReducers: (builder) =>
     builder
       .addCase(logoutUserThunk.pending, (state) => {
@@ -43,7 +36,6 @@ const authReducer = createSlice({
         state.isLoading = false;
         state.isLoggedIn = true;
         state.error = payload;
-        toast.error(payload);
       })
       .addCase(refreshUserThunk.pending, (state) => {
         state.isRefreshing = true;
@@ -56,9 +48,10 @@ const authReducer = createSlice({
         state.isRefreshing = false;
         state.isLoading = false;
       })
-      .addCase(refreshUserThunk.rejected, (state) => {
+      .addCase(refreshUserThunk.rejected, (state, { payload }) => {
         state.isRefreshing = false;
         state.isLoading = false;
+        state.error = payload;
       })
       .addMatcher(
         isAnyOf(registerUserThunk.pending, loginUserThunk.pending),
@@ -71,8 +64,7 @@ const authReducer = createSlice({
       .addMatcher(
         isAnyOf(registerUserThunk.fulfilled, loginUserThunk.fulfilled),
         (state, { payload }) => {
-          state.user.name = payload.user.name;
-          state.user.email = payload.user.email;
+          state.user = payload;
           state.token = payload.token;
           state.isLoading = false;
           state.isLoggedIn = true;
@@ -84,15 +76,8 @@ const authReducer = createSlice({
           state.isLoading = false;
           state.isLoggedIn = false;
           state.error = payload;
-          toast.error(payload);
         }
       ),
 });
 
 export default authReducer.reducer;
-export const {
-  selectIsLoggedIn,
-  selectIsRefreshing,
-  selectIsLoading,
-  selectToken,
-} = authReducer.selectors;

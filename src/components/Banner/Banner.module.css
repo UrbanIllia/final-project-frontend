@@ -3,17 +3,16 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  
+  padding-bottom: 48px;
 }
 
 .container {
-      margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   display: flex;
   position: relative;
   width: 100%;
   height: 100%;
-
 
   &::before {
     content: "";
@@ -33,26 +32,33 @@
 }
 
 .imageSearch {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
+  background-image: url("/images/BannerMob.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
 }
+
 
 .boxTitle {
   position: absolute;
-  top: 53%; 
+  top: 53%;
   left: 0;
   z-index: 2;
   width: 100%;
-  
+  padding-left: 24px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transform: translateY(-50%);
-gap: 24px;
+  gap: 24px;
 }
 
 .titleBanner {
@@ -60,4 +66,52 @@ gap: 24px;
   font-size: 40px;
   color: var(--white);
   
+}
+@media screen and (min-width: 768px) {
+.imageSearch {
+  background-image: url("/images/Tablet@1x.png");
+  background-size:cover;
+ 
+    position: relative;
+}
+  .bannerSection {
+    width: 768px;
+    height: 443px;
+    padding: 0;
+  }
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+
+  }
+
+  .boxTitle {
+    align-items: flex-start;
+    text-align: left;
+    gap: 24px;
+  
+  
+  }
+  .titleBanner {
+    font-size: 48px;
+    line-height: 1.1;
+    
+  }
+
+  @media screen and (min-resolution: 192dpi),
+    screen and (min-device-pixel-ratio: 2) {
+    .imageSearch {
+      background-image: url("/images/Tablet@2x.png");
+    }
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  .imageSearch {
+    background-image: url("/images/Tablet@2x.png");
+  }
+
 }

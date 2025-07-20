@@ -1,0 +1,19 @@
+.recipeFiltering {
+display: flex;
+align-items: center;
+justify-content: flex-end;
+flex-direction: row;
+width: 361px;
+height: 33px;
+padding-bottom: 16px;
+}
+.textFilters{
+    font-weight: 600;
+font-size: 12px;
+color: var(--black);
+margin-right: 5px;
+}
+.svgFilter{
+    stroke-width: 1px;
+stroke: var(--black);
+}

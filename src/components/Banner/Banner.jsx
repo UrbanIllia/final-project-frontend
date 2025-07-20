@@ -5,21 +5,17 @@ const Banner = () => {
   return (
     <section className={css.bannerSection}>
       <div className={css.container}>
-        <img
-          src="/images/Banner.png"
-          alt="girl cooking"
-          className={css.imageSearch}
-        />
-      </div>
-      <div className={css.boxTitle}>
-        <h1 className={css.titleBanner}>
-          <span>Plan, Cook, and</span>
-          <br />
-          <span>Share Your</span>
-          <br />
-          <span>Flavors</span>
-        </h1>
-        <SearchBox />
+        <div className={css.imageSearch}></div>
+        <div className={css.boxTitle}>
+          <h1 className={css.titleBanner}>
+            <span>Plan, Cook, and</span>
+            <br />
+            Share Your
+            <br />
+            Flavors
+          </h1>
+          <SearchBox />
+        </div>
       </div>
     </section>
   );

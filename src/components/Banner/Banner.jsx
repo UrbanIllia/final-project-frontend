@@ -4,7 +4,7 @@ import SearchBox from "../SearchBox/SearchBox";
 const Banner = () => {
   return (
     <section className={css.bannerSection}>
-      <div className={css.imageContainer}>
+      <div className={css.container}>
         <img
           src="/images/Banner.png"
           alt="girl cooking"

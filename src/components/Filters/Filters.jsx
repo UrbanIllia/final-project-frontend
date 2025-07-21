@@ -6,9 +6,11 @@ import css from "./Filters.module.css";
 const Filters = () => {
   const dispatch = useDispatch();
 
-  const categories = useSelector((state) => state.categories?.items || []);
-  const isLoading = useSelector((state) => state.categories?.isLoading);
-  const error = useSelector((state) => state.categories?.error);
+  const {
+    items: categories = [],
+    isLoading,
+    error,
+  } = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -21,6 +23,31 @@ const Filters = () => {
         <p className={css.recipesCount}>{categories.length} recipes</p>
       </div>
 
+      <div className={css.rightSide}>
+        <a href="#" className={css.resetBtn}>
+          Reset filters
+        </a>
+
+        <select className={css.select}>
+          {Array.isArray(categories) &&
+            categories.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+        </select>
+
+        <select className={css.select}>
+          <option value="">Ingredient</option>
+          <option value="tomato">Tomato</option>
+          <option value="onion">Onion</option>
+        </select>
+        <select className={css.select}>
+          <option value="">Categoria</option>
+          <option value="tomato">Tomato</option>
+          <option value="onion">Onion</option>
+        </select>
+      </div>
       <div className={css.filterCategories}>
         <p className={css.textFilters}>Filters</p>
         <svg

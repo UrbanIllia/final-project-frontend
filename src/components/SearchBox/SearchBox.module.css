@@ -61,3 +61,21 @@
       width: 471px;
   }
 }
+@media (min-width: 1440px) {
+      .search {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    width: 768px;
+  }
+
+  .buttonSearchBox {
+    border-radius: 8px;
+    padding: 12px 16px;
+    width: 190px;
+  
+  }
+  .inputSearchBox{
+      width: 459px;
+  }
+}

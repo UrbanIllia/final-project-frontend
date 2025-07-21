@@ -1,19 +1,36 @@
 .recipeFiltering {
-display: flex;
-align-items: center;
-justify-content: flex-end;
-flex-direction: row;
-width: 361px;
-height: 33px;
-padding-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; 
+  padding-bottom: 16px;
+   padding-top: 48px;
+  width: 100%;
 }
-.textFilters{
-    font-weight: 600;
-font-size: 12px;
-color: var(--black);
-margin-right: 5px;
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-.svgFilter{
-    stroke-width: 1px;
-stroke: var(--black);
+
+.h2reception {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.recipesCount {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--black);
+}
+
+.filterCategories {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+
+
 }

@@ -1,18 +1,28 @@
+
 .bannerSection {
   position: relative;
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: 513px;
   overflow: hidden;
-  padding-bottom: 48px;
 }
-
-.container {
-  margin-left: auto;
-  margin-right: auto;
+.imageSearch {
+  position: absolute;
+  height: 100%;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url("/images/BannerMob.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 0;
+}
+.bannerInner{
   display: flex;
   position: relative;
   width: 100%;
   height: 100%;
+ 
 
   &::before {
     content: "";
@@ -31,20 +41,6 @@
   }
 }
 
-.imageSearch {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("/images/BannerMob.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-}
-
-
 .boxTitle {
   position: absolute;
   top: 53%;
@@ -57,40 +53,49 @@
   align-items: center;
   transform: translateY(-50%);
   gap: 24px;
+  
 }
 
 .titleBanner {
   font-weight: 600;
   font-size: 40px;
-  color: var(--white);
-  
+  color: #ffffff; 
+  padding: 0 32px;
+
 }
 @media screen and (min-width: 768px) and (max-width: 1439px) {
 .imageSearch {
-  background-image: url("/images/Tablet@1x.png");
-  background-size:cover;
-    position: relative;
+  inset: 0;
+  width: 100%;
+  background-image:url("/images/Tablet@1x.png");
 }
   .bannerSection {
-    width: 100%;
-    height: 443px;
-    padding: 0;
+  height: 443px;
   }
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+  .bannerInner {
+  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
   }
 
   .boxTitle {
     align-items: flex-start;
-    text-align: left;
+    padding: 0 32px;
+    top: 55%;
   }
   .titleBanner {
     font-size: 48px;
     line-height: 1.1;
+    padding: 0;
+  
+  }
+  .lineOne {
+    display: block;
   }
 
+  .lineTwo {
+    display: block;
+  }
   @media screen and (min-resolution: 192dpi),
     screen and (min-device-pixel-ratio: 2) {
     .imageSearch {
@@ -100,29 +105,32 @@
 }
 
 /* Desktop */
-@media (min-width: 1440px)  {
+@media screen and (min-width: 1440px) {
   .imageSearch {
     background-image: url("/images/Desctop.png");
   }
-    &::before {
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.9),
-      rgba(0, 0, 0, 0.1)
-    );
-  }
+
   .bannerSection {
     width:100%;
     height: 443px;
+      height: 517px;
   }
   .boxTitle {
     align-items: flex-start;
     text-align: left;
     gap: 24px;
+    padding: 0 108px;
     
   }
-  .container  {
-    width: 100%;
-  
-}
+  .titleBanner {
+    padding: 0;
+font-size: 48px;
+  }
+    .lineOne {
+    display: block;
+  }
+
+  .lineTwo {
+    display: block;
+  }
 }

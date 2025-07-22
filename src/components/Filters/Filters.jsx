@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../../redux/slices/categoriesSlice";
+import { fetchCategoriesThunk } from "../../redux/operations/categoriesOperations";
+
 import css from "./Filters.module.css";
 
 const Filters = () => {
   const dispatch = useDispatch();
-
+const totalItems = useSelector((state) => state.recipes.totalItems || 0);
   const {
     items: categories = [],
     isLoading,
@@ -13,14 +14,14 @@ const Filters = () => {
   } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchCategoriesThunk());
   }, [dispatch]);
 
   return (
     <div className={css.recipeFiltering}>
       <div className={css.leftSide}>
         <h2 className={css.h2reception}>Recepies</h2>
-        <p className={css.recipesCount}>{categories.length} recipes</p>
+        <p className={css.recipesCount}>{totalItems} recipes</p>
       </div>
 
       <div className={css.rightSide}>

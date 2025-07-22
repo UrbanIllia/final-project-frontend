@@ -1,17 +1,32 @@
+import { useState } from "react";
 import css from "../SearchBox/SearchBox.module.css";
 
-const SearchBox = () => {
+const SearchBox = ({ onSearch }) => {
+  const [query, setQuery] = useState("");
+
+const handleInputChange = (e) => {
+  setQuery(e.target.value);
+};
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    onSearch?.(query.trim());
+    setQuery("");
+  };
   return (
-    <div className={css.search}>
+    <form className={css.search} onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Search recipes"
+        value={query}
+        onChange={handleInputChange}
         className={css.inputSearchBox}
       />
-      <button type="button" className={css.buttonSearchBox}>
+      <button type="submit" className={css.buttonSearchBox}>
         Search
       </button>
-    </div>
+    </form>
   );
 };
 

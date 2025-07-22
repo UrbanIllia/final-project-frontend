@@ -6,6 +6,7 @@ import {
   fetchRecipeByIdThunk,
   fetchRecipesThunk,
   updateFavoriteRecipesThunk,
+  searchRecipesThunk,
 } from "../operations/recipesOperation";
 
 const initialState = {
@@ -35,7 +36,17 @@ const recipesReducer = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload;
+        state.recipes = payload.data.items;
+        state.totalItems = payload.data.totalItems;
+        state.page = payload.data.page;
+        state.isLoading = false;
+        state.error = false;
+      })
+
+      .addCase(searchRecipesThunk.fulfilled, (state, { payload }) => {
+        state.recipes = payload.data.items;
+        state.totalItems = payload.data.totalItems;
+        state.page = payload.data.page;
         state.isLoading = false;
         state.error = false;
       })
@@ -68,6 +79,7 @@ const recipesReducer = createSlice({
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.pending,
+          searchRecipesThunk.pending,
           addRecipeThunk.pending,
           fetchRecipeByIdThunk.pending,
           fetchFavoriteRecipesThunk.pending,
@@ -82,6 +94,7 @@ const recipesReducer = createSlice({
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.rejected,
+          searchRecipesThunk.rejected,
           addRecipeThunk.rejected,
           fetchRecipeByIdThunk.rejected,
           fetchFavoriteRecipesThunk.rejected,

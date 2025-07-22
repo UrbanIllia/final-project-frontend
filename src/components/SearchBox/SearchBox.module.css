@@ -41,6 +41,24 @@
   font-size: 16px;
   color: var(--white);
 }
+.buttonSearchBox:focus,
+.buttonSearchBox:hover {
+  background-color: var(--brown);
+}
+.buttonSearchBox:active {
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px var(--white);
+  outline: 3px solid white;
+}
+.buttonSearchBox:disabled {
+  background-color: var(--light-brown);
+  cursor: not-allowed;
+  opacity: 0.3;
+  border: 3px solid white;
+}
+.buttonSearchBox:disabled:active {
+  box-shadow: none;
+  outline: none;
+}
 /*Tablet */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .search {

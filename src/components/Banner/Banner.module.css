@@ -1,45 +1,42 @@
-
 .bannerSection {
   position: relative;
-  width: 100vw;
   height: 513px;
   overflow: hidden;
-}
-.imageSearch {
-  position: absolute;
-  height: 100%;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-image: url("/images/BannerMob.png");
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 0;
+  background-position: center;
+  background-image: url("/images/BannerMob.png");
 }
-.bannerInner{
+
+.fullWidth {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Retina Mobile */
+@media screen and (min-resolution: 192dpi), screen and (min-device-pixel-ratio: 2) {
+  .bannerSection {
+    background-image: url("/images/BannerMob@2x.png");
+  }
+}
+
+.bannerInner {
   display: flex;
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100%;
- 
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    height: 100%;
-    z-index: 1;
-
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.9),
-      rgba(0, 0, 0, 0.3)
-    );
-  }
+.bannerInner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
 }
 
 .boxTitle {
@@ -51,87 +48,67 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 0 32px;
   transform: translateY(-50%);
   gap: 24px;
-  
 }
 
 .titleBanner {
   font-weight: 600;
   font-size: 40px;
-  color: #ffffff; 
-  padding: 0 32px;
+  color: #ffffff;
+  padding: 0;
+}
 
+.lineOne,
+.lineTwo {
+  display: block;
 }
+
+/* Tablet */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
-.imageSearch {
-  inset: 0;
-  width: 100%;
-  background-image:url("/images/Tablet@1x.png");
-}
   .bannerSection {
-  height: 443px;
+    height: 443px;
+    background-image: url("/images/Tablet@1x.png");
   }
-  .bannerInner {
-  z-index: 1;
-  flex-direction: column;
-  justify-content: center;
+
+  @media screen and (min-resolution: 192dpi), screen and (min-device-pixel-ratio: 2) {
+    .bannerSection {
+      background-image: url("/images/Tablet@2x.png");
+    }
   }
 
   .boxTitle {
-    align-items: flex-start;
     padding: 0 32px;
-    top: 55%;
+    top: 50%;
   }
+
   .titleBanner {
     font-size: 48px;
     line-height: 1.1;
-    padding: 0;
-  
-  }
-  .lineOne {
-    display: block;
-  }
-
-  .lineTwo {
-    display: block;
-  }
-  @media screen and (min-resolution: 192dpi),
-    screen and (min-device-pixel-ratio: 2) {
-    .imageSearch {
-      background-image: url("/images/Tablet@2x.png");
-    }
   }
 }
 
 /* Desktop */
 @media screen and (min-width: 1440px) {
-  .imageSearch {
+  .bannerSection {
+    height: 443px;
     background-image: url("/images/Desctop.png");
   }
 
-  .bannerSection {
-    max-width:100%;
-    height: 443px;
-    
-  }
-  .boxTitle {
-    align-items: flex-start;
-    text-align: left;
-    gap: 24px;
-    padding: 0 108px;
-    
-  }
-  .titleBanner {
-    padding: 0;
-font-size: 48px;
-  }
-    .lineOne {
-    display: block;
+  @media screen and (min-resolution: 192dpi), screen and (min-device-pixel-ratio: 2) {
+    .bannerSection {
+      background-image: url("/images/Desctop@2x.png");
+    }
   }
 
-  .lineTwo {
-    display: block;
+  .boxTitle {
+    padding: 0 108px;
+    top: 50%;
+  }
+
+  .titleBanner {
+    font-size: 48px;
   }
 }

@@ -8,7 +8,6 @@ import css from "./LoginForm.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-// Импорт SVG-файлов
 import eyeOpenSvg from "../../assets/icons/eye.svg";
 import eyeClosedSvg from "../../assets/icons/eye-crossed.svg";
 
@@ -120,7 +119,7 @@ const LoginForm = () => {
       </Formik>
       <div className={css.registerwrapp}>
         <p className={css.registerwrapp_text}>Don’t have an account?</p>
-        <Link to="" className={css.registerwrapp_link}>
+        <Link to="/auth/register" className={css.registerwrapp_link}>
           Register
         </Link>
       </div>

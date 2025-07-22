@@ -1,6 +1,6 @@
 .formContainer {
   padding: 48px 32px;
-  margin: 200px auto;
+  margin: 91px auto;
   border-radius: 32px;
   background-color: var(--light-beige);
   display: flex;
@@ -14,12 +14,14 @@
 @media (min-width: 768px) {
   .formContainer {
     max-width: 522px;
+    margin: 262px auto;
   }
 }
 
 @media (min-width: 1440px) {
   .formContainer {
     max-width: 420px;
+    margin: 176px auto 156px auto;
   }
 }
 

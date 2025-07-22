@@ -1,4 +1,4 @@
-.bannerSection {
+/* .bannerSection {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -7,7 +7,7 @@
 }
 
 .container {
-      margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   display: flex;
   position: relative;
@@ -23,7 +23,6 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-
     background: linear-gradient(
       to right,
       rgba(0, 0, 0, 0.9),
@@ -32,32 +31,101 @@
   }
 }
 
-.imageSearch {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 .boxTitle {
   position: absolute;
-  top: 53%; 
+  top: 53%;
   left: 0;
   z-index: 2;
   width: 100%;
-  
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transform: translateY(-50%);
-gap: 24px;
+  gap: 24px;
 }
 
 .titleBanner {
   font-weight: 600;
   font-size: 40px;
   color: var(--white);
-  
+} */
+.bannerSection {
+  position: relative;
+  width: calc(100% + 32px);
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("/images/Banner.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+.bannerSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+}
+
+.contentContainer {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 16px;
+  max-width: 393px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .bannerSection {
+    width: calc(100% + 64px);
+    margin-left: -32px;
+    margin-right: -32px;
+  }
+
+  .contentContainer {
+    padding: 0 32px;
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .bannerSection {
+    width: calc(100% + 216px);
+    margin-left: -104px;
+    margin-right: -104px;
+  }
+
+  .contentContainer {
+    padding: 0 108px;
+    max-width: 1440px;
+  }
+}
+
+.boxTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.titleBanner {
+  font-weight: 600;
+  font-size: 40px;
+  color: var(--white);
+  text-align: center;
 }

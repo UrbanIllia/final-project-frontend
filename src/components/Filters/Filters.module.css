@@ -1,3 +1,7 @@
+.rightSide,
+.resetBtn{
+  display: none;
+}
 .recipeFiltering {
   display: flex;
   justify-content: space-between;
@@ -31,6 +35,10 @@
   gap: 5px;
 }
 @media screen and (min-width: 768px) and (max-width: 1439px) {
+  .rightSide,
+.resetBtn{
+  display: flex;
+}
   .h2reception{
     font-weight: 600;
 font-size: 40px;
@@ -49,9 +57,18 @@ color: var(--black);
 }
 /* Desktop */
 @media screen and (min-width: 1440px) {
+  .rightSide,
+.resetBtn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 .svgFilter,
 .textFilters{
   display: none;
 }
-
+.recipeFiltering {
+    flex-direction: row;
+  justify-content: space-between;
+}
 }

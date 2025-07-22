@@ -6,6 +6,7 @@ import categoriesReducer from "./slices/categoriesSlice";
 import ingredientsReducer from "./slices/ingredientsSlice";
 import userReducer from "./slices/userSlice";
 
+
 const store = configureStore({
   reducer: {
     auth: authReducer,

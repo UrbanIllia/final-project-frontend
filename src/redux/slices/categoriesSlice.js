@@ -1,3 +1,4 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCategoriesThunk } from "../operations/categoriesOperations";
 
@@ -28,3 +29,4 @@ const categoriesReducer = createSlice({
 });
 
 export default categoriesReducer.reducer;
+

@@ -1,25 +1,17 @@
 import css from "./Banner.module.css";
 import SearchBox from "../SearchBox/SearchBox";
 
-const Banner = () => {
+const Banner = ({ onSearch }) => {
   return (
-    <section className={css.bannerSection}>
-      <div className={css.container}>
-        <img
-          src="/images/Banner.png"
-          alt="girl cooking"
-          className={css.imageSearch}
-        />
-      </div>
-      <div className={css.boxTitle}>
-        <h1 className={css.titleBanner}>
-          <span>Plan, Cook, and</span>
-          <br />
-          <span>Share Your</span>
-          <br />
-          <span>Flavors</span>
-        </h1>
-        <SearchBox />
+    <section className={`${css.bannerSection} ${css.fullWidth}`}>
+      <div className={css.bannerInner}>
+        <div className={css.boxTitle}>
+          <h1 className={css.titleBanner}>
+            <span className={css.lineOne}>Plan, Cook, and </span>
+            <span className={css.lineTwo}>Share Your Flavors</span>
+          </h1>
+          <SearchBox onSearch={onSearch} />
+        </div>
       </div>
     </section>
   );

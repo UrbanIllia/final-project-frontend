@@ -33,9 +33,8 @@ const authReducer = createSlice({
         return initialState;
       })
       .addCase(logoutUserThunk.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.isLoggedIn = true;
         state.error = payload;
+        return initialState;
       })
       .addCase(refreshUserThunk.pending, (state) => {
         state.isRefreshing = true;

@@ -1,4 +1,4 @@
-// import { IoIosArrowRoundBack } from "react-icons/io";
+ import { IoIosArrowRoundBack } from "react-icons/io";
 import s from "./BackHomeBtn.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const BackHomeBtn = () => {
 
   return (
     <button className={s.backHomeBtn} onClick={onClickButtonHome}>
-      {/* <IoIosArrowRoundBack /> */}
+       <IoIosArrowRoundBack /> 
       <p>Back to Home</p>
     </button>
   );

@@ -42,8 +42,7 @@ const authReducer = createSlice({
         state.isLoading = true;
       })
       .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.name;
-        state.user.email = payload.email;
+        state.user = payload.user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;

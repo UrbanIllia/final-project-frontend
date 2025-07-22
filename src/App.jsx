@@ -1,8 +1,10 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout/Layout";
 import Loading from "./components/Loading/Loading";
-import NotFound from "./pages/NotFound/NotFound";
+import NotFound from "./components/NotFound/NotFound";
 
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
@@ -14,20 +16,35 @@ const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
   return (
-    <Router>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<MainPage />} />
-            <Route path="/recipes/:id" element={<RecipeViewPage />} />
-            <Route path="/add-recipe" element={<AddRecipePage />} />
-            <Route path="/profile/:recipeType" element={<ProfilePage />} />
-            <Route path="/auth/:authType" element={<AuthPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </Router>
+    <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ zIndex: 9999 }}
+      />
+      <Router>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<MainPage />} />
+              <Route path="/recipes/:id" element={<RecipeViewPage />} />
+              <Route path="/add-recipe" element={<AddRecipePage />} />
+              <Route path="/profile/:recipeType" element={<ProfilePage />} />
+              <Route path="/auth/:authType" element={<AuthPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </Router>
+    </div>
   );
 };
 

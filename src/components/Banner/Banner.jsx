@@ -18,3 +18,4 @@ const Banner = ({ onSearch }) => {
 };
 
 export default Banner;
+

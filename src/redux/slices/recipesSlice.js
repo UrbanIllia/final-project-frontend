@@ -29,7 +29,7 @@ const recipesReducer = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    filterContacts: (state, { payload }) => {
+    filterRecipes: (state, { payload }) => {
       state.filters = payload;
     },
   },

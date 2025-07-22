@@ -33,17 +33,15 @@ const authReducer = createSlice({
         return initialState;
       })
       .addCase(logoutUserThunk.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.isLoggedIn = true;
         state.error = payload;
+        return initialState;
       })
       .addCase(refreshUserThunk.pending, (state) => {
         state.isRefreshing = true;
         state.isLoading = true;
       })
       .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.name;
-        state.user.email = payload.email;
+        state.user = payload.user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;

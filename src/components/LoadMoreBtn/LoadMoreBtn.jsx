@@ -1,9 +1,17 @@
 import css from "./LoadMoreBtn.module.css";
 
-const LoadMoreBtn = () => {
+const LoadMoreBtn = ({ loadMore }) => {
   return (
     <div className={css.button_wrapper}>
-      <button className={css.button}>Load More</button>{" "}
+      <button
+        className={css.button}
+        onClick={(e) => {
+          e.preventDefault();
+          loadMore();
+        }}
+      >
+        Load More
+      </button>
     </div>
   );
 };

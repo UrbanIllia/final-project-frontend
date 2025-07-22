@@ -1,10 +1,11 @@
+import NotFound from "../../components/NotFound/NotFound";
 import RecipeDetails from "../../components/RecipeDetails/RecipeDetails";
 import css from "./RecipeViewPage.module.css";
 
-const AddRecipePage = () => (
+const RecipeViewPage = () => (
   <div className={css.page}>
-    <p>Add Recipe Page</p>
-    <RecipeDetails />
+    {/* <RecipeDetails /> */}
+    <NotFound />
   </div>
 );
-export default AddRecipePage;
+export default RecipeViewPage;

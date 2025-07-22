@@ -81,6 +81,8 @@
 .fieldGroup {
   margin-bottom: 18px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .error {

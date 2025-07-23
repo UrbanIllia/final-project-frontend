@@ -92,23 +92,7 @@ export const fetchOwnRecipesThunk = createAsyncThunk(
     }
   }
 );
-export const searchRecipesThunk = createAsyncThunk(
-  "recipes/search",
-  async (
-    { search, categories = "", ingredients = "", page = 1, perPage = 10 },
-    thunkAPI
-  ) => {
-    try {
-      const { data } = await API.get("/recipes", {
-        params: { search, categories, ingredients, page, perPage },
-      });
-    
-      return data.data.items;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+
 export const fetchRecipesByFiltersThunk = createAsyncThunk(
   "recipes/fetchByFilters",
   async (

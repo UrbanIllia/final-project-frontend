@@ -1,3 +1,73 @@
-.selectGroup {
-    background-color: aqua;
+
+.customSelect {
+  position: relative;
+  width: 179px;
+height: 33px;
+  border: 2px solid #918e8e08; 
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fff;
+font-weight: 400;
+font-size: 16px;
+line-height: 1.55;
+color: var(--gray);
+}
+
+.selectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.placeholderText {
+  color: #888;
+}
+
+.selectedText {
+  color: #333;
+}
+
+.selectArrow {
+  transition: transform 0.3s ease;
+  fill: #333;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.optionsList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.optionItem {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.optionItem:hover {
+  background-color: #f0f0f0;
+}
+
+.activeOption {
+  background-color: #e0e0e0;
+}
+
+.customSelect:focus-within {
+  outline: 2px dashed #8a2be2;
+  outline-offset: 2px;
 }

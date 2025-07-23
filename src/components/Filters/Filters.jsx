@@ -21,7 +21,8 @@ const Filters = () => {
   const { items: categories = [] } = useSelector((state) => state.categories);
   const { items: ingredients = [] } = useSelector((state) => state.ingredients);
   const totalItems = useSelector((state) => state.recipes.totalItems || 0);
-  const filters = useSelector((state) => state.filters);
+ const search = useSelector((state) => state.filters.search || "");
+
 
   const isMobile = window.innerWidth < 768;
 
@@ -34,9 +35,10 @@ const Filters = () => {
     dispatch(setFilters({ category, ingredient }));
   }, [category, ingredient, dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchRecipesByFiltersThunk(filters));
-  }, [filters, dispatch]);
+useEffect(() => {
+  dispatch(fetchRecipesByFiltersThunk({ category, ingredient, search }));
+}, [dispatch, category, ingredient, search]);
+
 
   const handleReset = () => {
     setCategory("");

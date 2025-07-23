@@ -1,22 +1,22 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import css from "../SearchBox/SearchBox.module.css";
 
 const SearchBox = ({ onSearch }) => {
   const [query, setQuery] = useState("");
-  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
-    if (error) setError("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!query.trim()) {
-      setError("Please enter a search query");
+      toast.info("Please enter a search query");
       return;
     }
-    onSearch?.(query.trim()); 
+
+    onSearch?.(query.trim());
     setQuery("");
   };
 
@@ -32,7 +32,6 @@ const SearchBox = ({ onSearch }) => {
       <button type="submit" className={css.buttonSearchBox}>
         Search
       </button>
-      {error && <p className={css.errorMessage}>{error}</p>}
     </form>
   );
 };

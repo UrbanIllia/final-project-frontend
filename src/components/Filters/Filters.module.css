@@ -35,8 +35,17 @@
   gap: 5px;
 }
 @media screen and (min-width: 768px) and (max-width: 1439px) {
-  .rightSide,
+  .rightSide{
+     display: flex;
+     gap: 24px;
+  }
 .resetBtn{
+    background: transparent;
+  border: none;
+  border-bottom: 2px solid #000;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 16px;
   display: flex;
 }
   .h2reception{
@@ -57,11 +66,26 @@ color: var(--black);
 }
 /* Desktop */
 @media screen and (min-width: 1440px) {
-  .rightSide,
-.resetBtn{
-  display: flex;
+  .rightSide{
+      display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  gap: 24px;
+  }
+.resetBtn{
+    background: transparent;
+  border: none;
+  border-bottom: 2px solid #000; 
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  padding: 0;
+margin-right:24px;
+}
+
+.resetBtn:hover {
+  border-color: #555;
 }
 .svgFilter,
 .textFilters{

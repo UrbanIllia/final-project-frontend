@@ -6,7 +6,7 @@ import {
   fetchRecipeByIdThunk,
   fetchRecipesThunk,
   updateFavoriteRecipesThunk,
-  searchRecipesThunk,
+  fetchRecipesByFiltersThunk,
 } from "../operations/recipesOperation";
 
 const initialState = {
@@ -14,40 +14,19 @@ const initialState = {
   recipeDetails: null,
   favoriteRecipes: [],
   ownRecipes: [],
-
-  filters: {
-    category: "",
-    ingredient: "",
-    search: "",
-  },
-
   isLoading: false,
   error: null,
+  totalItems: 0,
+  page: 1,
 };
 
 const recipesReducer = createSlice({
   name: "recipes",
   initialState,
-  reducers: {
-    filterRecipes: (state, { payload }) => {
-      state.filters = payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(fetchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload.data.items;
-        state.totalItems = payload.data.totalItems;
-        state.page = payload.data.page;
-        state.isLoading = false;
-        state.error = false;
-      })
 
-      .addCase(searchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload; // payload — це вже масив рецептів
-        state.isLoading = false;
-        state.error = false;
-      })
       .addCase(addRecipeThunk.fulfilled, (state, { payload }) => {
         state.recipes.push(payload);
         state.isLoading = false;
@@ -63,6 +42,21 @@ const recipesReducer = createSlice({
         state.isLoading = false;
         state.error = false;
       })
+
+      .addMatcher(
+        isAnyOf(
+          fetchRecipesThunk.fulfilled,
+          fetchRecipesByFiltersThunk.fulfilled
+        ),
+        (state, { payload }) => {
+          state.recipes = payload.data.items;
+          state.totalItems = payload.data.totalItems;
+          state.page = payload.data.page;
+          state.isLoading = false;
+          state.error = false;
+        }
+      )
+
       .addMatcher(
         isAnyOf(
           fetchFavoriteRecipesThunk.fulfilled,
@@ -74,30 +68,32 @@ const recipesReducer = createSlice({
           state.error = false;
         }
       )
+
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.pending,
-          searchRecipesThunk.pending,
           addRecipeThunk.pending,
           fetchRecipeByIdThunk.pending,
           fetchFavoriteRecipesThunk.pending,
           updateFavoriteRecipesThunk.pending,
-          fetchOwnRecipesThunk.pending
+          fetchOwnRecipesThunk.pending,
+          fetchRecipesByFiltersThunk.pending
         ),
         (state) => {
           state.isLoading = true;
           state.error = false;
         }
       )
+     
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.rejected,
-          searchRecipesThunk.rejected,
           addRecipeThunk.rejected,
           fetchRecipeByIdThunk.rejected,
           fetchFavoriteRecipesThunk.rejected,
           updateFavoriteRecipesThunk.rejected,
-          fetchOwnRecipesThunk.rejected
+          fetchOwnRecipesThunk.rejected,
+          fetchRecipesByFiltersThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoading = false;

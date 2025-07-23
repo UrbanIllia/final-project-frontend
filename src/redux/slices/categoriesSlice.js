@@ -1,9 +1,8 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCategoriesThunk } from "../operations/categoriesOperations";
 
 const initialState = {
-  categories: [],
+  items: [], 
   isLoading: false,
   error: null,
 };
@@ -20,7 +19,7 @@ const categoriesReducer = createSlice({
       .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = false;
-        state.categories = payload;
+        state.items = payload;
       })
       .addCase(fetchCategoriesThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -29,4 +28,3 @@ const categoriesReducer = createSlice({
 });
 
 export default categoriesReducer.reducer;
-

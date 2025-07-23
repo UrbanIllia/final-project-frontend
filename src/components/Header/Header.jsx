@@ -1,32 +1,60 @@
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Logo from "../Logo/Logo";
+import BurgerMenu from "./BurgerMenu/BurgerMenu";
+import Navigation from "./Navigation/Navigation";
 import css from "./Header.module.css";
 
-const Header = () => {
-  const isAuthenticated = false;
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Локальний стан замість Redux
+  const [userName, setUserName] = useState("Guest"); // Локальний стан
+  const navigate = useNavigate();
+
+  const handleLoginToggle = () => {
+    setIsLoggedIn(!isLoggedIn);
+    setUserName(isLoggedIn ? "Guest" : "John Doe");
+  };
+
+  const handleLogout = () => {
+    setMenuOpen(false);
+    // Локальна логіка без бекенду
+    setIsLoggedIn(false);
+    setUserName("Guest");
+    navigate("/");
+  };
+
   return (
-    <header>
-      <div>
-        <div>Recipe App</div>
-        <nav>
-          {isAuthenticated ? (
-            <>
-              <NavLink to="/">Recipes</NavLink>
-              <NavLink to="/profile/own">My Profile</NavLink>
-              <NavLink to="/add-recipe">Add Recipe</NavLink>
-              <span>I</span>
-              <button>Logout</button>
-            </>
-          ) : (
-            <>
-              <NavLink to="/">Recipes</NavLink>
-              <NavLink to="/auth/login">Login</NavLink>
-              <NavLink to="/auth/register">Register</NavLink>
-            </>
-          )}
-        </nav>
+    <header className={css.header}>
+      <div className={css.container}>
+        <Logo />
+        <BurgerMenu open={menuOpen} setOpen={setMenuOpen} />
+
+        <div className={css.desktopNav}>
+          <Navigation
+            isLoggedIn={isLoggedIn}
+            closeMenu={() => {}}
+            userName={userName}
+            onLogout={handleLogout}
+            isMobile={false}
+          />
+        </div>
       </div>
+
+      {menuOpen && (
+        <div className={`${css.mobileMenu} ${css.open}`}>
+          <Navigation
+            isLoggedIn={isLoggedIn}
+            closeMenu={() => setMenuOpen(false)}
+            userName={userName}
+            onLogout={handleLogout}
+            isMobile={true}
+          />
+        </div>
+      )}
+      <button onClick={handleLoginToggle}>
+        {isLoggedIn ? "Logout (Test)" : "Login (Test)"}
+      </button>
     </header>
   );
-};
-
-export default Header;
+}

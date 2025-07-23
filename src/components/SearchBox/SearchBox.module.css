@@ -6,6 +6,9 @@
   justify-content: flex-start;
   flex-direction: column;
   gap: 24px;
+
+  width: 329px;
+
 }
 .inputSearchBox {
   display: flex;
@@ -20,6 +23,7 @@
   padding: 12px;
   width: 329px;
   height: 46px;
+  max-height: 48px;
   font-weight: 400;
   font-size: 18px;
   color: #c5c5c5;
@@ -41,6 +45,7 @@
   font-size: 16px;
   color: var(--white);
 }
+
 .buttonSearchBox:focus,
 .buttonSearchBox:hover {
   background-color: var(--brown);
@@ -90,3 +95,4 @@
       width: 459px;
   }
 }
+

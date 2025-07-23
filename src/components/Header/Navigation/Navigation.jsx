@@ -9,6 +9,15 @@ export default function Navigation({
   onLogout = () => {},
   isMobile = false,
 }) {
+  console.log(
+    "Navigation: isLoggedIn =",
+    isLoggedIn,
+    "userName =",
+    userName,
+    "isMobile =",
+    isMobile
+  );
+
   return (
     <nav className={css.navGroup}>
       <NavLink
@@ -45,7 +54,7 @@ export default function Navigation({
       ) : (
         <>
           <NavLink
-            to="/profile"
+            to="/profile/own"
             className={({ isActive }) =>
               `${css.link} ${css.profile} ${isActive ? css.active : ""}`
             }

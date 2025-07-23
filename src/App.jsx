@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout/Layout";
 import Loading from "./components/Loading/Loading";
 import NotFound from "./components/NotFound/NotFound";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
@@ -36,8 +37,14 @@ const App = () => {
             <Route path="/" element={<Layout />}>
               <Route index element={<MainPage />} />
               <Route path="/recipes/:id" element={<RecipeViewPage />} />
-              <Route path="/add-recipe" element={<AddRecipePage />} />
-              <Route path="/profile/:recipeType" element={<ProfilePage />} />
+              <Route
+                path="/add-recipe"
+                element={<PrivateRoute component={AddRecipePage} />}
+              />
+              <Route
+                path="/profile/:recipeType"
+                element={<PrivateRoute component={ProfilePage} />}
+              />
               <Route path="/auth/:authType" element={<AuthPage />} />
               <Route path="*" element={<NotFound />} />
             </Route>

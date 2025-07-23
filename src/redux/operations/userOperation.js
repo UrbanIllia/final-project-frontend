@@ -3,12 +3,19 @@ import { API } from "../../axiosConfig/Api";
 
 export const fetchUserThunk = createAsyncThunk(
   "fetchUser",
-  async (_, thunkAPI) => {
+  async (_, thunkApi) => {
     try {
       const { data } = await API.get("/users/current");
-      return data;
+      console.log("fetchUserThunk response:", JSON.stringify(data, null, 2));
+      const userData = data.data || data.user || data;
+      return {
+        _id: userData._id,
+        name: userData.name || userData.username || "User",
+        email: userData.email,
+        favorites: userData.favorites || [],
+      };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );

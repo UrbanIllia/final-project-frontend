@@ -3,11 +3,13 @@ import css from "./UserInfo.module.css";
 import Icon from "../../Icon/Icon";
 import ConfirmLogoutModal from "../ConfirmLogoutModal/ConfirmLogoutModal";
 
-export default function UserInfo({ userName = "User", onLogout, className }) {
+export default function UserInfo({ userName = "User", onLogout, isMobile }) {
   const [showModal, setShowModal] = useState(false);
 
+  console.log("UserInfo: userName =", userName, "isMobile =", isMobile);
+
   return (
-    <div className={`${css.wrapper} ${className}`}>
+    <div className={`${css.wrapper} ${isMobile ? css.mobile : ""}`}>
       <div className={css.avatar}>{userName?.[0]?.toUpperCase() || "?"}</div>
       <span className={css.name}>{userName || "Guest"}</span>
       <div className={css.divider}></div>

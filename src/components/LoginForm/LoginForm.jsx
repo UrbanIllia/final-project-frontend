@@ -1,15 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import { loginUser } from '../redux/slices/authSlice';
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { loginUserThunk } from "../../redux/operations/authOperations.js";
+import { selectAuthIsLoading } from "../../redux/selectors";
+import { toast } from "react-toastify";
 import css from "./LoginForm.module.css";
-import { Link } from "react-router-dom";
 import { useState } from "react";
-
 import eyeOpenSvg from "../../assets/icons/eye.svg";
 import eyeClosedSvg from "../../assets/icons/eye-crossed.svg";
+import Loading from "../Loading/Loading";
 
 const PasswordField = ({ field, form }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -48,8 +48,9 @@ const PasswordField = ({ field, form }) => {
 };
 
 const LoginForm = () => {
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoading = useSelector(selectAuthIsLoading);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -64,25 +65,26 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  //   const handleSubmit = async (values, { setSubmitting }) => {
-  //     try {
-  //       await dispatch(loginUser(values)).unwrap();
-  //       toast.success('Login successful!');
-  //       navigate('/');
-  //     } catch (error) {
-  //       toast.error(error.message || 'Login failed');
-  //     } finally {
-  //       setSubmitting(false);
-  //     }
-  //   };
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      await dispatch(loginUserThunk(values)).unwrap();
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (error) {
+      toast.error(error || "Login failed");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className={css.formContainer}>
+      {isLoading && <Loading />}
       <h2 className={css.title}>Login</h2>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className={css.form}>
@@ -109,7 +111,7 @@ const LoginForm = () => {
             />
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isLoading}
               className={css.button}
             >
               Login

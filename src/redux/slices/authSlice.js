@@ -5,6 +5,7 @@ import {
   refreshUserThunk,
   registerUserThunk,
 } from "../operations/authOperations";
+import { fetchUserThunk } from "../operations/userOperation";
 
 const initialState = {
   user: {
@@ -21,7 +22,7 @@ const initialState = {
 };
 
 const authReducer = createSlice({
-  name: "user",
+  name: "auth",
   initialState,
   extraReducers: (builder) =>
     builder
@@ -41,7 +42,12 @@ const authReducer = createSlice({
         state.isLoading = true;
       })
       .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
+        console.log(
+          "refreshUserThunk payload:",
+          JSON.stringify(payload, null, 2)
+        );
+        state.user = payload.user || initialState.user;
+        state.token = payload.token;
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;
@@ -51,18 +57,41 @@ const authReducer = createSlice({
         state.isLoading = false;
         state.error = payload;
       })
+      .addCase(fetchUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserThunk.fulfilled, (state, { payload }) => {
+        console.log(
+          "fetchUserThunk payload:",
+          JSON.stringify(payload, null, 2)
+        );
+        state.user = payload || initialState.user;
+        state.isLoading = false;
+        // Устанавливаем isLoggedIn = true, если есть token
+        if (state.token) {
+          state.isLoggedIn = true;
+        }
+      })
+      .addCase(fetchUserThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
       .addMatcher(
         isAnyOf(registerUserThunk.pending, loginUserThunk.pending),
         (state) => {
           state.isLoading = true;
-          state.isLoggedIn = false;
           state.error = null;
         }
       )
       .addMatcher(
         isAnyOf(registerUserThunk.fulfilled, loginUserThunk.fulfilled),
         (state, { payload }) => {
-          state.user = payload;
+          console.log(
+            "login/register payload:",
+            JSON.stringify(payload, null, 2)
+          );
+          state.user = payload.user || initialState.user;
           state.token = payload.token;
           state.isLoading = false;
           state.isLoggedIn = true;

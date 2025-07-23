@@ -1,13 +1,18 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { registerUserThunk } from "../../redux/operations/authOperations.js";
+import {
+  registerUserThunk,
+  loginUserThunk,
+} from "../../redux/operations/authOperations";
+import { selectAuthIsLoading } from "../../redux/selectors";
 import { toast } from "react-toastify";
 import css from "./RegistrationForm.module.css";
 import { useState } from "react";
 import eyeOpenSvg from "../../assets/icons/eye.svg";
 import eyeClosedSvg from "../../assets/icons/eye-crossed.svg";
+import Loading from "../Loading/Loading";
 
 const PasswordField = ({ field, form }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -52,6 +57,7 @@ const PasswordField = ({ field, form }) => {
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(selectAuthIsLoading);
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -72,9 +78,9 @@ const RegistrationForm = () => {
     ),
   });
 
-  const handleSubmit = async (values, { setSubmitting, errors }) => {
-    if (errors.agreeToTerms) {
-      toast.error(errors.agreeToTerms);
+  const handleSubmit = async (values, { setSubmitting }) => {
+    if (!values.agreeToTerms) {
+      toast.error("You must agree to the Terms of Service and Privacy Policy");
       setSubmitting(false);
       return;
     }
@@ -86,7 +92,13 @@ const RegistrationForm = () => {
           password: values.password,
         })
       ).unwrap();
-      toast.success("Registration successful!");
+      await dispatch(
+        loginUserThunk({
+          email: values.email,
+          password: values.password,
+        })
+      ).unwrap();
+      toast.success("Registration and login successful!");
       navigate("/");
     } catch (error) {
       toast.error(error || "Registration failed");
@@ -97,6 +109,7 @@ const RegistrationForm = () => {
 
   return (
     <div className={css.formContainer}>
+      {isLoading && <Loading />}
       <h2 className={css.title}>Register</h2>
       <p className={css.subtitle}>
         Join our community of culinary enthusiasts, save your favorite recipes,

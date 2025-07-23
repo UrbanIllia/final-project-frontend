@@ -3,6 +3,19 @@
   background-color: #3d2218;
   position: relative;
   color: white;
+  margin: 0 -16px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    margin: 0 -32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .header {
+    margin: 0 -108px;
+  }
 }
 
 .container {
@@ -93,4 +106,9 @@
     max-width: 1440px;
     padding: 0 108px;
   }
+}
+.handleLoginToggle {
+  position: absolute;
+  top: 30px;
+  left: 30%;
 }

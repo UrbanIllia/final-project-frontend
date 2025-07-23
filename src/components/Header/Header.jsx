@@ -52,7 +52,7 @@ export default function Header() {
           />
         </div>
       )}
-      <button onClick={handleLoginToggle}>
+      <button className={css.handleLoginToggle} onClick={handleLoginToggle}>
         {isLoggedIn ? "Logout (Test)" : "Login (Test)"}
       </button>
     </header>

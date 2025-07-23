@@ -72,11 +72,13 @@
 
   .inputSearchBox{
       width: 471px;
+          flex-shrink: 0;
   }
   .buttonSearchBox {
     border-radius: 8px;
     padding: 12px 16px;
     width: 176px;  
+        flex-shrink: 0;
   }
 }
 @media (min-width: 1440px) {

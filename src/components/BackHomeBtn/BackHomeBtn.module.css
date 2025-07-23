@@ -1,0 +1,25 @@
+.backHomeBtn {
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  width: 361px;
+  height: 56px;
+  cursor: pointer;
+  background: var(--light-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 16px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--white);
+
+  @media (min-width: 768px) {
+    width: 340px;
+  }
+
+  @media (min-width: 1440px) {
+    width: 288px;
+  }
+}

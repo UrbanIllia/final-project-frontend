@@ -1,0 +1,74 @@
+.rightSide,
+.resetBtn{
+  display: none;
+}
+.recipeFiltering {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; 
+  padding-bottom: 16px;
+   padding-top: 48px;
+  width: 100%;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.h2reception {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.recipesCount {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--black);
+}
+
+.filterCategories {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .rightSide,
+.resetBtn{
+  display: flex;
+}
+  .h2reception{
+    font-weight: 600;
+font-size: 40px;
+  }
+    .loadingRecept{
+    font-weight: 600;
+font-size: 18px;
+color: var(--black);
+  }
+  .textFilters{
+    font-weight: 600;
+font-size: 12px;
+color: var(--black);
+  }
+
+}
+/* Desktop */
+@media screen and (min-width: 1440px) {
+  .rightSide,
+.resetBtn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.svgFilter,
+.textFilters{
+  display: none;
+}
+.recipeFiltering {
+    flex-direction: row;
+  justify-content: space-between;
+}
+}

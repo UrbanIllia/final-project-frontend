@@ -34,12 +34,17 @@
   --font-family: "Montserrat", sans-serif;
   --second-family: "DM Sans", sans-serif;
 }
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: var(--font-family);
+  /* box-sizing: border-box; */
 }
 html {
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
+  /* box-sizing: border-box; */
 }
 h1,
 h2,
@@ -65,7 +70,6 @@ a {
 }
 
 button {
-  all: unset;
   cursor: pointer;
   color: currentColor;
 }
@@ -90,3 +94,31 @@ video {
   max-width: 100%;
   height: auto;
 }
+/* ............................................. */
+.Toastify__toast--error {
+  background-color: var(--red);
+  color: var(--white);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.Toastify__toast--success {
+  background-color: var(--light-brown);
+  color: var(--white);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.Toastify__close-button {
+  color: var(--white);
+  opacity: 0.8;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+/* ................................................ */

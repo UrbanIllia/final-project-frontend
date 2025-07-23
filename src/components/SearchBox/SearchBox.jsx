@@ -3,17 +3,23 @@ import css from "../SearchBox/SearchBox.module.css";
 
 const SearchBox = ({ onSearch }) => {
   const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
 
-const handleInputChange = (e) => {
-  setQuery(e.target.value);
-};
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+    if (error) setError("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!query.trim()) return;
-    onSearch?.(query.trim());
+    if (!query.trim()) {
+      setError("Please enter a search query");
+      return;
+    }
+    onSearch?.(query.trim()); 
     setQuery("");
   };
+
   return (
     <form className={css.search} onSubmit={handleSubmit}>
       <input
@@ -26,6 +32,7 @@ const handleInputChange = (e) => {
       <button type="submit" className={css.buttonSearchBox}>
         Search
       </button>
+      {error && <p className={css.errorMessage}>{error}</p>}
     </form>
   );
 };

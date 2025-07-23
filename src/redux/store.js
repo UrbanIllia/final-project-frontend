@@ -5,7 +5,7 @@ import recipesReducer from "./slices/recipesSlice";
 import categoriesReducer from "./slices/categoriesSlice";
 import ingredientsReducer from "./slices/ingredientsSlice";
 import userReducer from "./slices/userSlice";
-
+import filtersReducer from "./slices/filtersSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +15,7 @@ const store = configureStore({
     ingredients: ingredientsReducer,
     user: userReducer,
     example: exampleReducer,
+    filters: filtersReducer,
   },
 });
 

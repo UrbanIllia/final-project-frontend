@@ -44,9 +44,7 @@ const recipesReducer = createSlice({
       })
 
       .addCase(searchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload.data.items;
-        state.totalItems = payload.data.totalItems;
-        state.page = payload.data.page;
+        state.recipes = payload; // payload — це вже масив рецептів
         state.isLoading = false;
         state.error = false;
       })

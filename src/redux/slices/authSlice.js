@@ -7,12 +7,6 @@ import {
 } from "../operations/authOperations";
 
 const initialState = {
-  user: {
-    _id: null,
-    name: null,
-    email: null,
-    favorites: [],
-  },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
@@ -40,8 +34,7 @@ const authReducer = createSlice({
         state.isRefreshing = true;
         state.isLoading = true;
       })
-      .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
+      .addCase(refreshUserThunk.fulfilled, (state) => {
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;
@@ -62,7 +55,6 @@ const authReducer = createSlice({
       .addMatcher(
         isAnyOf(registerUserThunk.fulfilled, loginUserThunk.fulfilled),
         (state, { payload }) => {
-          state.user = payload;
           state.token = payload.token;
           state.isLoading = false;
           state.isLoggedIn = true;

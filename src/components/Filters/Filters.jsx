@@ -13,6 +13,7 @@ import {
   setSearch,
 } from "../../redux/slices/filtersSlice.js";
 import { fetchRecipesByFiltersThunk } from "../../redux/operations/recipesOperation.js";
+import NoResults from "../Filters/NoResults/NoResults.jsx";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Filters = () => {
   useEffect(() => {
     dispatch(fetchCategoriesThunk());
     dispatch(fetchIngredientsThunk());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchRecipesByFiltersThunk({ category, ingredient, search }));
@@ -97,7 +98,7 @@ const Filters = () => {
           </div>
         </div>
       </div>
-
+      {totalItems === 0 && <NoResults />}
       {isModalOpen && <MobileFiltersModal onClose={closeModal} />}
     </>
   );

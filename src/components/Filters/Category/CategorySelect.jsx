@@ -5,7 +5,6 @@ const CategorySelect = ({ value, categories, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (selectRef.current && !selectRef.current.contains(event.target)) {
@@ -19,12 +18,12 @@ const CategorySelect = ({ value, categories, onChange }) => {
   }, []);
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   const handleOptionClick = (optionValue) => {
     onChange({ target: { value: optionValue } });
-    setIsOpen(false); 
+    setIsOpen(false);
   };
 
   const displayText = value || "Category";
@@ -35,8 +34,8 @@ const CategorySelect = ({ value, categories, onChange }) => {
         <span className={value ? css.selectedText : css.placeholderText}>
           {displayText}
         </span>
-         <svg
-          className={`${css.selectArrow} ${isOpen ? css.arrowUp : ""}`} 
+        <svg
+          className={`${css.selectArrow} ${isOpen ? css.arrowUp : ""}`}
           width="16"
           height="17"
           viewBox="0 0 16 17"
@@ -45,9 +44,9 @@ const CategorySelect = ({ value, categories, onChange }) => {
         >
           <path
             d="M12.5 6.25L8 10.75L3.5 6.25"
-            stroke="currentColor" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </div>
@@ -62,13 +61,13 @@ const CategorySelect = ({ value, categories, onChange }) => {
           </li>
           {categories.map((category) => (
             <li
-              key={category}
+              key={category._id}
               className={`${css.optionItem} ${
-                value === category ? css.activeOption : ""
+                value === category.name ? css.activeOption : ""
               }`}
-              onClick={() => handleOptionClick(category)}
+              onClick={() => handleOptionClick(category.name)}
             >
-              {category}
+              {category.name}
             </li>
           ))}
         </ul>

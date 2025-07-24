@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIngredients } from "../../redux/selectors/ingredientsSelector";
 import { useEffect } from "react";
 import { fetchIngredientsThunk } from "../../redux/operations/ingredientsOperations";
+import s from "./IngredientList.module.css";
+import { RiCheckboxBlankCircleFill } from "react-icons/ri";
 
 const IngredientList = ({ ingredientIds }) => {
   const dispatch = useDispatch();
@@ -22,11 +24,12 @@ const IngredientList = ({ ingredientIds }) => {
     .filter(Boolean);
 
   return (
-    <ul>
+    <ul className={s.ingredientsContainer}>
       {filteredIngredients.map((ingredient, index) => {
         return (
-          <li key={index}>
-            {ingredient.name}-{ingredient.measure}
+          <li key={index} className={s.ingredientsItem}>
+            <RiCheckboxBlankCircleFill className={s.ingredientsIcon} />
+            {ingredient.name} — {ingredient.measure}
           </li>
         );
       })}

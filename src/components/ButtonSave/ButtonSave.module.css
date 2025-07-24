@@ -4,6 +4,7 @@
   padding: 16px;
   width: 361px;
   height: 56px;
+
   cursor: pointer;
   background: var(--light-brown);
   display: flex;
@@ -16,11 +17,13 @@
   color: var(--white);
 
   @media (min-width: 768px) {
-    width: 340px;
+    width: 249px;
+    height: 56px;
   }
 
   @media (min-width: 1440px) {
-    width: 288px;
+    width: 393px;
+    height: 56px;
   }
   &:hover {
     background: var(--brown);

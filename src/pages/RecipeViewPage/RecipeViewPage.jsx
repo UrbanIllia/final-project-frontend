@@ -4,8 +4,7 @@ import css from "./RecipeViewPage.module.css";
 
 const RecipeViewPage = () => (
   <div className={css.page}>
-    {/* <RecipeDetails /> */}
-    <NotFound />
+    <RecipeDetails />
   </div>
 );
 export default RecipeViewPage;

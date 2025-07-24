@@ -34,16 +34,21 @@ const IngredientSelect = ({ value, ingredients, onChange }) => {
         <span className={value ? css.selectedText : css.placeholderText}>
           {displayText}
         </span>
-        <svg
-          className={`${css.selectArrow} ${isOpen ? css.arrowUp : ""}`}
-          width="10"
-          height="6"
-          viewBox="0 0 10 6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M5 6L0.669873 0L9.33013 0L5 6Z" fill="currentColor" />
-        </svg>
+         <svg
+                className={`${css.selectArrow} ${isOpen ? css.arrowUp : ""}`} 
+                width="16"
+                height="17"
+                viewBox="0 0 16 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.5 6.25L8 10.75L3.5 6.25"
+                  stroke="currentColor" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                />
+              </svg>
       </div>
 
       {isOpen && (

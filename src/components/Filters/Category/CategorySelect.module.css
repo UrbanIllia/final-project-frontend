@@ -1,9 +1,9 @@
 .customSelect { 
-  position: relative;
-  width: 179px;
+width: 296px;
 height: 33px;
   border: 2px solid #918e8e08; 
   border-radius: 4px;
+  border-color: #d9d9d9;
   cursor: pointer;
   background-color: #fff;
 font-weight: 400;
@@ -16,55 +16,55 @@ color: var(--gray);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .placeholderText {
-  color: #888; /* Цвет текста-заполнителя */
+  color: #888;
+  font-weight: 400;
+font-size: 16px;
+line-height: 1.55;
+padding-left: 8px;
 }
 
-.selectedText {
-  color: #aa0c0c; /* Цвет выбранного значения */
-}
 .selectArrow {
   transition: transform 0.3s ease;
-  fill: #333; /* Цвет стрелки */
+stroke-width: 1px;
+stroke: var(--black);
 }
-
+.selectedText {
+  color: #333;
+}
 .arrowUp {
-  transform: rotate(180deg); /* Поворот стрелки при открытии */
+  transform: rotate(180deg);
 }
 
 .optionsList {
   position: absolute;
-  top: 100%; 
-  left: 0;
-  width: 100%;
-  max-height: 200px; 
+  top: 100%;
+align-items: flex-start;
+justify-content: flex-start;
+flex-direction: column;
+gap: 0px;
+width: 297px;
+height: 262px;
   overflow-y: auto;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 0 0 8px 8px;
-  z-index: 10; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius:4px;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   list-style: none;
-  padding: 0;
+  padding: 8px;
   margin: 0;
 }
 .optionItem {
-  padding: 10px 15px;
+  padding: 8px 12px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.optionItem:hover {
-  background-color: #f0f0f0; /* Серый фон при наведении, как на макете */
-}
-
 .activeOption {
-  background-color: #e0e0e0; /* Более темный серый для активной опции */
-}
-
-.customSelect:focus-within { /* Используем :focus-within для контейнера */
-  outline: 2px dashed #8a2be2; /* Фиолетовая пунктирная рамка */
-  outline-offset: 2px; /* Отступ от элемента */
+  background-color: var(--light-gray-2);
 }

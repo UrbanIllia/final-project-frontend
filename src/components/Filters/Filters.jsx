@@ -1,30 +1,29 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import MobileFiltersModal from "./MobileFiltersModal/MobileFiltersModal";
+import CategorySelect from "./Category/CategorySelect";
+import IngredientSelect from "./Ingredient/IngredientSelect";
+import css from "./Filters.module.css";
 import { fetchCategoriesThunk } from "../../redux/operations/categoriesOperations.js";
 import { fetchIngredientsThunk } from "../../redux/operations/ingredientsOperations.js";
+import {
+  setCategory,
+  setIngredient,
+  resetFilters,
+  setSearch,
+} from "../../redux/slices/filtersSlice.js";
 import { fetchRecipesByFiltersThunk } from "../../redux/operations/recipesOperation.js";
-import { setFilters, resetFilters } from "../../redux/slices/filtersSlice";
-
-import CategorySelect from "./Category/CategorySelect.jsx";
-import IngredientSelect from "./Ingredient/IngredientSelect.jsx";
-import MobileFiltersModal from "./MobileFiltersModal/MobileFiltersModal.jsx";
-
-import css from "./Filters.module.css";
 
 const Filters = () => {
-  
   const dispatch = useDispatch();
-  const [category, setCategory] = useState("");
-  const [ingredient, setIngredient] = useState("");
-  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { items: categories = [] } = useSelector((state) => state.categories);
-  const { items: ingredients = [] } = useSelector((state) => state.ingredients);
+  const { category, ingredient, search } = useSelector(
+    (state) => state.filters
+  );
+  const categories = useSelector((state) => state.categories.items);
+  const ingredients = useSelector((state) => state.ingredients.items);
   const totalItems = useSelector((state) => state.recipes.totalItems || 0);
- const search = useSelector((state) => state.filters.search || "");
-
-
-  const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
     dispatch(fetchCategoriesThunk());
@@ -32,80 +31,75 @@ const Filters = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(setFilters({ category, ingredient }));
-  }, [category, ingredient, dispatch]);
+    dispatch(fetchRecipesByFiltersThunk({ category, ingredient, search }));
+  }, [dispatch, category, ingredient, search]);
 
-useEffect(() => {
-  dispatch(fetchRecipesByFiltersThunk({ category, ingredient, search }));
-}, [dispatch, category, ingredient, search]);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
+  const handleDesktopCategoryChange = (e) => {
+    dispatch(setCategory(e.target.value));
+  };
 
-  const handleReset = () => {
-    setCategory("");
-    setIngredient("");
+  const handleDesktopIngredientChange = (e) => {
+    dispatch(setIngredient(e.target.value));
+  };
+
+  const handleDesktopResetFilters = () => {
     dispatch(resetFilters());
+    dispatch(setSearch(""));
   };
 
   return (
-    <div className={css.recipeFiltering}>
-      <div className={css.leftSide}>
-        <h2 className={css.h2reception}>Recipes</h2>
-        <p className={css.recipesCount}>{totalItems} recipes</p>
+    <>
+      <div className={css.recipeFiltering}>
+        {" "}
+        <div className={css.leftSide}>
+          <h2 className={css.h2reception}>Recipes</h2>
+          <p className={css.recipesCount}>{totalItems} recipes</p>
+        </div>
+        <div className={css.rightSideContainer}>
+          {" "}
+          <div className={css.filterHeader} onClick={openModal}>
+            <span className={css.filterTitle}>Filters</span>
+            <svg
+              className={css.filterIcon}
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.90822 7.5L23.0918 7.50001C24.1457 7.50001 25 8.35435 25 9.40823C25 9.89532 24.8137 10.364 24.4794 10.7182L18.0769 17.5L18.0769 22.3173C18.0769 23.791 16.5371 24.7586 15.2093 24.1193L15.0554 24.0452C14.3632 23.7119 13.9231 23.0115 13.9231 22.2432L13.9231 17.5L7.52065 10.7182C7.18627 10.364 7 9.89532 7 9.40822C7 8.35434 7.85434 7.5 8.90822 7.5Z"
+                stroke="currentColor"
+              />
+            </svg>
+          </div>
+          <div className={css.desktopFilters}>
+            <button
+              type="button"
+              className={css.resetBtn}
+              onClick={handleDesktopResetFilters}
+            >
+              Reset Filters
+            </button>
+            <CategorySelect
+              value={category}
+              categories={categories.map((cat) => cat.name)}
+              onChange={handleDesktopCategoryChange}
+            />
+            <IngredientSelect
+              value={ingredient}
+              ingredients={ingredients.map((ing) => ing.name)}
+              onChange={handleDesktopIngredientChange}
+            />
+          </div>
+        </div>
       </div>
 
-      {!isMobile && (
-        <div className={css.rightSide}>
-          <button onClick={handleReset} className={css.resetBtn}>
-            Reset filters
-          </button>
-          <CategorySelect
-            value={category}
-            categories={categories.map((cat) => cat.name)}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <IngredientSelect
-            value={ingredient}
-            ingredients={ingredients.map((ing) => ing.name)}
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-        </div>
-      )}
-
-      {isMobile && (
-        <div
-          className={css.filterCategories}
-          onClick={() => setIsMobileFiltersOpen(true)}
-        >
-          <p className={css.textFilters}>Filters</p>
-          <svg
-            className={css.svgFilter}
-            width="16"
-            height="15"
-            viewBox="0 0 16 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2.68117 1.125L13.3188 1.12501C14.1092 1.12501 14.75 1.76576 14.75 2.55617C14.75 2.92149 14.6103 3.27298 14.3595 3.53863L9.55769 8.625L9.55769 12.1462C9.55769 13.294 8.35844 14.0476 7.32425 13.5496C6.7851 13.29 6.44231 12.7445 6.44231 12.1462L6.44231 8.625L1.64049 3.53863C1.3897 3.27298 1.25 2.92149 1.25 2.55617C1.25 1.76576 1.89076 1.125 2.68117 1.125Z"
-              stroke="black"
-            />
-          </svg>
-        </div>
-      )}
-
-      {isMobile && isMobileFiltersOpen && (
-        <MobileFiltersModal
-          onClose={() => setIsMobileFiltersOpen(false)}
-          category={category}
-          ingredient={ingredient}
-          setCategory={setCategory}
-          setIngredient={setIngredient}
-          onReset={handleReset}
-          categories={categories.map((c) => c.name)}
-          ingredients={ingredients.map((i) => i.name)}
-        />
-      )}
-    </div>
+      {isModalOpen && <MobileFiltersModal onClose={closeModal} />}
+    </>
   );
 };
 

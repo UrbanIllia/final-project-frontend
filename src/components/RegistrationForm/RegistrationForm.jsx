@@ -1,13 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { registerUserThunk } from "../../redux/operations/authOperations.js";
+import { Link, useNavigate } from "react-router-dom";
+
 import { toast } from "react-toastify";
 import css from "./RegistrationForm.module.css";
 import { useState } from "react";
 import eyeOpenSvg from "../../assets/icons/eye.svg";
 import eyeClosedSvg from "../../assets/icons/eye-crossed.svg";
+import { registerUserThunk } from "../../redux/operations/authOperations";
+import { fetchUserThunk } from "../../redux/operations/userOperation";
 
 const PasswordField = ({ field, form }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,23 +74,32 @@ const RegistrationForm = () => {
     ),
   });
 
-  const handleSubmit = async (values, { setSubmitting, errors }) => {
-    if (errors.agreeToTerms) {
-      toast.error(errors.agreeToTerms);
-      setSubmitting(false);
-      return;
-    }
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      await dispatch(
+      const registerResult = await dispatch(
         registerUserThunk({
           name: values.name,
           email: values.email,
           password: values.password,
         })
       ).unwrap();
+      console.log("Registration successful, registerResult =", registerResult);
+      try {
+        const userResult = await dispatch(fetchUserThunk()).unwrap();
+        console.log(
+          "fetchUserThunk after registration: success, userResult =",
+          userResult
+        );
+      } catch (error) {
+        console.warn(
+          "fetchUserThunk after registration failed, continuing anyway:",
+          error
+        );
+      }
       toast.success("Registration successful!");
       navigate("/");
     } catch (error) {
+      console.error("Registration failed:", error);
       toast.error(error || "Registration failed");
     } finally {
       setSubmitting(false);

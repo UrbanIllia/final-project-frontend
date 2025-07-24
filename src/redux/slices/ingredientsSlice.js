@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredientsThunk } from "../operations/ingredientsOperations";
 
 const initialState = {
-  ingredients: [],
+  items: [],
   isLoading: false,
   error: null,
 };
@@ -19,7 +19,7 @@ const ingredientsReducer = createSlice({
       .addCase(fetchIngredientsThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = false;
-        state.ingredients = payload;
+        state.items = payload;
       })
       .addCase(fetchIngredientsThunk.rejected, (state, { payload }) => {
         state.isLoading = false;

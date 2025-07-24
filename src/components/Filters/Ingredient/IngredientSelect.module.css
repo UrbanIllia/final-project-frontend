@@ -1,0 +1,72 @@
+.customSelect {
+width: 296px;
+height: 33px;
+  border: 2px solid #918e8e08; 
+  border-radius: 4px;
+  border-color: #d9d9d9;
+  cursor: pointer;
+  background-color: #fff;
+font-weight: 400;
+font-size: 16px;
+line-height: 1.55;
+color: var(--gray);
+}
+
+.selectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.placeholderText {
+  color: #888;
+  font-weight: 400;
+font-size: 16px;
+line-height: 1.55;
+padding-left: 8px;
+}
+.selectArrow {
+  transition: transform 0.3s ease;
+stroke-width: 1px;
+stroke: var(--black);
+}
+
+.selectedText {
+  color: #333;
+}
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.optionsList {
+  position: absolute;
+  top: 100%;
+align-items: flex-start;
+justify-content: flex-start;
+flex-direction: column;
+gap: 0px;
+width: 297px;
+height: 262px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius:4px;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.optionItem {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+ 
+}
+
+.activeOption {
+  background-color: var(--light-gray-2);
+}

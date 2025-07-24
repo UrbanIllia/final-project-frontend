@@ -1,13 +1,9 @@
-.rightSide,
-.resetBtn{
-  display: none;
-}
 .recipeFiltering {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end; 
+  justify-content: space-between; 
+  align-items: flex-end;
   padding-bottom: 16px;
-   padding-top: 48px;
+  padding-top: 48px;
   width: 100%;
 }
 
@@ -18,57 +14,118 @@
 }
 
 .h2reception {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 600;
   margin: 0;
 }
 
 .recipesCount {
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 18px;
   color: var(--black);
 }
 
-.filterCategories {
+.rightSideContainer { 
   display: flex;
+  align-items: center; 
+}
+
+.filterHeader {
+  display: flex; 
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
-@media screen and (min-width: 768px) and (max-width: 1439px) {
-  .rightSide,
-.resetBtn{
+
+.filterTitle {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--black);
+}
+
+.filterIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.desktopFilters {
+  display: none; 
+}
+
+.resetBtn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #000;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black);
+  transition: border-color 0.2s ease;
 }
-  .h2reception{
-    font-weight: 600;
-font-size: 40px;
-  }
-    .loadingRecept{
-    font-weight: 600;
-font-size: 18px;
-color: var(--black);
-  }
-  .textFilters{
-    font-weight: 600;
-font-size: 12px;
-color: var(--black);
+
+.resetBtn:hover {
+  border-color: #555;
+}
+
+/* Tablet (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .recipeFiltering {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
+  .h2reception {
+    font-weight: 600;
+    font-size: 40px;
+  }
+
+  .rightSideContainer {
+    display: flex; 
+    align-items: flex-end;
+  }
+
+  .filterHeader {
+    display: flex;
+  }
+
+  .desktopFilters {
+    display: none;
+  }
 }
-/* Desktop */
+
+/* Desktop (1440px+) */
 @media screen and (min-width: 1440px) {
-  .rightSide,
-.resetBtn{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-.svgFilter,
-.textFilters{
-  display: none;
-}
-.recipeFiltering {
+  .recipeFiltering {
     flex-direction: row;
-  justify-content: space-between;
-}
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .filterHeader {
+    display: none; 
+  }
+
+  .rightSideContainer {
+    display: flex; 
+    align-items: center; 
+  }
+
+  .desktopFilters {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    width: auto;
+  }
+
+  .resetBtn {
+    border-bottom: 2px solid #000;
+    padding: 4px 8px;
+    margin-right: 24px;
+  }
 }

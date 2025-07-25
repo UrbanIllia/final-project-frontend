@@ -1,0 +1,10 @@
+.wrapper {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.message {
+  font-size: 18px;
+  color: #888;
+  line-height: 1.4;
+}

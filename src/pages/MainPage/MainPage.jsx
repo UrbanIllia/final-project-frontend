@@ -2,15 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setFilters } from "../../redux/slices/filtersSlice";
-import {
-  fetchRecipesThunk,
-
-} from "../../redux/operations/recipesOperation";
+import { fetchRecipesThunk } from "../../redux/operations/recipesOperation";
 
 import Filters from "../../components/Filters/Filters";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
-import RecipesList from "../../components/RecipesList/RecipesList"; 
+import RecipesList from "../../components/RecipesList/RecipesList";
 import Banner from "../../components/Banner/Banner";
+import NoResults from "../../components/Filters/NoResults/NoResults";
 import css from "./MainPage.module.css";
 
 const MainPage = () => {
@@ -19,6 +17,7 @@ const MainPage = () => {
   const isLoading = useSelector((state) => state.recipes.isLoading);
   const error = useSelector((state) => state.recipes.error);
   const searchQuery = useSelector((state) => state.filters.search || "");
+  const totalItems = useSelector((state) => state.recipes.totalItems || 0);
 
   useEffect(() => {
     dispatch(fetchRecipesThunk({ page: 1, perPage: 10 }));
@@ -48,7 +47,9 @@ const MainPage = () => {
     <div className={css.main}>
       <Banner onSearch={handleSearch} />
       <Filters />
-      <RecipesList/>; 
+
+      {totalItems > 0 ? <RecipesList /> : <NoResults />}
+
       <LoadMoreBtn />
     </div>
   );

@@ -2,7 +2,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
 import { toast } from "react-toastify";
 import css from "./LoginForm.module.css";
 import { useState } from "react";
@@ -64,19 +63,11 @@ const LoginForm = () => {
           password: values.password,
         })
       ).unwrap();
-      console.log("Login successful, loginResult =", loginResult);
-      try {
-        const userResult = await dispatch(fetchUserThunk()).unwrap();
-        console.log(
-          "fetchUserThunk after login: success, userResult =",
-          userResult
-        );
-      } catch (error) {
-        console.warn(
-          "fetchUserThunk after login failed, continuing anyway:",
-          error
-        );
-      }
+      console.log("Login successful, loginResult:", loginResult);
+
+      const userResult = await dispatch(fetchUserThunk()).unwrap();
+      console.log("fetchUserThunk success, userResult:", userResult);
+
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
@@ -103,6 +94,7 @@ const LoginForm = () => {
       >
         {({ isSubmitting, isValid }) => (
           <Form className={css.form}>
+            {isSubmitting && <div className={css.loader}>Loading...</div>}
             <div className={css.fieldGroup}>
               <label htmlFor="email" className={css.label}>
                 Enter your email address

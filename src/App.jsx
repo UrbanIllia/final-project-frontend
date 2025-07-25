@@ -31,18 +31,16 @@ const App = () => {
         style={{ zIndex: 9999 }}
       />
       <Router>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<MainPage />} />
-              <Route path="/recipes/:id" element={<RecipeViewPage />} />
-              <Route path="/add-recipe" element={<AddRecipePage />} />
-              <Route path="/profile/:recipeType" element={<ProfilePage />} />
-              <Route path="/auth/:authType" element={<AuthPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<MainPage />} />
+            <Route path="/recipes/:id" element={<RecipeViewPage />} />
+            <Route path="/add-recipe" element={<AddRecipePage />} />
+            <Route path="/profile/:recipeType" element={<ProfilePage />} />
+            <Route path="/auth/:authType" element={<AuthPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
       </Router>
     </div>
   );

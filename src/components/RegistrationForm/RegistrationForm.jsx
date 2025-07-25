@@ -2,14 +2,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
 import { toast } from "react-toastify";
 import css from "./RegistrationForm.module.css";
 import { useState } from "react";
 import eyeOpenSvg from "../../assets/icons/eye.svg";
 import eyeClosedSvg from "../../assets/icons/eye-crossed.svg";
 import { registerUserThunk } from "../../redux/operations/authOperations";
-import { fetchUserThunk } from "../../redux/operations/userOperation";
 
 const PasswordField = ({ field, form }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -83,21 +81,9 @@ const RegistrationForm = () => {
           password: values.password,
         })
       ).unwrap();
-      console.log("Registration successful, registerResult =", registerResult);
-      try {
-        const userResult = await dispatch(fetchUserThunk()).unwrap();
-        console.log(
-          "fetchUserThunk after registration: success, userResult =",
-          userResult
-        );
-      } catch (error) {
-        console.warn(
-          "fetchUserThunk after registration failed, continuing anyway:",
-          error
-        );
-      }
-      toast.success("Registration successful!");
-      navigate("/");
+      console.log("Registration successful, registerResult:", registerResult);
+      toast.success("Registration successful! Please log in.");
+      navigate("/auth/login");
     } catch (error) {
       console.error("Registration failed:", error);
       toast.error(error || "Registration failed");
@@ -126,6 +112,7 @@ const RegistrationForm = () => {
       >
         {({ isSubmitting, isValid, values }) => (
           <Form className={css.form}>
+            {isSubmitting && <div className={css.loader}>Loading...</div>}
             <div className={css.fieldGroup}>
               <label htmlFor="name" className={css.label}>
                 Enter your name

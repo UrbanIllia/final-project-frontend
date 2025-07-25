@@ -6,9 +6,7 @@ export const registerUserThunk = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const response = await API.post("/auth/register", credentials);
-      const data = response.data.data;
-      setAuthHeader(data.accessToken);
-      return data;
+      return response.data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -21,7 +19,8 @@ export const loginUserThunk = createAsyncThunk(
     try {
       const response = await API.post("/auth/login", credentials);
       const data = response.data.data;
-      setAuthHeader(data.accessToken);
+      const token = data.accessToken;
+      setAuthHeader(token);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -47,7 +46,8 @@ export const refreshUserThunk = createAsyncThunk(
     try {
       const response = await API.post("/auth/refresh");
       const data = response.data.data;
-      setAuthHeader(data.accessToken);
+      const token = data.accessToken;
+      setAuthHeader(token);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

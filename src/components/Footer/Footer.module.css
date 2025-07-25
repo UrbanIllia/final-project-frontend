@@ -1,8 +1,8 @@
 .footer {
-  padding: 14px 0;
-  background-color: #3d2218;
+  padding: 24px 0;
+  background-color: var(--darck-brown);
   position: relative;
-  color: white;
+  color: var(--white);
   margin: 0 -16px;
 }
 
@@ -28,14 +28,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 44px;
   font-size: 16px;
   font-weight: 600;
   height: auto;
 }
 
 .link {
-  color: #fff;
+  color: var(--white);
   height: 24px;
 }
 

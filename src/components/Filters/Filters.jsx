@@ -13,7 +13,7 @@ import {
   setSearch,
 } from "../../redux/slices/filtersSlice.js";
 import { fetchRecipesByFiltersThunk } from "../../redux/operations/recipesOperation.js";
-import NoResults from "../Filters/NoResults/NoResults.jsx";
+
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -29,27 +29,45 @@ const Filters = () => {
   useEffect(() => {
     dispatch(fetchCategoriesThunk());
     dispatch(fetchIngredientsThunk());
-  }, []);
+  }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchRecipesByFiltersThunk({ category, ingredient, search }));
-  }, [dispatch, category, ingredient, search]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleDesktopCategoryChange = (e) => {
-    dispatch(setCategory(e.target.value));
-  };
+const handleDesktopCategoryChange = (e) => {
+  const selectedCategory = e.target.value;
+  dispatch(setCategory(selectedCategory));
+  dispatch(
+    fetchRecipesByFiltersThunk({
+      category: selectedCategory,
+      ingredient,
+      search,
+    })
+  );
+};
 
-  const handleDesktopIngredientChange = (e) => {
-    dispatch(setIngredient(e.target.value));
-  };
+const handleDesktopIngredientChange = (e) => {
+  const selectedIngredient = e.target.value;
+  dispatch(setIngredient(selectedIngredient));
+  dispatch(
+    fetchRecipesByFiltersThunk({
+      category,
+      ingredient: selectedIngredient,
+      search,
+    })
+  );
+};
 
-  const handleDesktopResetFilters = () => {
-    dispatch(resetFilters());
-    dispatch(setSearch(""));
-  };
+
+ const handleDesktopResetFilters = () => {
+   dispatch(resetFilters());
+   dispatch(setSearch(""));
+   dispatch(
+     fetchRecipesByFiltersThunk({ category: "", ingredient: "", search: "" })
+   );
+ };
+
 
   return (
     <>
@@ -87,18 +105,18 @@ const Filters = () => {
             </button>
             <CategorySelect
               value={category}
-              categories={categories.map((cat) => cat.name)}
+              categories={categories}
               onChange={handleDesktopCategoryChange}
             />
             <IngredientSelect
               value={ingredient}
-              ingredients={ingredients.map((ing) => ing.name)}
+              ingredients={ingredients}
               onChange={handleDesktopIngredientChange}
             />
           </div>
         </div>
       </div>
-      {totalItems === 0 && <NoResults />}
+
       {isModalOpen && <MobileFiltersModal onClose={closeModal} />}
     </>
   );

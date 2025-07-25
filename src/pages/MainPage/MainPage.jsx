@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setFilters } from "../../redux/slices/filtersSlice";
-import { fetchRecipesThunk } from "../../redux/operations/recipesOperation";
+import {
+  fetchRecipesThunk,
+  fetchRecipesByFiltersThunk,
+} from "../../redux/operations/recipesOperation";
 
 import Filters from "../../components/Filters/Filters";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
@@ -23,9 +26,11 @@ const MainPage = () => {
     dispatch(fetchRecipesThunk({ page: 1, perPage: 10 }));
   }, [dispatch]);
 
-  const handleSearch = (query) => {
-    dispatch(setFilters({ search: query, page: 1 }));
-  };
+const handleSearch = (query) => {
+  dispatch(setFilters({ search: query, page: 1 }));
+  dispatch(fetchRecipesByFiltersThunk({ search: query }));
+};
+
 
   useEffect(() => {
     if (!isLoading && error) {
@@ -33,15 +38,12 @@ const MainPage = () => {
     }
   }, [isLoading, error]);
 
-  useEffect(() => {
-    if (!isLoading && recipes.length === 0 && !error) {
-      if (searchQuery) {
-        toast.info(`No recipes found for "${searchQuery}"`);
-      } else {
-        toast.info("No recipes found");
-      }
-    }
-  }, [recipes, isLoading, error, searchQuery]);
+useEffect(() => {
+  if (!isLoading && searchQuery && recipes.length === 0 && !error) {
+    toast.info(`No recipes found for "${searchQuery}"`);
+  }
+}, [recipes, isLoading, error, searchQuery]);
+
 
   return (
     <div className={css.main}>

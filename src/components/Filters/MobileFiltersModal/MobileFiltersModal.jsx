@@ -79,7 +79,7 @@ const MobileFiltersModal = ({ onClose }) => {
               <path
                 d="M14.7745 9.25965L12 12.0341M12 12.0341L9.22559 14.8086M12 12.0341L14.7745 14.8086M12 12.0341L9.22559 9.25964"
                 stroke="black"
-                stroke-linecap="round"
+                strokeLinecap="round"
               />
             </svg>
           </button>
@@ -87,12 +87,13 @@ const MobileFiltersModal = ({ onClose }) => {
 
         <CategorySelect
           value={category}
-          categories={categories.map((cat) => cat.name)}
+          categories={categories} 
           onChange={handleCategoryChange}
         />
+
         <IngredientSelect
           value={ingredient}
-          ingredients={ingredients.map((ing) => ing.name)}
+          ingredients={ingredients} 
           onChange={handleIngredientChange}
         />
 

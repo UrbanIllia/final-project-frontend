@@ -33,6 +33,7 @@ const CategorySelect = ({ value, categories, onChange }) => {
       <div className={css.selectHeader} onClick={handleToggle}>
         <span className={value ? css.selectedText : css.placeholderText}>
           {displayText}
+          
         </span>
         <svg
           className={`${css.selectArrow} ${isOpen ? css.arrowUp : ""}`}
@@ -54,20 +55,22 @@ const CategorySelect = ({ value, categories, onChange }) => {
       {isOpen && (
         <ul className={css.optionsList}>
           <li
+            key="placeholder"
             className={`${css.optionItem} ${!value ? css.activeOption : ""}`}
             onClick={() => handleOptionClick("")}
+            
           >
             Category
           </li>
-          {categories.map((category) => (
+          {categories.map((cat) => (
             <li
-              key={category._id}
+              key={cat._id}
               className={`${css.optionItem} ${
-                value === category.name ? css.activeOption : ""
+                value === cat.name ? css.activeOption : ""
               }`}
-              onClick={() => handleOptionClick(category.name)}
+              onClick={() => handleOptionClick(cat.name)}
             >
-              {category.name}
+              {cat.name}
             </li>
           ))}
         </ul>

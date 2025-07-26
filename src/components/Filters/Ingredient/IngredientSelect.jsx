@@ -59,20 +59,15 @@ const IngredientSelect = ({ value, ingredients, onChange }) => {
           >
             Ingredient
           </li>
-          {ingredients.map((ingredient) => (
+          {ingredients.map((ing) => (
             <li
-              key={ingredient._id}
+              key={ing._id}
               className={`${css.optionItem} ${
-                value === ingredient.name ? css.activeOption : ""
+                value === ing.name ? css.activeOption : ""
               }`}
-              onClick={() => handleOptionClick(ingredient.name)}
+              onClick={() => handleOptionClick(ing.name)}
             >
-              <img
-                src={ingredient.img}
-                alt={ingredient.name}
-                className={css.ingredientImg}
-              />
-              {ingredient.name}
+              {ing.name}
             </li>
           ))}
         </ul>

@@ -4,7 +4,7 @@ import { API } from "../../axiosConfig/Api";
 export const fetchRecipesThunk = createAsyncThunk(
   "fetchRecipes",
   async (
-    { page = 1, perPage = 10, categories = "", ingredients = "", search = "" },
+    { page = 1, perPage = 12, categories = "", ingredients = "", search = "" },
     thunkAPI
   ) => {
     try {
@@ -114,4 +114,3 @@ export const searchRecipesThunk = createAsyncThunk(
     }
   }
 );
-

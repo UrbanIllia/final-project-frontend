@@ -1,0 +1,89 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background-color: var(--light-beige);
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  position: relative;
+  border-radius: 32px;
+  padding: 56px 24px;
+  height: 341px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.text {
+  line-height: 1.55;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.buttonLogin {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 16px;
+  width: 314px;
+  height: 54px;
+  background-color: inherit;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.buttonLogin:hover {
+  background-color: var(--light-gray);
+}
+
+.buttonRegister {
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  width: 314px;
+  height: 54px;
+  background-color: var(--light-brown);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.buttonRegister:hover {
+  background-color: var(--brown);
+}
+
+.buttonLogin:active,
+.buttonRegister:active {
+  border-color: var(--white);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}

@@ -14,13 +14,14 @@ const initialState = {
   recipeDetails: null,
   favoriteRecipes: [],
   ownRecipes: [],
-
+  totalItems: 0,
+  page: 1,
+  perPage: 12,
   filters: {
     category: "",
     ingredient: "",
     search: "",
   },
-
   isLoading: false,
   error: null,
 };
@@ -36,7 +37,11 @@ const recipesReducer = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload.data.items;
+        if (payload.data.page === 1) {
+          state.recipes = payload.data.items;
+        } else {
+          state.recipes = [...state.recipes, ...payload.data.items];
+        }
         state.totalItems = payload.data.totalItems;
         state.page = payload.data.page;
         state.isLoading = false;

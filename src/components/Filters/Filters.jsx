@@ -13,9 +13,9 @@ import {
   setSearch,
 } from "../../redux/slices/filtersSlice.js";
 import { fetchRecipesByFiltersThunk } from "../../redux/operations/recipesOperation.js";
+import { resetRecipes } from "../../redux/slices/recipesSlice.js";
 
-
-const Filters = () => {
+const Filters = ({ onFiltersChange }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,54 +31,109 @@ const Filters = () => {
     dispatch(fetchIngredientsThunk());
   }, [dispatch]);
 
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-const handleDesktopCategoryChange = (e) => {
-  const selectedCategory = e.target.value;
-  dispatch(setCategory(selectedCategory));
-  dispatch(
-    fetchRecipesByFiltersThunk({
+  const handleDesktopCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    dispatch(setCategory(selectedCategory));
+    dispatch(resetRecipes());
+
+    const newFilters = {
       category: selectedCategory,
       ingredient,
       search,
-    })
-  );
-};
+    };
 
-const handleDesktopIngredientChange = (e) => {
-  const selectedIngredient = e.target.value;
-  dispatch(setIngredient(selectedIngredient));
-  dispatch(
-    fetchRecipesByFiltersThunk({
+    dispatch(
+      fetchRecipesByFiltersThunk({
+        ...newFilters,
+        page: 1,
+        perPage: 12,
+      })
+    );
+
+    if (onFiltersChange) {
+      onFiltersChange(newFilters);
+    }
+  };
+
+  const handleDesktopIngredientChange = (e) => {
+    const selectedIngredient = e.target.value;
+    dispatch(setIngredient(selectedIngredient));
+    dispatch(resetRecipes());
+
+    const newFilters = {
       category,
       ingredient: selectedIngredient,
       search,
-    })
-  );
-};
+    };
 
+    dispatch(
+      fetchRecipesByFiltersThunk({
+        ...newFilters,
+        page: 1,
+        perPage: 12,
+      })
+    );
 
- const handleDesktopResetFilters = () => {
-   dispatch(resetFilters());
-   dispatch(setSearch(""));
-   dispatch(
-     fetchRecipesByFiltersThunk({ category: "", ingredient: "", search: "" })
-   );
- };
+    if (onFiltersChange) {
+      onFiltersChange(newFilters);
+    }
+  };
 
+  const handleDesktopResetFilters = () => {
+    dispatch(resetFilters());
+    dispatch(setSearch(""));
+    dispatch(resetRecipes());
+
+    const resetFiltersData = { category: "", ingredient: "", search: "" };
+
+    dispatch(
+      fetchRecipesByFiltersThunk({
+        ...resetFiltersData,
+        page: 1,
+        perPage: 12,
+      })
+    );
+
+    if (onFiltersChange) {
+      onFiltersChange(resetFiltersData);
+    }
+  };
+
+  const handleMobileFiltersApply = (mobileFilters) => {
+    dispatch(setCategory(mobileFilters.category || ""));
+    dispatch(setIngredient(mobileFilters.ingredient || ""));
+    dispatch(resetRecipes());
+
+    const newFilters = {
+      category: mobileFilters.category || "",
+      ingredient: mobileFilters.ingredient || "",
+      search,
+    };
+
+    dispatch(
+      fetchRecipesByFiltersThunk({
+        ...newFilters,
+        page: 1,
+        perPage: 12,
+      })
+    );
+
+    if (onFiltersChange) {
+      onFiltersChange(newFilters);
+    }
+  };
 
   return (
     <>
       <div className={css.recipeFiltering}>
-        {" "}
         <div className={css.leftSide}>
           <h2 className={css.h2reception}>Recipes</h2>
           <p className={css.recipesCount}>{totalItems} recipes</p>
         </div>
         <div className={css.rightSideContainer}>
-          {" "}
           <div className={css.filterHeader} onClick={openModal}>
             <span className={css.filterTitle}>Filters</span>
             <svg
@@ -117,7 +172,12 @@ const handleDesktopIngredientChange = (e) => {
         </div>
       </div>
 
-      {isModalOpen && <MobileFiltersModal onClose={closeModal} />}
+      {isModalOpen && (
+        <MobileFiltersModal
+          onClose={closeModal}
+          onApplyFilters={handleMobileFiltersApply}
+        />
+      )}
     </>
   );
 };

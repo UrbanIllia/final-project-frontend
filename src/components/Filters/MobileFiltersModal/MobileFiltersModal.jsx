@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // Убрали useState, так как локальное состояние не нужно
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCategory,
@@ -9,11 +9,12 @@ import {
 import { fetchRecipesByFiltersThunk } from "../../../redux/operations/recipesOperation.js";
 import { fetchCategoriesThunk } from "../../../redux/operations/categoriesOperations.js";
 import { fetchIngredientsThunk } from "../../../redux/operations/ingredientsOperations.js";
+import { resetRecipes } from "../../../redux/slices/recipesSlice.js";
 import CategorySelect from "../Category/CategorySelect";
 import IngredientSelect from "../Ingredient/IngredientSelect";
 import css from "./MobileFiltersModal.module.css";
 
-const MobileFiltersModal = ({ onClose }) => {
+const MobileFiltersModal = ({ onClose, onApplyFilters }) => {
   const dispatch = useDispatch();
   const { category, ingredient, search } = useSelector(
     (state) => state.filters
@@ -22,41 +23,79 @@ const MobileFiltersModal = ({ onClose }) => {
   const categories = useSelector((state) => state.categories.items);
   const ingredients = useSelector((state) => state.ingredients.items);
 
-    useEffect(() => {
-      document.body.style.overflow = "hidden";
+  const [localCategory, setLocalCategory] = useState(category);
+  const [localIngredient, setLocalIngredient] = useState(ingredient);
 
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }, []);
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(fetchCategoriesThunk());
     dispatch(fetchIngredientsThunk());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchRecipesByFiltersThunk({ category, ingredient, search }));
-  }, [dispatch, category, ingredient, search]);
-
   const handleCategoryChange = (e) => {
-    dispatch(setCategory(e.target.value));
-  //  onClose(); 
+    setLocalCategory(e.target.value);
   };
 
   const handleIngredientChange = (e) => {
-    dispatch(setIngredient(e.target.value));
-    // onClose();
+    setLocalIngredient(e.target.value);
+  };
+
+  const handleApplyFilters = () => {
+    dispatch(setCategory(localCategory));
+    dispatch(setIngredient(localIngredient));
+    dispatch(resetRecipes());
+
+    const newFilters = {
+      category: localCategory,
+      ingredient: localIngredient,
+      search,
+    };
+
+    dispatch(
+      fetchRecipesByFiltersThunk({
+        ...newFilters,
+        page: 1,
+        perPage: 12,
+      })
+    );
+
+    if (onApplyFilters) {
+      onApplyFilters(newFilters);
+    }
+
+    onClose();
   };
 
   const handleResetFilters = () => {
-    dispatch(resetFilters()); 
-    dispatch(setSearch("")); 
+    setLocalCategory("");
+    setLocalIngredient("");
+
+    dispatch(resetFilters());
+    dispatch(setSearch(""));
+    dispatch(resetRecipes());
+
+    const resetFiltersData = { category: "", ingredient: "", search: "" };
 
     dispatch(
-      fetchRecipesByFiltersThunk({ category: "", ingredient: "", search: "" })
+      fetchRecipesByFiltersThunk({
+        ...resetFiltersData,
+        page: 1,
+        perPage: 12,
+      })
     );
-    onClose(); 
+
+    if (onApplyFilters) {
+      onApplyFilters(resetFiltersData);
+    }
+
+    onClose();
   };
 
   return (
@@ -86,20 +125,23 @@ const MobileFiltersModal = ({ onClose }) => {
         </div>
 
         <CategorySelect
-          value={category}
-          categories={categories} 
+          value={localCategory}
+          categories={categories}
           onChange={handleCategoryChange}
         />
 
         <IngredientSelect
-          value={ingredient}
-          ingredients={ingredients} 
+          value={localIngredient}
+          ingredients={ingredients}
           onChange={handleIngredientChange}
         />
 
         <div className={css.btnGroup}>
           <button onClick={handleResetFilters} className={css.resetBtn}>
             Reset filters
+          </button>
+          <button onClick={handleApplyFilters} className={css.applyBtn}>
+            Apply filters
           </button>
         </div>
       </div>

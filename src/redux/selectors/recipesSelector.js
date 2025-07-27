@@ -5,3 +5,6 @@ export const selectRecipeDetails = (state) => state.recipes.recipeDetails;
 export const selectFilters = (state) => state.recipes.filters;
 export const selectFavoriteRecipes = (state) => state.recipes.favoriteRecipes;
 export const selectOwnRecipes = (state) => state.recipes.ownRecipes;
+export const selectTotalItems = (state) => state.recipes.totalItems;
+export const selectCurrentPage = (state) => state.recipes.page;
+export const selectHasMore = (state) => state.recipes.hasMore;

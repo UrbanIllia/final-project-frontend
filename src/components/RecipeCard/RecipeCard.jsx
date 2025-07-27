@@ -8,7 +8,7 @@ import { updateFavoriteRecipesThunk } from "../../redux/operations/recipesOperat
 import AuthModal from "../AuthModal/AuthModal";
 
 import SaveIcon from "../Icons/SaveIcon";
-import TimeIcon from "../Icons/TimeIcon";
+import ClockIcon from "../Icons/ClockIcon";
 import css from "./RecipeCard.module.css";
 
 export default function RecipeCard({ recipe }) {
@@ -46,7 +46,7 @@ export default function RecipeCard({ recipe }) {
           <h2 className={css.title}>{title}</h2>
 
           <span className={css.time}>
-            <TimeIcon className={css.timeIcon} /> {time}
+            <ClockIcon className={css.timeIcon} /> {time}
           </span>
         </div>
 

@@ -1,4 +1,4 @@
-export default function TimeIcon({ className }) {
+export default function ClockIcon({ className }) {
   return (
     <svg
       className={className}

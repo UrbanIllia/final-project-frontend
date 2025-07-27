@@ -44,20 +44,21 @@ const authReducer = createSlice({
         state.isLoading = false;
         state.error = payload;
       })
+      .addCase(registerUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isLoggedIn = true;
+      })
+      .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.data.accessToken;
+        state.isLoading = false;
+        state.isLoggedIn = true;
+      })
       .addMatcher(
         isAnyOf(registerUserThunk.pending, loginUserThunk.pending),
         (state) => {
           state.isLoading = true;
           state.isLoggedIn = false;
           state.error = null;
-        }
-      )
-      .addMatcher(
-        isAnyOf(registerUserThunk.fulfilled, loginUserThunk.fulfilled),
-        (state, { payload }) => {
-          state.token = payload.accessToken;
-          state.isLoading = false;
-          state.isLoggedIn = true;
         }
       )
       .addMatcher(

@@ -1,74 +1,124 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoriesThunk } from "../../redux/operations/categoriesOperations";
-
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import MobileFiltersModal from "./MobileFiltersModal/MobileFiltersModal";
+import CategorySelect from "./Category/CategorySelect";
+import IngredientSelect from "./Ingredient/IngredientSelect";
 import css from "./Filters.module.css";
+import { fetchCategoriesThunk } from "../../redux/operations/categoriesOperations.js";
+import { fetchIngredientsThunk } from "../../redux/operations/ingredientsOperations.js";
+import {
+  setCategory,
+  setIngredient,
+  resetFilters,
+  setSearch,
+} from "../../redux/slices/filtersSlice.js";
+import { fetchRecipesByFiltersThunk } from "../../redux/operations/recipesOperation.js";
+
 
 const Filters = () => {
   const dispatch = useDispatch();
-const totalItems = useSelector((state) => state.recipes.totalItems || 0);
-  const {
-    items: categories = [],
-    isLoading,
-    error,
-  } = useSelector((state) => state.categories);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { category, ingredient, search } = useSelector(
+    (state) => state.filters
+  );
+  const categories = useSelector((state) => state.categories.items);
+  const ingredients = useSelector((state) => state.ingredients.items);
+  const totalItems = useSelector((state) => state.recipes.totalItems || 0);
 
   useEffect(() => {
     dispatch(fetchCategoriesThunk());
+    dispatch(fetchIngredientsThunk());
   }, [dispatch]);
 
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+const handleDesktopCategoryChange = (e) => {
+  const selectedCategory = e.target.value;
+  dispatch(setCategory(selectedCategory));
+  dispatch(
+    fetchRecipesByFiltersThunk({
+      category: selectedCategory,
+      ingredient,
+      search,
+    })
+  );
+};
+
+const handleDesktopIngredientChange = (e) => {
+  const selectedIngredient = e.target.value;
+  dispatch(setIngredient(selectedIngredient));
+  dispatch(
+    fetchRecipesByFiltersThunk({
+      category,
+      ingredient: selectedIngredient,
+      search,
+    })
+  );
+};
+
+
+ const handleDesktopResetFilters = () => {
+   dispatch(resetFilters());
+   dispatch(setSearch(""));
+   dispatch(
+     fetchRecipesByFiltersThunk({ category: "", ingredient: "", search: "" })
+   );
+ };
+
+
   return (
-    <div className={css.recipeFiltering}>
-      <div className={css.leftSide}>
-        <h2 className={css.h2reception}>Recepies</h2>
-        <p className={css.recipesCount}>{totalItems} recipes</p>
+    <>
+      <div className={css.recipeFiltering}>
+        {" "}
+        <div className={css.leftSide}>
+          <h2 className={css.h2reception}>Recipes</h2>
+          <p className={css.recipesCount}>{totalItems} recipes</p>
+        </div>
+        <div className={css.rightSideContainer}>
+          {" "}
+          <div className={css.filterHeader} onClick={openModal}>
+            <span className={css.filterTitle}>Filters</span>
+            <svg
+              className={css.filterIcon}
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.90822 7.5L23.0918 7.50001C24.1457 7.50001 25 8.35435 25 9.40823C25 9.89532 24.8137 10.364 24.4794 10.7182L18.0769 17.5L18.0769 22.3173C18.0769 23.791 16.5371 24.7586 15.2093 24.1193L15.0554 24.0452C14.3632 23.7119 13.9231 23.0115 13.9231 22.2432L13.9231 17.5L7.52065 10.7182C7.18627 10.364 7 9.89532 7 9.40822C7 8.35434 7.85434 7.5 8.90822 7.5Z"
+                stroke="currentColor"
+              />
+            </svg>
+          </div>
+          <div className={css.desktopFilters}>
+            <button
+              type="button"
+              className={css.resetBtn}
+              onClick={handleDesktopResetFilters}
+            >
+              Reset Filters
+            </button>
+            <CategorySelect
+              value={category}
+              categories={categories}
+              onChange={handleDesktopCategoryChange}
+            />
+            <IngredientSelect
+              value={ingredient}
+              ingredients={ingredients}
+              onChange={handleDesktopIngredientChange}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className={css.rightSide}>
-        <a href="#" className={css.resetBtn}>
-          Reset filters
-        </a>
-
-        <select className={css.select}>
-          {Array.isArray(categories) &&
-            categories.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-        </select>
-
-        <select className={css.select}>
-          <option value="">Ingredient</option>
-          <option value="tomato">Tomato</option>
-          <option value="onion">Onion</option>
-        </select>
-        <select className={css.select}>
-          <option value="">Categoria</option>
-          <option value="tomato">Tomato</option>
-          <option value="onion">Onion</option>
-        </select>
-      </div>
-      <div className={css.filterCategories}>
-        <p className={css.textFilters}>Filters</p>
-        <svg
-          className={css.svgFilter}
-          width="16"
-          height="15"
-          viewBox="0 0 16 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2.68117 1.125L13.3188 1.12501C14.1092 1.12501 14.75 1.76576 14.75 2.55617C14.75 2.92149 14.6103 3.27298 14.3595 3.53863L9.55769 8.625L9.55769 12.1462C9.55769 13.294 8.35844 14.0476 7.32425 13.5496C6.7851 13.29 6.44231 12.7445 6.44231 12.1462L6.44231 8.625L1.64049 3.53863C1.3897 3.27298 1.25 2.92149 1.25 2.55617C1.25 1.76576 1.89076 1.125 2.68117 1.125Z"
-            stroke="black"
-          />
-        </svg>
-      </div>
-
-      {isLoading && <p className={css.loadingRecept}>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+      {isModalOpen && <MobileFiltersModal onClose={closeModal} />}
+    </>
   );
 };
 

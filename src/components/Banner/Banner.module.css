@@ -52,7 +52,6 @@
   z-index: 1;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
 }
-
 .boxTitle {
   position: absolute;
   top: 53%;

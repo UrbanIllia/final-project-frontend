@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserThunk } from "../operations/userOperation";
+import {
+  registerUserThunk,
+  logoutUserThunk,
+} from "../operations/authOperations";
 
 const initialState = {
   user: {
     name: "",
     email: "",
-    password: "",
     favorites: [],
   },
   isLoading: false,
@@ -23,12 +26,23 @@ const userReducer = createSlice({
       })
       .addCase(fetchUserThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.error = false;
-        state.user = payload;
+        state.error = null;
+        state.user = {
+          ...state.user,
+          name: payload.name || "",
+          email: payload.email || "",
+          favorites: payload.favorites || [],
+        };
       })
       .addCase(fetchUserThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+      .addCase(registerUserThunk.fulfilled, (state) => {
+        state.user = initialState.user;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.user = initialState.user;
       }),
 });
 

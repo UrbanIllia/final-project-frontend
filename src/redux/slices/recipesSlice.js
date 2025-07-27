@@ -1,11 +1,9 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   addRecipeThunk,
-  fetchFavoriteRecipesThunk,
   fetchOwnRecipesThunk,
   fetchRecipeByIdThunk,
   fetchRecipesThunk,
-  updateFavoriteRecipesThunk,
   fetchRecipesByFiltersThunk,
   loadMoreRecipesThunk,
 } from "../operations/recipesOperation";
@@ -74,26 +72,11 @@ const recipesReducer = createSlice({
           state.error = false;
         }
       )
-
-      .addMatcher(
-        isAnyOf(
-          fetchFavoriteRecipesThunk.fulfilled,
-          updateFavoriteRecipesThunk.fulfilled
-        ),
-        (state, { payload }) => {
-          state.favoriteRecipes = payload;
-          state.isLoading = false;
-          state.error = false;
-        }
-      )
-
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.pending,
           addRecipeThunk.pending,
           fetchRecipeByIdThunk.pending,
-          fetchFavoriteRecipesThunk.pending,
-          updateFavoriteRecipesThunk.pending,
           fetchOwnRecipesThunk.pending,
           fetchRecipesByFiltersThunk.pending
         ),
@@ -102,14 +85,11 @@ const recipesReducer = createSlice({
           state.error = false;
         }
       )
-
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.rejected,
           addRecipeThunk.rejected,
           fetchRecipeByIdThunk.rejected,
-          fetchFavoriteRecipesThunk.rejected,
-          updateFavoriteRecipesThunk.rejected,
           fetchOwnRecipesThunk.rejected,
           fetchRecipesByFiltersThunk.rejected
         ),

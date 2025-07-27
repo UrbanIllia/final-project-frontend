@@ -28,6 +28,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .time {
@@ -73,6 +75,8 @@
   padding: 10px;
   width: 289px;
   height: 40px;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .learnMoreBtn:hover {
@@ -89,7 +93,7 @@
   border: 1px solid #000;
   background-color: transparent;
   cursor: pointer;
-  padding: 0;
+  margin-left: 8px;
 }
 
 .saveIconWrapper:hover,

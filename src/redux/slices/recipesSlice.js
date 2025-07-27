@@ -7,6 +7,7 @@ import {
   fetchRecipesThunk,
   updateFavoriteRecipesThunk,
   fetchRecipesByFiltersThunk,
+  loadMoreRecipesThunk,
 } from "../operations/recipesOperation";
 
 const initialState = {
@@ -18,12 +19,20 @@ const initialState = {
   error: null,
   totalItems: 0,
   page: 1,
+  perPage: 12,
+  hasMore: true,
 };
 
 const recipesReducer = createSlice({
   name: "recipes",
   initialState,
-  reducers: {},
+  reducers: {
+    resetRecipes: (state) => {
+      state.recipes = [];
+      state.page = 1;
+      state.hasMore = true;
+    },
+  },
   extraReducers: (builder) =>
     builder
 
@@ -42,6 +51,14 @@ const recipesReducer = createSlice({
         state.isLoading = false;
         state.error = false;
       })
+      .addCase(loadMoreRecipesThunk.fulfilled, (state, { payload }) => {
+        state.recipes = [...state.recipes, ...payload.data.items];
+        state.totalItems = payload.data.totalItems;
+        state.page = payload.data.page;
+        state.hasMore = state.recipes.length < payload.data.totalItems;
+        state.isLoading = false;
+        state.error = false;
+      })
 
       .addMatcher(
         isAnyOf(
@@ -52,6 +69,7 @@ const recipesReducer = createSlice({
           state.recipes = payload.data.items;
           state.totalItems = payload.data.totalItems;
           state.page = payload.data.page;
+          state.hasMore = payload.data.items.length < payload.data.totalItems;
           state.isLoading = false;
           state.error = false;
         }
@@ -102,4 +120,5 @@ const recipesReducer = createSlice({
       ),
 });
 
+export const { resetRecipes } = recipesReducer.actions;
 export default recipesReducer.reducer;

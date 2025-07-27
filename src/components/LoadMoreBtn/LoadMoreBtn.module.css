@@ -9,11 +9,11 @@
   font-size: 18px;
   background-color: var(--light-brown);
   border: none;
-  border-radius: 16px;
-  padding: 16px 8px;
-  width: 373px;
-  height: 54px;
   margin-top: 24px;
+  border-radius: 8px;
+  padding: 16px;
+  width: 289px;
+  height: 54px;
 }
 
 .button:active {

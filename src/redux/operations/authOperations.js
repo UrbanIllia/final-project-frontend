@@ -18,7 +18,7 @@ export const loginUserThunk = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await API.post("/auth/login", credentials);
-      setAuthHeader(data.token);
+      setAuthHeader(data.accessToken);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -39,7 +39,7 @@ export const logoutUserThunk = createAsyncThunk(
 );
 
 export const refreshUserThunk = createAsyncThunk(
-  "refreshUser",
+  "refreshSession",
   async (_, thunkAPI) => {
     try {
       const { data } = await API.post("/auth/refresh");

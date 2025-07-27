@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const authReducer = createSlice({
-  name: "user",
+  name: "authorization",
   initialState,
   extraReducers: (builder) =>
     builder
@@ -55,7 +55,7 @@ const authReducer = createSlice({
       .addMatcher(
         isAnyOf(registerUserThunk.fulfilled, loginUserThunk.fulfilled),
         (state, { payload }) => {
-          state.token = payload.token;
+          state.token = payload.accessToken;
           state.isLoading = false;
           state.isLoggedIn = true;
         }

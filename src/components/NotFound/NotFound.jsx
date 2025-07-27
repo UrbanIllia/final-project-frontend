@@ -32,7 +32,7 @@ const NotFound = () => {
       </picture>
       <div className={s.errorText}>
         <h3 className={s.error404}>404</h3>
-        <p className={s.errorDescription}>Not found</p>
+        <p className={s.errorDescription}>Recipe not found</p>
       </div>
       <BackHomeBtn />
     </div>

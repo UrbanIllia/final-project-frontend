@@ -4,49 +4,27 @@ import {
   fetchOwnRecipesThunk,
   fetchRecipeByIdThunk,
   fetchRecipesThunk,
-  searchRecipesThunk,
+  updateFavoriteRecipesThunk,
+  fetchRecipesByFiltersThunk,
 } from "../operations/recipesOperation";
 
 const initialState = {
   recipes: [],
   recipeDetails: null,
   ownRecipes: [],
-
-  filters: {
-    category: "",
-    ingredient: "",
-    search: "",
-  },
-
   isLoading: false,
   error: null,
+  totalItems: 0,
+  page: 1,
 };
 
 const recipesReducer = createSlice({
   name: "recipes",
   initialState,
-  reducers: {
-    filterRecipes: (state, { payload }) => {
-      state.filters = payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(fetchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload.data.items;
-        state.totalItems = payload.data.totalItems;
-        state.page = payload.data.page;
-        state.isLoading = false;
-        state.error = false;
-      })
 
-      .addCase(searchRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = payload.data.items;
-        state.totalItems = payload.data.totalItems;
-        state.page = payload.data.page;
-        state.isLoading = false;
-        state.error = false;
-      })
       .addCase(addRecipeThunk.fulfilled, (state, { payload }) => {
         state.recipes.push(payload);
         state.ownRecipes.push(payload);
@@ -63,26 +41,58 @@ const recipesReducer = createSlice({
         state.isLoading = false;
         state.error = false;
       })
+
+      .addMatcher(
+        isAnyOf(
+          fetchRecipesThunk.fulfilled,
+          fetchRecipesByFiltersThunk.fulfilled
+        ),
+        (state, { payload }) => {
+          state.recipes = payload.data.items;
+          state.totalItems = payload.data.totalItems;
+          state.page = payload.data.page;
+          state.isLoading = false;
+          state.error = false;
+        }
+      )
+
+      .addMatcher(
+        isAnyOf(
+          fetchFavoriteRecipesThunk.fulfilled,
+          updateFavoriteRecipesThunk.fulfilled
+        ),
+        (state, { payload }) => {
+          state.favoriteRecipes = payload;
+          state.isLoading = false;
+          state.error = false;
+        }
+      )
+
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.pending,
-          searchRecipesThunk.pending,
           addRecipeThunk.pending,
           fetchRecipeByIdThunk.pending,
-          fetchOwnRecipesThunk.pending
+          fetchFavoriteRecipesThunk.pending,
+          updateFavoriteRecipesThunk.pending,
+          fetchOwnRecipesThunk.pending,
+          fetchRecipesByFiltersThunk.pending
         ),
         (state) => {
           state.isLoading = true;
           state.error = false;
         }
       )
+
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.rejected,
-          searchRecipesThunk.rejected,
           addRecipeThunk.rejected,
           fetchRecipeByIdThunk.rejected,
-          fetchOwnRecipesThunk.rejected
+          fetchFavoriteRecipesThunk.rejected,
+          updateFavoriteRecipesThunk.rejected,
+          fetchOwnRecipesThunk.rejected,
+          fetchRecipesByFiltersThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoading = false;

@@ -26,7 +26,7 @@
   max-height: 48px;
   font-weight: 400;
   font-size: 18px;
-  color: #c5c5c5;
+  color: #9f9f9f;
 }
 .buttonSearchBox {
   display: flex;
@@ -72,11 +72,13 @@
 
   .inputSearchBox{
       width: 471px;
+          flex-shrink: 0;
   }
   .buttonSearchBox {
     border-radius: 8px;
     padding: 12px 16px;
     width: 176px;  
+        flex-shrink: 0;
   }
 }
 @media (min-width: 1440px) {

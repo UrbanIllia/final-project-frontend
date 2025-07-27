@@ -7,22 +7,14 @@ import recipesReducer from "./slices/recipesSlice";
 import categoriesReducer from "./slices/categoriesSlice";
 import ingredientsReducer from "./slices/ingredientsSlice";
 import userReducer from "./slices/userSlice";
-import exampleReducer from "./slices/exampleSlice";
 
-const persistConfig = {
-  key: "auth",
-  storage,
-  whitelist: ["token", "isLoggedIn"],
-};
-
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     recipes: recipesReducer,
     categories: categoriesReducer,
     ingredients: ingredientsReducer,
+    filters: filtersReducer,
     user: userReducer,
     example: exampleReducer,
   },

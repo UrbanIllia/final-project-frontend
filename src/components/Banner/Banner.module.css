@@ -6,12 +6,23 @@
   background-size: cover;
   background-position: center;
   background-image: url("/images/BannerMob.png");
+  margin: 0 -16px;
+}
+@media (min-width: 768px) {
+  .bannerSection {
+    margin: 0 -32px;
+  }
 }
 
-.fullWidth {
+@media (min-width: 1440px) {
+  .bannerSection {
+    margin: 0 -108px;
+  }
+}
+/* .fullWidth {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-}
+} */
 
 /* Retina Mobile */
 @media screen and (min-resolution: 192dpi),
@@ -41,23 +52,6 @@
   z-index: 1;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
 }
-
-/*   &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.9),
-      rgba(0, 0, 0, 0.3)
-    ); 
-  }
-} */
-
 .boxTitle {
   position: absolute;
   top: 53%;

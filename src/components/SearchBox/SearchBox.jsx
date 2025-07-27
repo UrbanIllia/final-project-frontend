@@ -1,19 +1,25 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import css from "../SearchBox/SearchBox.module.css";
 
 const SearchBox = ({ onSearch }) => {
   const [query, setQuery] = useState("");
 
-const handleInputChange = (e) => {
-  setQuery(e.target.value);
-};
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!query.trim()) return;
+    if (!query.trim()) {
+      toast.info("Please enter a search query");
+      return;
+    }
+
     onSearch?.(query.trim());
     setQuery("");
   };
+
   return (
     <form className={css.search} onSubmit={handleSubmit}>
       <input

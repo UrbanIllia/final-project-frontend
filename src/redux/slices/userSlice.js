@@ -1,15 +1,14 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchUserThunk } from "../operations/userOperation";
 import {
-  fetchFavoriteRecipesThunk,
-  fetchUserThunk,
-  updateFavoriteRecipesThunk,
-} from "../operations/userOperation";
+  registerUserThunk,
+  logoutUserThunk,
+} from "../operations/authOperations";
 
 const initialState = {
   user: {
     name: "",
     email: "",
-    password: "",
     favorites: [],
   },
   isLoading: false,
@@ -27,44 +26,24 @@ const userReducer = createSlice({
       })
       .addCase(fetchUserThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.error = false;
-        state.user = payload;
+        state.error = null;
+        state.user = {
+          ...state.user,
+          name: payload.name || "",
+          email: payload.email || "",
+          favorites: payload.favorites || [],
+        };
       })
       .addCase(fetchUserThunk.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       })
-      .addMatcher(
-        isAnyOf(
-          fetchFavoriteRecipesThunk.fulfilled,
-          updateFavoriteRecipesThunk.fulfilled
-        ),
-        (state, { payload }) => {
-          state.user.favorites = payload;
-          state.isLoading = false;
-          state.error = false;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchFavoriteRecipesThunk.pending,
-          updateFavoriteRecipesThunk.pending
-        ),
-        (state) => {
-          state.isLoading = true;
-          state.error = false;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchFavoriteRecipesThunk.rejected,
-          updateFavoriteRecipesThunk.rejected
-        ),
-        (state, { payload }) => {
-          state.isLoading = false;
-          state.error = payload;
-        }
-      ),
+      .addCase(registerUserThunk.fulfilled, (state) => {
+        state.user = initialState.user;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.user = initialState.user;
+      }),
 });
 
 export default userReducer.reducer;

@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   loginUserThunk,
   logoutUserThunk,
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const authReducer = createSlice({
-  name: "authorization",
+  name: "auth",
   initialState,
   extraReducers: (builder) =>
     builder
@@ -44,31 +44,32 @@ const authReducer = createSlice({
         state.isLoading = false;
         state.error = payload;
       })
+      .addCase(registerUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(registerUserThunk.fulfilled, (state) => {
         state.isLoading = false;
-        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(registerUserThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(loginUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.data.accessToken;
+        state.token = payload.accessToken;
         state.isLoading = false;
         state.isLoggedIn = true;
+        state.error = null;
       })
-      .addMatcher(
-        isAnyOf(registerUserThunk.pending, loginUserThunk.pending),
-        (state) => {
-          state.isLoading = true;
-          state.isLoggedIn = false;
-          state.error = null;
-        }
-      )
-      .addMatcher(
-        isAnyOf(registerUserThunk.rejected, loginUserThunk.rejected),
-        (state, { payload }) => {
-          state.isLoading = false;
-          state.isLoggedIn = false;
-          state.error = payload;
-        }
-      ),
+      .addCase(loginUserThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      }),
 });
 
 export default authReducer.reducer;

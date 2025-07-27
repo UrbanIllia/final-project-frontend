@@ -1,13 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { registerUserThunk } from "../../redux/operations/authOperations.js";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import css from "./RegistrationForm.module.css";
 import { useState } from "react";
 import eyeOpenSvg from "../../assets/icons/eye.svg";
 import eyeClosedSvg from "../../assets/icons/eye-crossed.svg";
+import { registerUserThunk } from "../../redux/operations/authOperations";
 
 const PasswordField = ({ field, form }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,23 +72,20 @@ const RegistrationForm = () => {
     ),
   });
 
-  const handleSubmit = async (values, { setSubmitting, errors }) => {
-    if (errors.agreeToTerms) {
-      toast.error(errors.agreeToTerms);
-      setSubmitting(false);
-      return;
-    }
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      await dispatch(
+      const registerResult = await dispatch(
         registerUserThunk({
           name: values.name,
           email: values.email,
           password: values.password,
         })
       ).unwrap();
-      toast.success("Registration successful!");
-      navigate("/");
+      console.log("Registration successful, registerResult:", registerResult);
+      toast.success("Registration successful! Please log in.");
+      navigate("/auth/login");
     } catch (error) {
+      console.error("Registration failed:", error);
       toast.error(error || "Registration failed");
     } finally {
       setSubmitting(false);
@@ -115,6 +112,7 @@ const RegistrationForm = () => {
       >
         {({ isSubmitting, isValid, values }) => (
           <Form className={css.form}>
+            {isSubmitting && <div className={css.loader}>Loading...</div>}
             <div className={css.fieldGroup}>
               <label htmlFor="name" className={css.label}>
                 Enter your name

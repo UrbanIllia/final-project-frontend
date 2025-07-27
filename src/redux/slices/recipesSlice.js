@@ -33,21 +33,20 @@ const recipesReducer = createSlice({
   },
   extraReducers: (builder) =>
     builder
-
       .addCase(addRecipeThunk.fulfilled, (state, { payload }) => {
         state.recipes.push(payload);
         state.isLoading = false;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchRecipeByIdThunk.fulfilled, (state, { payload }) => {
         state.recipeDetails = payload;
         state.isLoading = false;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchOwnRecipesThunk.fulfilled, (state, { payload }) => {
         state.ownRecipes = payload;
         state.isLoading = false;
-        state.error = false;
+        state.error = null;
       })
       .addCase(loadMoreRecipesThunk.fulfilled, (state, { payload }) => {
         state.recipes = [...state.recipes, ...payload.data.items];
@@ -82,7 +81,7 @@ const recipesReducer = createSlice({
         ),
         (state) => {
           state.isLoading = true;
-          state.error = false;
+          state.error = null;
         }
       )
       .addMatcher(

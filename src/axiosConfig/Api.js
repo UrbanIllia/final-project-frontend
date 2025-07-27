@@ -5,8 +5,8 @@ export const API = axios.create({
   withCredentials: true,
 });
 
-export const setAuthHeader = (token) => {
-  API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+export const setAuthHeader = (accessToken) => {
+  API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 };
 
 export const clearAuthHeader = () => {
@@ -17,7 +17,7 @@ API.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -31,7 +31,6 @@ API.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
       try {
         const response = await axios.post(
           "https://final-project-backend-rtvo.onrender.com/api/auth/refresh",
@@ -39,17 +38,17 @@ API.interceptors.response.use(
           { withCredentials: true }
         );
 
-        const { accessToken: newAccessToken } = response.data;
+        const { accessToken } = response.data;
 
-        localStorage.setItem("accessToken", newAccessToken);
-        setAuthHeader(newAccessToken);
+        localStorage.setItem("accessToken", accessToken);
+        setAuthHeader(accessToken);
 
-        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return API(originalRequest);
       } catch (refreshError) {
-        clearAuthHeader();
+        console.error("Не вдалося оновити токен:", refreshError);
         localStorage.removeItem("accessToken");
-        // window.location.href = "/login";
+        clearAuthHeader();
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }

@@ -38,9 +38,9 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await dispatch(logoutUserThunk()).unwrap();
-      toast.success("Выход выполнен успешно!");
+      toast.success("Logout successful!");
     } catch (error) {
-      toast.error("Ошибка при выходе: " + error);
+      toast.error("Logout error: " + error);
     } finally {
       setMenuOpen(false);
       navigate("/");

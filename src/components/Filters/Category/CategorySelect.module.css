@@ -68,3 +68,10 @@ height: 262px;
 .activeOption {
   background-color: var(--light-gray-2);
 }
+/* Desktop (1440px+) */
+@media screen and (min-width: 1440px) {
+  .optionsList {
+  position: relative;
+  top: 20%;
+}
+}

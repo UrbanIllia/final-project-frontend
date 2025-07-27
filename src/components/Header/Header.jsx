@@ -33,7 +33,7 @@ export default function Header() {
           toast.error("Failed to load user data");
         });
     }
-  }, [isLoggedIn, dispatch]);
+  }, [isLoggedIn, userName, dispatch]);
 
   const handleLogout = async () => {
     try {

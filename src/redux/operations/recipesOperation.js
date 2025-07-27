@@ -4,7 +4,7 @@ import { API } from "../../axiosConfig/Api";
 export const fetchRecipesThunk = createAsyncThunk(
   "fetchRecipes",
   async (
-    { page = 1, perPage = 10, categories = "", ingredients = "", search = "" },
+    { page = 1, perPage = 12, categories = "", ingredients = "", search = "" },
     thunkAPI
   ) => {
     try {
@@ -15,6 +15,28 @@ export const fetchRecipesThunk = createAsyncThunk(
           categories,
           ingredients,
           search,
+        },
+      });
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const loadMoreRecipesThunk = createAsyncThunk(
+  "loadMoreRecipes",
+  async (filters, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const currentPage = state.recipes.page;
+      const nextPage = currentPage + 1;
+
+      const { data } = await API.get("/recipes", {
+        params: {
+          ...filters,
+          page: nextPage,
+          perPage: 12,
         },
       });
       return data;
@@ -74,7 +96,8 @@ export const updateFavoriteRecipesThunk = createAsyncThunk(
   async ({ id, action }, thunkAPI) => {
     try {
       await API.patch("recipes/favorites", { recipeId: id, action });
-      return { id, action };
+      const { data } = await API.get("recipes/favorites");
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -116,4 +139,3 @@ export const fetchRecipesByFiltersThunk = createAsyncThunk(
     }
   }
 );
-

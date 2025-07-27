@@ -7,7 +7,7 @@ import {
 } from "../operations/authOperations";
 
 const initialState = {
-  token: null,
+  accessToken: null,
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
@@ -61,7 +61,7 @@ const authReducer = createSlice({
         state.error = null;
       })
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.accessToken;
+        state.accessToken = payload.accessToken;
         state.isLoading = false;
         state.isLoggedIn = true;
         state.error = null;

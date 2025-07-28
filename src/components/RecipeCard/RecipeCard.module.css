@@ -96,8 +96,8 @@
   margin-left: 8px;
 }
 
-.saveIconWrapper:hover,
-.saveIconWrapper.active {
+.favoriteBtn:hover,
+.favoriteBtn.active {
   border: none;
   background: var(--light-brown);
 }
@@ -107,8 +107,8 @@
   height: 17px;
 }
 
-.saveIconWrapper:hover .saveIcon,
-.saveIconWrapper.active .saveIcon {
+.favoriteBtn:hover .saveIcon,
+.favoriteBtn.active .saveIcon {
   stroke: #fff;
   color: #fff;
 }

@@ -128,10 +128,14 @@ const Filters = ({ onFiltersChange }) => {
 
   return (
     <>
+          <h2 className={css.h2reception}>
+            {search ? `Search Results for “${search}”` : "Recipes"}
+          </h2>
       <div className={css.recipeFiltering}>
         <div className={css.leftSide}>
-          <h2 className={css.h2reception}>Recipes</h2>
-          <p className={css.recipesCount}>{totalItems} recipes</p>
+          <p className={css.recipesCount}>
+            {totalItems} {totalItems === 1 ? "recipe" : "recipes"}
+          </p>
         </div>
         <div className={css.rightSideContainer}>
           <div className={css.filterHeader} onClick={openModal}>

@@ -15,6 +15,7 @@ const initialState = {
     email: "",
     favorites: [],
   },
+  favoriteRecipes: [],
   isLoading: false,
   error: null,
 };

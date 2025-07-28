@@ -13,7 +13,7 @@ import filtersReducer from "./slices/filtersSlice";
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["token", "isLoggedIn"],
+  whitelist: ["accessToken"],
 };
 
 const rootReducer = combineReducers({

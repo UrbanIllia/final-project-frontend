@@ -27,28 +27,25 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
+    console.log("Interceptor caught error:", error.response?.status);
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const response = await axios.post(
-          "https://final-project-backend-rtvo.onrender.com/api/auth/refresh",
-          {},
-          { withCredentials: true }
-        );
+        const response = await API.post("/auth/refresh");
 
-        const { accessToken } = response.data;
+        const { accessToken: newAccessToken } = response.data;
 
-        localStorage.setItem("accessToken", accessToken);
-        setAuthHeader(accessToken);
+        localStorage.setItem("accessToken", newAccessToken);
+        setAuthHeader(newAccessToken);
 
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return API(originalRequest);
       } catch (refreshError) {
-        console.error("Не вдалося оновити токен:", refreshError);
-        localStorage.removeItem("accessToken");
         clearAuthHeader();
-        window.location.href = "/login";
+        localStorage.removeItem("accessToken");
+        // window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }

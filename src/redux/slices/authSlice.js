@@ -19,6 +19,10 @@ const authReducer = createSlice({
   initialState,
   extraReducers: (builder) =>
     builder
+      .addCase("auth/updateToken", (state, action) => {
+        state.accessToken = action.payload.accessToken;
+        state.isLoggedIn = action.payload.isLoggedIn;
+      })
       .addCase(logoutUserThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;

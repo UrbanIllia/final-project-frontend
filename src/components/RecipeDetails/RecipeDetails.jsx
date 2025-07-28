@@ -61,7 +61,7 @@ const RecipeDetails = () => {
                 : "N/A"}
             </p>
           </div>
-          <ButtonSave recipeId={id} />
+          <ButtonSave recipeId={data._id} />
         </div>
         <div className={s.recipeDetailsContainer}>
           <div className={s.recipeAboutContainer}>

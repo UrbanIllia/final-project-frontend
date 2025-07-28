@@ -48,6 +48,7 @@ const userReducer = createSlice({
       })
       .addCase(logoutUserThunk.fulfilled, (state) => {
         state.user = initialState.user;
+        state.favoriteRecipes = [];
       })
       .addMatcher(
         isAnyOf(

@@ -1,13 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import css from "./Footer.module.css";
 import Logo from "../Logo/Logo.jsx";
 import { useState } from "react";
-import LoginOrRegister from "../LoginOrRegister/LoginOrRegister.jsx";
+import AuthModal from "../AuthModal/AuthModal";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
 
   const handleProfileClick = (e) => {
     if (!isLoggedIn) {
@@ -35,7 +36,7 @@ const Footer = () => {
           </NavLink>
 
           <NavLink
-            to="/profile"
+            to="/profile/own"
             className={css.link}
             onClick={handleProfileClick}
           >
@@ -44,10 +45,21 @@ const Footer = () => {
         </div>
 
         {isModalOpen && (
-          <LoginOrRegister
-            title="Access Your Account"
-            description="Please log in or register to access your profile."
+          <AuthModal
+            isOpen={isModalOpen}
             onClose={closeModal}
+            title="Error while viewing profile"
+            message="You must log in or register."
+            secondaryBtnText="Log in"
+            primaryBtnText="Register"
+            onSecondaryClick={() => {
+              setIsModalOpen(false);
+              navigate("/auth/login");
+            }}
+            onPrimaryClick={() => {
+              setIsModalOpen(false);
+              navigate("/auth/register");
+            }}
           />
         )}
       </div>

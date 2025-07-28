@@ -4,9 +4,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout/Layout";
 import NotFound from "./components/NotFound/NotFound";
-import { refreshUserThunk } from "./redux/operations/authOperations";
-import { fetchUserThunk } from "./redux/operations/userOperation";
-import { useDispatch } from "react-redux";
+// import { refreshUserThunk } from "./redux/operations/authOperations";
+// import { fetchUserThunk } from "./redux/operations/userOperation";
+// import { useDispatch } from "react-redux";
 
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
@@ -17,24 +17,24 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage/ProfilePage"));
 const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accessToken");
 
-    if (!token) {
-      dispatch(refreshUserThunk())
-        .unwrap()
-        .then(() => {
-          dispatch(fetchUserThunk());
-        })
-        .catch(() => {
-          console.log("Something went wrong");
-        });
-    } else {
-      dispatch(fetchUserThunk());
-    }
-  }, [dispatch]);
+  //   if (!token) {
+  //     dispatch(refreshUserThunk())
+  //       .unwrap()
+  //       .then(() => {
+  //         dispatch(fetchUserThunk());
+  //       })
+  //       .catch(() => {
+  //         console.log("Something went wrong");
+  //       });
+  //   } else {
+  //     dispatch(fetchUserThunk());
+  //   }
+  // }, [dispatch]);
   return (
     <div>
       <ToastContainer

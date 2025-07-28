@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
-import { selectFavoriteRecipes } from "../../redux/selectors/recipesSelector";
+import { selectFavoriteRecipes } from "../../redux/selectors/userSelector";
 import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
 import AuthModal from "../AuthModal/AuthModal";
 
@@ -81,7 +81,7 @@ export default function RecipeCard({ recipe }) {
         }}
         onPrimaryClick={() => {
           setModalOpen(false);
-          navigate("auth/register");
+          navigate("/auth/register");
         }}
       />
     </div>

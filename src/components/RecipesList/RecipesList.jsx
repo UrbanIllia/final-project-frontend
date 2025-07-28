@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import css from "./RecipesList.module.css";
+import Loading from "../Loading/Loading";
 
 const RecipesList = () => {
   const recipes = useSelector((state) => state.recipes.recipes);
@@ -22,7 +23,12 @@ const RecipesList = () => {
     }
   }, [recipes, isLoading, search]);
 
-  if (isLoading) return <p className={css.message}>Loading...</p>;
+  if (isLoading)
+    return (
+      <p className={css.message}>
+        <Loading />
+      </p>
+    );
 
   return (
     <ul className={css.recipe_list}>

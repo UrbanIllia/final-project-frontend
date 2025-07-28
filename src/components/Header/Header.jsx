@@ -13,8 +13,8 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userName = useSelector((state) => state.user.user.name || "Guest");
-  const isLoading = useSelector((state) => state.user.isLoading);
-  const error = useSelector((state) => state.user.error);
+  // const isLoading = useSelector((state) => state.user.isLoading);
+  // const error = useSelector((state) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,9 +38,9 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await dispatch(logoutUserThunk()).unwrap();
-      toast.success("Выход выполнен успешно!");
+      toast.success("Logout successful!");
     } catch (error) {
-      toast.error("Ошибка при выходе: " + error);
+      toast.error("Logout error: " + error);
     } finally {
       setMenuOpen(false);
       navigate("/");
@@ -49,8 +49,8 @@ export default function Header() {
 
   return (
     <header className={css.header}>
-      {isLoading && <div className={css.loader}>Loading...</div>}
-      {error && <div className={css.error}>Error: {error}</div>}
+      {/* {isLoading && <div className={css.loader}>Loading...</div>}
+      {error && <div className={css.error}>Error: {error}</div>} */}
       <div className={css.container}>
         <Logo />
         <BurgerMenu open={menuOpen} setOpen={setMenuOpen} />

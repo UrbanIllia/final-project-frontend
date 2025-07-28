@@ -36,9 +36,10 @@
   font-weight: 400;
   font-size: 12px;
   color: var(--black);
+}
+.mbsmall {
   margin-bottom: 4px;
 }
-
 .form {
   display: flex;
   flex-direction: column;
@@ -110,6 +111,12 @@
   box-shadow: none;
   outline: none;
 }
+.fieldGroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 .registerwrapp {
   display: flex;
   flex-direction: row;
@@ -122,7 +129,9 @@
   text-align: center;
   color: var(--black);
 }
-
+.mb {
+  margin-bottom: 16px;
+}
 .registerwrapp_link {
   font-weight: 600;
   text-decoration: underline;

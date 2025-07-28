@@ -7,6 +7,7 @@ export const fetchUserThunk = createAsyncThunk(
     try {
       localStorage.clear();
       const response = await API.get("/users/current");
+      thunkAPI.dispatch(fetchFavoriteRecipesThunk());
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -18,7 +19,7 @@ export const fetchFavoriteRecipesThunk = createAsyncThunk(
   "fetchFavoriteRecipes",
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get("recipes/favorites");
+      const { data } = await API.get("/users/favorites");
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -26,15 +27,17 @@ export const fetchFavoriteRecipesThunk = createAsyncThunk(
   }
 );
 
-// {action} means ADD or REMOVE = like a toggle
-// backend can find it in req.body
-
 export const updateFavoriteRecipesThunk = createAsyncThunk(
   "updateFavoriteRecipes",
   async ({ id, action }, thunkAPI) => {
     try {
-      await API.patch("recipes/favorites", { recipeId: id, action });
-      const { data } = await API.get("recipes/favorites");
+      if (action === "ADD") {
+        await API.post(`/users/favorites/${id}`);
+      } else if (action === "REMOVE") {
+        await API.delete(`/users/favorites/${id}`);
+      }
+
+      const { data } = await API.get("/users/favorites");
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -1,37 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-
-import { selectFavoriteRecipes } from "../../redux/selectors/recipesSelector";
-import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
 import AuthModal from "../AuthModal/AuthModal";
-
 import SaveIcon from "../Icons/SaveIcon";
 import ClockIcon from "../Icons/ClockIcon";
 import css from "./RecipeCard.module.css";
-import { updateFavoriteRecipesThunk } from "../../redux/operations/userOperation";
+import { useFavoriteRecipe } from "../../hooks/useFavoriteRecipe";
 
 export default function RecipeCard({ recipe }) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const isAuthenticated = useSelector(selectAuthIsLoggedIn);
-  const favoriteRecipes = useSelector(selectFavoriteRecipes);
-  const [isModalOpen, setModalOpen] = useState(false);
-
   const { _id, title, thumb, description, time, calories } = recipe;
-
-  const isFavorite = favoriteRecipes.some((fav) => fav._id === _id);
-
-  const handleToggleFavorite = () => {
-    if (!isAuthenticated) {
-      setModalOpen(true);
-      return;
-    }
-
-    const action = isFavorite ? "REMOVE" : "ADD";
-    dispatch(updateFavoriteRecipesThunk({ id: _id, action }));
-  };
+  const navigate = useNavigate();
+  const {
+    isFavorite,
+    isModalOpen,
+    setModalOpen,
+    handleToggleFavorite,
+    handleModalLogin,
+    handleModalRegister,
+  } = useFavoriteRecipe(_id);
 
   const handleLearnMore = () => {
     navigate(`/recipes/${_id}`);
@@ -75,14 +59,8 @@ export default function RecipeCard({ recipe }) {
         message="To save this recipe, you need to authorize first"
         secondaryBtnText="Log in"
         primaryBtnText="Register"
-        onSecondaryClick={() => {
-          setModalOpen(false);
-          navigate("/auth/login");
-        }}
-        onPrimaryClick={() => {
-          setModalOpen(false);
-          navigate("auth/register");
-        }}
+        onSecondaryClick={handleModalLogin}
+        onPrimaryClick={handleModalRegister}
       />
     </div>
   );

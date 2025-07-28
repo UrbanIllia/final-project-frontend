@@ -5,7 +5,6 @@ export const fetchUserThunk = createAsyncThunk(
   "fetchUser",
   async (_, thunkAPI) => {
     try {
-      localStorage.clear();
       const response = await API.get("/users/current");
       return response.data.data;
     } catch (error) {

@@ -4,12 +4,12 @@ import { useState } from "react";
 
 import { selectFavoriteRecipes } from "../../redux/selectors/recipesSelector";
 import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
-import { updateFavoriteRecipesThunk } from "../../redux/operations/recipesOperation";
 import AuthModal from "../AuthModal/AuthModal";
 
 import SaveIcon from "../Icons/SaveIcon";
 import ClockIcon from "../Icons/ClockIcon";
 import css from "./RecipeCard.module.css";
+import { updateFavoriteRecipesThunk } from "../../redux/operations/userOperation";
 
 export default function RecipeCard({ recipe }) {
   const dispatch = useDispatch();

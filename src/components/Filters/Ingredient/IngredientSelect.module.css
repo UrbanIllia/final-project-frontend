@@ -78,5 +78,12 @@ height: 262px;
 }
 .customSelect {
 width: 179px;
+
+}
+.selectedText {
+  color: #333;
+    overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 }

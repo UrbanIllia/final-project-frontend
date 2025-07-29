@@ -14,7 +14,6 @@ import { refreshUserThunk } from "./redux/operations/authOperations";
 // import { fetchUserThunk } from "./redux/operations/userOperation";
 // import { useDispatch } from "react-redux";
 
-
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
   import("./pages/RecipeViewPage/RecipeViewPage")
@@ -25,7 +24,6 @@ const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     const persistAuth = localStorage.getItem("persist:auth");
@@ -98,7 +96,7 @@ const App = () => {
             <Route index element={<MainPage />} />
             <Route path="/recipes/:id" element={<RecipeViewPage />} />
             <Route path="/add-recipe" element={<AddRecipePage />} />
-            <Route path="/profile/:recipeType" element={<ProfilePage />} />
+            <Route path="/profile/:recipeType?" element={<ProfilePage />} />
             <Route path="/auth/:authType" element={<AuthPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>

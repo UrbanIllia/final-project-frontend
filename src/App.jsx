@@ -9,6 +9,7 @@ import { fetchUserThunk } from "./redux/operations/userOperation";
 import { useDispatch } from "react-redux";
 import { setAuthHeader } from "./axiosConfig/Api";
 import { refreshUserThunk } from "./redux/operations/authOperations";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 // import { refreshUserThunk } from "./redux/operations/authOperations";
 // import { fetchUserThunk } from "./redux/operations/userOperation";
@@ -91,6 +92,7 @@ const App = () => {
         style={{ zIndex: 9999 }}
       />
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />

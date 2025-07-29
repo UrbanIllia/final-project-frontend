@@ -4,10 +4,11 @@ import css from "./Footer.module.css";
 import Logo from "../Logo/Logo.jsx";
 import { useState } from "react";
 import AuthModal from "../AuthModal/AuthModal";
+import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector.js";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
   const navigate = useNavigate();
 
   const handleProfileClick = (e) => {
@@ -31,14 +32,21 @@ const Footer = () => {
         </p>
 
         <div className={css.nav}>
-          <NavLink to="/" className={css.link}>
+          <NavLink
+            to="/"
+            className={css.link}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
             Recipes
           </NavLink>
 
           <NavLink
             to="/profile/own"
             className={css.link}
-            onClick={handleProfileClick}
+            onClick={(e) => {
+              handleProfileClick(e);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           >
             Account
           </NavLink>

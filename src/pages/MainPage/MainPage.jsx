@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { setSearch } from "../../redux/slices/filtersSlice";
+import { setSearch, resetFilters } from "../../redux/slices/filtersSlice";
 import {
   fetchRecipesThunk,
   fetchRecipesByFiltersThunk,
@@ -90,6 +90,22 @@ export default function MainPage() {
     }
   };
 
+  const handleResetFiltersAndScroll = () => {
+    dispatch(resetRecipes());
+    dispatch(resetFilters());
+    dispatch(setSearch(""));
+
+    dispatch(fetchRecipesThunk({ page: 1, perPage: 12 }));
+
+    setCurrentFilters({
+      search: "",
+      category: "",
+      ingredient: "",
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     if (!isLoading && error) {
       toast.error(`Error loading recipes: ${error}`);
@@ -107,7 +123,11 @@ export default function MainPage() {
       <Banner onSearch={handleSearch} />
       <Filters onFiltersChange={handleFiltersChange} />
 
-      {totalItems > 0 ? <RecipesList /> : <NoResults />}
+      {totalItems > 0 ? (
+        <RecipesList />
+      ) : (
+        <NoResults onReset={handleResetFiltersAndScroll} />
+      )}
 
       <LoadMoreBtn loadMore={handleLoadMore} />
     </div>

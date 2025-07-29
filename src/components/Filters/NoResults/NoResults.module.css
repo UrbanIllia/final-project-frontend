@@ -1,10 +1,84 @@
+.centered {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .wrapper {
-  padding: 40px 20px;
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-radius: 16px;
+  padding: 40px 24px;
+  background: var(--light-beige);
+  width: 361px;
+  height: 207px;
+}
+.message {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
   text-align: center;
+ padding-bottom: 15px;
+}
+.messageBox {
+  background: var(--light-beige);
+  border-radius: 16px;
+  text-align: center;
+  width: 100%;
+  max-width: 361px;
+}
+.resetBtn{
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 8px;
+  border: 1px solid var(--black);
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  background: var(--light-beige);
+  cursor: pointer;
+width: 313px;
+height: 54px;
+  transition: background-color 0.3s ease;
+
+}
+.resetBtn:hover {
+background: var(--light-brown);
+}
+/* Tablet (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+.wrapper{
+  width: 522px;
+  padding-top: 32px;
+}
+.message {
+  padding: 0 70px 15px;
+}
+.messageBox {
+  max-width: 522px;
+}
+.resetBtn {
+padding: 16px;
+width: 474px;
+height: 54px;
+}
+}
+/* Desktop (1440px+) */
+@media screen and (min-width: 1440px) {
+.wrapper {
+  gap: 15px;
+  width: 600px;
+  
+}
+.messageBox {
+  max-width: 600px;
 }
 
-.message {
-  font-size: 18px;
-  color: #888;
-  line-height: 1.4;
+.resetBtn {
+  width: 550px;
+  height: 54px;
+}
+
 }

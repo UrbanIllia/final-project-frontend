@@ -80,7 +80,7 @@ export const fetchOwnRecipesThunk = createAsyncThunk(
   "fetchOwnRecipes",
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get("recipes/own");
+      const { data } = await API.get("users/own");
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

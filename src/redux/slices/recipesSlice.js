@@ -44,7 +44,10 @@ const recipesReducer = createSlice({
         state.error = null;
       })
       .addCase(fetchOwnRecipesThunk.fulfilled, (state, { payload }) => {
-        state.ownRecipes = payload;
+        state.ownRecipes = payload.items;
+        state.totalItems = payload.totalItems;
+        state.page = payload.page;
+        state.hasMore = payload.items.length < payload.totalItems;
         state.isLoading = false;
         state.error = null;
       })

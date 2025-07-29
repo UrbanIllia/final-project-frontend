@@ -1,5 +1,5 @@
 .customSelect { 
-width: 179px;
+width: 296px;
 height: 33px;
   border: 2px solid #918e8e08; 
   border-radius: 4px;
@@ -20,7 +20,7 @@ color: var(--gray);
 }
 
 .placeholderText {
-  color: #888;
+  color: var(--gray);
   font-weight: 400;
 font-size: 16px;
 line-height: 1.55;
@@ -73,5 +73,8 @@ height: 262px;
   .optionsList {
   position: relative;
   top: 20%;
+}
+.customSelect{
+width: 179px;
 }
 }

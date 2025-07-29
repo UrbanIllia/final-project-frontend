@@ -1,6 +1,6 @@
 .recipeFiltering {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 16px;
   padding-top: 16px;
@@ -27,13 +27,13 @@
   color: var(--black);
 }
 
-.rightSideContainer { 
+.rightSideContainer {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .filterHeader {
-  display: flex; 
+  display: flex;
   align-items: center;
   gap: 5px;
   cursor: pointer;
@@ -51,7 +51,7 @@
 }
 
 .desktopFilters {
-  display: none; 
+  display: none;
 }
 
 .resetBtn {
@@ -65,11 +65,12 @@
   align-items: center;
   justify-content: center;
   color: var(--black);
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .resetBtn:hover {
   border-color: #555;
+  transform: scale(1.1);
 }
 
 /* Tablet (768px - 1439px) */
@@ -78,7 +79,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-      padding-top: 16px;
+    padding-top: 16px;
   }
 
   .h2reception {
@@ -87,7 +88,7 @@
   }
 
   .rightSideContainer {
-    display: flex; 
+    display: flex;
     align-items: flex-end;
   }
 
@@ -106,20 +107,20 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-   padding: 16px 0;
+    padding: 16px 0;
   }
 
   .filterHeader {
-    display: none; 
+    display: none;
   }
 
   .rightSideContainer {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
   }
 
   .desktopFilters {
-    display: flex; 
+    display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
@@ -131,22 +132,24 @@
     display: flex;
     flex-direction: row;
     padding: 4px 8px;
-    border-bottom: 1px solid var(--black);
+    border-bottom: 2px solid var(--black);
+    font-weight: 600;
+    font-size: 12px;
   }
   .leftSide {
-  display: block;
-}
-.h2reception {
-  font-size: 40px;
-  font-weight: 600;
-padding-top: 48px;
-  word-break: break-word;
-}
+    display: block;
+  }
+  .h2reception {
+    font-size: 40px;
+    font-weight: 600;
+    padding-top: 48px;
+    word-break: break-word;
+  }
 
-.recipesCount {
-  margin: 0; 
-  font-size: 16px; 
-  color: #555; 
-  margin-top: 8px; 
-}
+  .recipesCount {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+    margin-top: 8px;
+  }
 }

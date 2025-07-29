@@ -224,6 +224,7 @@ button[type="submit"] {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 200ms ease-in-out;
 }
 
 .buttonSecondary,
@@ -235,4 +236,12 @@ button[type="button"] {
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.addBtn:hover {
+  background-color: var(--light-brown);
+  color: var(--white);
+}
+.buttonPrimary:hover {
+  background-color: #6d554b;
 }

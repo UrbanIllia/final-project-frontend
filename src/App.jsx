@@ -9,11 +9,11 @@ import { fetchUserThunk } from "./redux/operations/userOperation";
 import { useDispatch } from "react-redux";
 import { setAuthHeader } from "./axiosConfig/Api";
 import { refreshUserThunk } from "./redux/operations/authOperations";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 // import { refreshUserThunk } from "./redux/operations/authOperations";
 // import { fetchUserThunk } from "./redux/operations/userOperation";
 // import { useDispatch } from "react-redux";
-
 
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
@@ -25,7 +25,6 @@ const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     const persistAuth = localStorage.getItem("persist:auth");
@@ -93,6 +92,7 @@ const App = () => {
         style={{ zIndex: 9999 }}
       />
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />

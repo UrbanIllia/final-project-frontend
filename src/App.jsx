@@ -24,7 +24,7 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage/ProfilePage"));
 const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
 
   useEffect(() => {

@@ -98,8 +98,10 @@ export default function AddRecipeForm() {
           <div className={styles.generalBlock}>
             <label className={styles.sectionTitle}>General Information</label>
             <div className={styles.generalItems}>
-              <div>
-                <label>Recipe Title</label>
+              <div className={styles.descriptionItem}>
+                <div className={styles.smallTitle}>
+                  <label>Recipe Title</label>
+                </div>
                 <Field
                   name="title"
                   type="text"
@@ -111,8 +113,10 @@ export default function AddRecipeForm() {
                   className={styles.error}
                 />
               </div>
-              <div>
-                <label>Recipe Description</label>
+              <div className={styles.descriptionItem}>
+                <div className={styles.smallTitle}>
+                  <label>Recipe Description</label>
+                </div>
                 <Field
                   as="textarea"
                   name="description"
@@ -126,38 +130,51 @@ export default function AddRecipeForm() {
               </div>
               <div className={styles.generalGrid}>
                 <div className={styles.fullWidth}>
-                  <label>Cooking Time (minutes)</label>
-                  <Field name="time" type="number" placeholder="10" />
-                  <ErrorMessage
-                    name="time"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label>Calories</label>
-                  <Field name="calories" type="number" placeholder="150 cals" />
-                  <ErrorMessage
-                    name="calories"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label>Category</label>
-                  <Field name="category" as="select">
-                    <option value="">Select category</option>
-                    {categories.map((c) => (
-                      <option key={c._id || c.id} value={c.name}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </Field>
-                  <ErrorMessage
-                    name="category"
-                    component="div"
-                    className={styles.error}
-                  />
+                  <div className={styles.descriptionItem}>
+                    <div className={styles.smallTitle}>
+                      <label>Cooking Time (minutes)</label>
+                    </div>
+                    <Field name="time" type="number" placeholder="10" />
+                    <ErrorMessage
+                      name="time"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <div className={styles.smallTitle}>
+                      <label>Calories</label>
+                    </div>
+                    <Field
+                      name="calories"
+                      type="number"
+                      placeholder="150 cals"
+                    />
+                    <ErrorMessage
+                      name="calories"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+
+                  <div>
+                    <div className={styles.smallTitle}>
+                      <label>Category</label>
+                    </div>
+                    <Field name="category" as="select">
+                      <option value="">Select category</option>
+                      {categories.map((c) => (
+                        <option key={c._id || c.id} value={c.name}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="category"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,7 +214,9 @@ export default function AddRecipeForm() {
             <label className={styles.sectionTitle}>Ingredients</label>
             <div className={styles.ingredientInputs}>
               <div className={styles.fieldGroup}>
-                <label>Name</label>
+                <div className={styles.smallTitle}>
+                  <label>Name</label>
+                </div>
                 <Field as="select" name="ingredient">
                   <option value="">Select ingredient</option>
                   {ingredientsList.map((ing) => (
@@ -208,7 +227,9 @@ export default function AddRecipeForm() {
                 </Field>
               </div>
               <div className={styles.fieldGroup}>
-                <label>Amount</label>
+                <div className={styles.smallTitle}>
+                  <label>Amount</label>
+                </div>
                 <Field name="amount" type="text" placeholder="100g" />
               </div>
               <button

@@ -17,6 +17,16 @@
   font-size: 24px;
   color: var(--black);
 }
+.smallTitle {
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+@media (min-width: 768px) {
+  .smallTitle {
+    margin-top: 32px;
+  }
+}
+
 @media (min-width: 768px) {
   .sectionTitle {
     font-size: 32px;
@@ -121,11 +131,11 @@ select {
   border-radius: 4px;
   background-color: var(--white);
   color: var(--black-2);
+  resize: none;
 }
 
 textarea {
   min-height: 80px;
-  resize: vertical;
 }
 
 .error {
@@ -162,7 +172,6 @@ textarea {
   display: grid;
   gap: 12px;
   grid-template-columns: 1fr;
-  margin-top: 32px;
 }
 
 .fieldGroup {
@@ -188,6 +197,16 @@ textarea {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .addBtn:hover {
+    background-color: var(--brown);
+    transform: scale(1.05);
+  }
+  .addBtn:active {
+    background-color: var(--darck-brown);
+    transform: scale(0.97);
   }
 }
 
@@ -213,6 +232,8 @@ textarea {
   cursor: pointer;
 }
 
+/* Button Styles with Hover Animation and Active State */
+
 .buttonPrimary,
 button[type="submit"] {
   width: 100%;
@@ -224,6 +245,20 @@ button[type="submit"] {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttonPrimary:hover,
+button[type="submit"]:hover {
+  background-color: var(--brown);
+  transform: scale(1.03);
+}
+
+.buttonPrimary:active,
+button[type="submit"]:active {
+  background-color: var(--darck-brown);
+  transform: scale(0.98);
 }
 
 .buttonSecondary,
@@ -235,4 +270,27 @@ button[type="button"] {
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttonSecondary:hover,
+button[type="button"]:hover {
+  background-color: var(--light-brown);
+  transform: scale(1.02);
+}
+
+.buttonSecondary:active,
+button[type="button"]:active {
+  background-color: var(--brown);
+  transform: scale(0.97);
+}
+
+button:focus,
+button:hover {
+  outline: none;
+}
+
+.button:active {
+  background: var(--light-brown);
 }

@@ -51,8 +51,6 @@ export default function Header() {
 
   return (
     <header className={css.header}>
-      {/* {isLoading && <div className={css.loader}>Loading...</div>}
-      {error && <div className={css.error}>Error: {error}</div>} */}
       <div className={css.container}>
         <Logo />
         <BurgerMenu open={menuOpen} setOpen={setMenuOpen} />

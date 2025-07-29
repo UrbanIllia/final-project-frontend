@@ -16,6 +16,7 @@ import {
   fetchOwnRecipesThunk,
   loadMoreRecipesThunk,
 } from "../../../redux/operations/recipesOperation.js";
+import NotFoundRecipes from "../../NotFoundRecipes/NotFoundRecipes.jsx";
 
 const OwnRecipes = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const OwnRecipes = () => {
 
   if (isLoading && ownRecipes.length === 0) return <Loader />;
   if (error) return <p>Error: {error}</p>;
-  if (!ownRecipes.length) return <p>You don't have any own recipes yet.</p>;
+  if (!ownRecipes.length) return <NotFoundRecipes />;
 
   return (
     <div>

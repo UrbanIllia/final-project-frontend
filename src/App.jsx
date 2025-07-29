@@ -4,9 +4,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout/Layout";
 import NotFound from "./components/NotFound/NotFound";
+
+import { fetchUserThunk } from "./redux/operations/userOperation";
+import { useDispatch } from "react-redux";
+import { setAuthHeader } from "./axiosConfig/Api";
+import { refreshUserThunk } from "./redux/operations/authOperations";
+
 // import { refreshUserThunk } from "./redux/operations/authOperations";
 // import { fetchUserThunk } from "./redux/operations/userOperation";
 // import { useDispatch } from "react-redux";
+
 
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
@@ -18,6 +25,40 @@ const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage"));
 
 const App = () => {
   // const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const persistAuth = localStorage.getItem("persist:auth");
+    let accessToken = null;
+
+    if (persistAuth) {
+      try {
+        const authState = JSON.parse(persistAuth);
+        accessToken = JSON.parse(authState.accessToken);
+      } catch (e) {
+        console.error("Error parsing persisted auth", e);
+      }
+    }
+
+    console.log("useEffect token:", accessToken);
+
+    if (accessToken) {
+      console.log("time to fetch user");
+      dispatch(refreshUserThunk())
+        .unwrap()
+        .then(({ accessToken: newToken }) => {
+          setAuthHeader(newToken);
+          dispatch(fetchUserThunk());
+        })
+        .catch(() => {
+          console.log("No access token and refresh failed");
+        });
+      setAuthHeader(accessToken);
+    }
+    if (!accessToken) {
+      console.log("User is not yet authorized");
+    }
+  }, [dispatch]);
 
   // useEffect(() => {
   //   const token = localStorage.getItem("accessToken");
@@ -35,6 +76,7 @@ const App = () => {
   //     dispatch(fetchUserThunk());
   //   }
   // }, [dispatch]);
+
   return (
     <div>
       <ToastContainer

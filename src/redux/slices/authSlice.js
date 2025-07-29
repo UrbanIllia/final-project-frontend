@@ -8,7 +8,6 @@ import {
 
 const initialState = {
   accessToken: null,
-  isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
   error: null,
@@ -21,7 +20,6 @@ const authReducer = createSlice({
     builder
       .addCase("auth/updateToken", (state, action) => {
         state.accessToken = action.payload.accessToken;
-        state.isLoggedIn = action.payload.isLoggedIn;
       })
       .addCase(logoutUserThunk.pending, (state) => {
         state.isLoading = true;
@@ -36,10 +34,10 @@ const authReducer = createSlice({
       })
       .addCase(refreshUserThunk.pending, (state) => {
         state.isRefreshing = true;
+        state.isRefreshing = true;
         state.isLoading = true;
       })
       .addCase(refreshUserThunk.fulfilled, (state) => {
-        state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;
       })
@@ -67,7 +65,6 @@ const authReducer = createSlice({
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
         state.accessToken = payload.accessToken;
         state.isLoading = false;
-        state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(loginUserThunk.rejected, (state, { payload }) => {

@@ -168,7 +168,6 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-
 "@esbuild/aix-ppc64@0.25.6":
   version "0.25.6"
   resolved "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.25.6.tgz"

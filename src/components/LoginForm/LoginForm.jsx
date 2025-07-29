@@ -56,12 +56,18 @@ const LoginForm = () => {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
+    const { email, password } = values;
+
+    // Проверка перед Yup: если пустые строки — показать toast
+    if (!email.trim() || !password.trim()) {
+      toast.error("All fields must be filled");
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const loginResult = await dispatch(
-        loginUserThunk({
-          email: values.email,
-          password: values.password,
-        })
+        loginUserThunk({ email, password })
       ).unwrap();
       console.log("Login successful, loginResult:", loginResult);
 
@@ -72,7 +78,7 @@ const LoginForm = () => {
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
-      toast.error(error || "Login failed");
+      toast.error("Incorrect email or password");
     } finally {
       setSubmitting(false);
     }
@@ -85,55 +91,71 @@ const LoginForm = () => {
         Welcome back! Please enter your credentials to access your account.
       </p>
       <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
+        validateOnBlur={false}
+        validateOnChange={false}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, isValid }) => (
-          <Form className={css.form}>
-            {isSubmitting && <div className={css.loader}>Loading...</div>}
-            <div className={css.fieldGroup}>
-              <label htmlFor="email" className={css.label}>
-                Enter your email address
-              </label>
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                className={css.input}
-                autoComplete="off"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={css.error}
-              />
-            </div>
-            <div className={css.fieldGroup}>
-              <label htmlFor="password" className={css.label}>
-                Enter your password
-              </label>
-              <Field name="password" component={PasswordField} />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className={css.error}
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting || !isValid}
-              className={css.button}
-            >
-              Log In
-            </button>
-          </Form>
-        )}
+        {({ isSubmitting, values, submitForm }) => {
+          const { email, password } = values;
+
+          const handleManualSubmit = () => {
+            if (!email.trim() || !password.trim()) {
+              toast.error("All fields must be filled");
+              return;
+            }
+
+            submitForm(); // отправляем форму вручную
+          };
+
+          return (
+            <Form className={css.form}>
+              {isSubmitting && <div className={css.loader}></div>}
+
+              <div className={`${css.fieldGroup} ${css.mb}`}>
+                <label htmlFor="email" className={css.label}>
+                  Enter your email address
+                </label>
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  className={css.input}
+                  autoComplete="off"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+
+              <div className={css.fieldGroup}>
+                <label htmlFor="password" className={css.label}>
+                  Enter your password
+                </label>
+                <Field name="password" component={PasswordField} />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+
+              <button
+                type="button"
+                className={css.button}
+                onClick={handleManualSubmit}
+              >
+                Log In
+              </button>
+            </Form>
+          );
+        }}
       </Formik>
+
       <div className={css.registerwrapp}>
         <p className={css.registerwrapp_text}>Don't have an account?</p>
         <Link to="/auth/register" className={css.registerwrapp_link}>

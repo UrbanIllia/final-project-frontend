@@ -15,6 +15,7 @@ const initialState = {
     email: "",
     favorites: [],
   },
+  favoriteRecipes: [],
   isLoading: false,
   error: null,
 };
@@ -47,6 +48,7 @@ const userReducer = createSlice({
       })
       .addCase(logoutUserThunk.fulfilled, (state) => {
         state.user = initialState.user;
+        state.favoriteRecipes = [];
       })
       .addMatcher(
         isAnyOf(

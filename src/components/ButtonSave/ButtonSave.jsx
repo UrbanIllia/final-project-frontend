@@ -1,28 +1,49 @@
-import { useFavoriteRecipe } from "../../hooks/useFavoriteRecipe";
-import AuthModal from "../AuthModal/AuthModal";
-import s from "./ButtonSave.module.css";
-import { MdSaveAlt } from "react-icons/md";
 
-const ButtonSave = ({ recipeId }) => {
-  const {
-    isFavorite,
-    isModalOpen,
-    setModalOpen,
-    handleToggleFavorite,
-    handleModalLogin,
-    handleModalRegister,
-  } = useFavoriteRecipe(recipeId);
+import { useDispatch, useSelector } from "react-redux";
+
+import s from "./ButtonSave.module.css";
+import { MdSaveAlt, MdOutlineRemoveCircle } from "react-icons/md";
+import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
+import { selectFavoriteRecipes } from "../../redux/selectors/recipesSelector";
+import { useState } from "react";
+import { updateFavoriteRecipesThunk } from "../../redux/operations/recipesOperation";
+import AuthModal from "../AuthModal/AuthModal";
+import { useNavigate } from "react-router-dom";
+
+const ButtonSave = ({ id }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isAuthenticated = useSelector(selectAuthIsLoggedIn);
+  const favoriteRecipes = useSelector(selectFavoriteRecipes);
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const isFavorite = favoriteRecipes.some((fav) => fav.id === id);
+
+  const handleToggleFavorite = () => {
+    if (!isAuthenticated) {
+      setModalOpen(true);
+      return;
+    }
+
+    const action = isFavorite ? "REMOVE" : "ADD";
+    dispatch(updateFavoriteRecipesThunk({ id: id, action }));
+  };
+
   return (
     <>
       <button
-        className={`${s.saveRecipeBtn} ${isFavorite ? s.active : ""}`}
+        className={s.saveRecipeBtn}
         onClick={handleToggleFavorite}
         aria-label="Toggle Favorite"
       >
-        {isFavorite ? "Remove" : "Save"}
-        <MdSaveAlt className={`${s.saveIcon} ${isFavorite ? s.flipped : ""}`} />
+        {isFavorite ? "Unsave" : "Save"}
+        {isFavorite ? (
+          <MdOutlineRemoveCircle className={s.saveIcon} />
+        ) : (
+          <MdSaveAlt className={s.saveIcon} />
+        )}
       </button>
-
       <AuthModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
@@ -30,8 +51,14 @@ const ButtonSave = ({ recipeId }) => {
         message="To save this recipe, you need to authorize first"
         secondaryBtnText="Log in"
         primaryBtnText="Register"
-        onSecondaryClick={handleModalLogin}
-        onPrimaryClick={handleModalRegister}
+        onSecondaryClick={() => {
+          setModalOpen(false);
+          navigate("/auth/login");
+        }}
+        onPrimaryClick={() => {
+          setModalOpen(false);
+          navigate("auth/register");
+        }}
       />
     </>
   );

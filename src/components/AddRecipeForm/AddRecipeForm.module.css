@@ -182,31 +182,33 @@ textarea {
 .instructionsItems {
   margin-top: 16px;
 }
+.addBtn {
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 361px;
+  height: 44px;
+  background: var(--light-brown);
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.addBtn:hover,
+.addBtn:focus {
+  background-color: var(--brown);
+  transform: scale(1.05);
+}
+.addBtn:active {
+  background-color: var(--darck-brown);
+  transform: scale(0.97);
+}
+
 @media (min-width: 768px) {
   .ingredientInputs {
     grid-template-columns: 1fr 1fr;
     align-items: start;
   }
-
   .addBtn {
-    grid-column: 1 / -1;
-    justify-self: end;
-    padding: 8px 12px;
-    background-color: var(--light-brown);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .addBtn:hover {
-    background-color: var(--brown);
-    transform: scale(1.05);
-  }
-  .addBtn:active {
-    background-color: var(--darck-brown);
-    transform: scale(0.97);
   }
 }
 
@@ -232,65 +234,53 @@ textarea {
   cursor: pointer;
 }
 
-/* Button Styles with Hover Animation and Active State */
-
-.buttonPrimary,
-button[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--light-brown);
+.buttonPrimary {
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 361px;
+  height: 44px;
+  background: var(--light-brown);
   color: var(--white);
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .buttonPrimary:hover,
-button[type="submit"]:hover {
+.buttonPrimary:focus {
   background-color: var(--brown);
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
-
-.buttonPrimary:active,
-button[type="submit"]:active {
+.buttonPrimary:active {
   background-color: var(--darck-brown);
-  transform: scale(0.98);
-}
-
-.buttonSecondary,
-button[type="button"] {
-  padding: 8px 12px;
-  background-color: var(--beige-2);
-  color: var(--darck-brown);
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.buttonSecondary:hover,
-button[type="button"]:hover {
-  background-color: var(--light-brown);
-  transform: scale(1.02);
-}
-
-.buttonSecondary:active,
-button[type="button"]:active {
-  background-color: var(--brown);
   transform: scale(0.97);
 }
-
-button:focus,
-button:hover {
-  outline: none;
+.colAction {
+  border-radius: 8px;
+  padding: 0px 0px 5px 0px;
+  width: 24px;
+  height: 28px;
 }
 
-.button:active {
-  background: var(--light-brown);
+.headerIngredientsSpan {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--black);
+}
+
+.selectedIngredientsHeader,
+.selectedIngredientRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.colAmount {
+  text-align: right;
+}
+
+.colAction {
+  display: flex;
+  justify-content: center;
 }

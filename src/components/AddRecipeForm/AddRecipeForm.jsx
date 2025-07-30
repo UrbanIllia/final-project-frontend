@@ -241,12 +241,21 @@ export default function AddRecipeForm() {
               </button>
             </div>
             <ul className={styles.selectedIngredients}>
+              {selectedIngredients.length > 0 && (
+                <li className={styles.selectedIngredientsHeader}>
+                  <span className={styles.colName}>Name:</span>
+                  <span className={styles.colAmount}>Amount:</span>
+                  <span className={styles.colAction}></span>
+                </li>
+              )}
               {selectedIngredients.map((item, i) => (
-                <li key={i}>
-                  {item.name} - {item.amount}
+                <li key={i} className={styles.selectedIngredientRow}>
+                  <span className={styles.colName}>{item.name}</span>
+                  <span className={styles.colAmount}>{item.amount}</span>
                   <button
                     type="button"
                     onClick={() => handleRemoveIngredient(i)}
+                    className={`${styles.colAction} `}
                   >
                     <MdDelete />
                   </button>

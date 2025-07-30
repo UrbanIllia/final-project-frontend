@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { setSearch, resetFilters } from "../../redux/slices/filtersSlice";
 import {
   fetchRecipesThunk,
   fetchRecipesByFiltersThunk,
@@ -15,79 +14,35 @@ import RecipesList from "../../components/RecipesList/RecipesList";
 import Banner from "../../components/Banner/Banner";
 import NoResults from "../../components/Filters/NoResults/NoResults";
 import css from "./MainPage.module.css";
+import { setSearch, resetFilters } from "../../redux/slices/filtersSlice";
 
 export default function MainPage() {
   const dispatch = useDispatch();
+
+  const filters = useSelector((state) => state.filters);
   const recipes = useSelector((state) => state.recipes.recipes);
   const isLoading = useSelector((state) => state.recipes.isLoading);
   const error = useSelector((state) => state.recipes.error);
-  const searchQuery = useSelector((state) => state.filters.search || "");
   const totalItems = useSelector((state) => state.recipes.totalItems || 0);
   const hasMore = useSelector((state) => state.recipes.hasMore);
 
-  const [currentFilters, setCurrentFilters] = useState({
-    search: "",
-    category: "",
-    ingredient: "",
-  });
-
+  // реагує на зміну фільтрів
   useEffect(() => {
     dispatch(resetRecipes());
-    dispatch(fetchRecipesThunk({ page: 1, perPage: 12 }));
-  }, [dispatch]);
 
-  const handleSearch = (query) => {
-    const newFilters = {
-      search: query,
-      category: currentFilters.category,
-      ingredient: currentFilters.ingredient,
-    };
-    setCurrentFilters(newFilters);
+    const { search, category, ingredient } = filters;
 
-    dispatch(setSearch(query));
-    dispatch(resetRecipes());
-
-    if (query || newFilters.category || newFilters.ingredient) {
+    if (search || category || ingredient) {
       dispatch(
-        fetchRecipesByFiltersThunk({
-          search: query,
-          category: newFilters.category,
-          ingredient: newFilters.ingredient,
-          page: 1,
-          perPage: 12,
-        })
+        fetchRecipesByFiltersThunk({ ...filters, page: 1, perPage: 12 })
       );
     } else {
       dispatch(fetchRecipesThunk({ page: 1, perPage: 12 }));
     }
-  };
+  }, [filters, dispatch]);
 
-  const handleFiltersChange = (filters) => {
-    const newFilters = {
-      ...filters,
-      search: searchQuery,
-    };
-    setCurrentFilters(newFilters);
-  };
-
-  const handleLoadMore = () => {
-    if (!isLoading && hasMore) {
-      if (
-        currentFilters.search ||
-        currentFilters.category ||
-        currentFilters.ingredient
-      ) {
-        dispatch(
-          loadMoreRecipesThunk({
-            search: currentFilters.search,
-            category: currentFilters.category,
-            ingredient: currentFilters.ingredient,
-          })
-        );
-      } else {
-        dispatch(loadMoreRecipesThunk({}));
-      }
-    }
+  const handleSearch = (query) => {
+    dispatch(setSearch(query));
   };
 
   const handleResetFiltersAndScroll = () => {
@@ -95,15 +50,13 @@ export default function MainPage() {
     dispatch(resetFilters());
     dispatch(setSearch(""));
 
-    dispatch(fetchRecipesThunk({ page: 1, perPage: 12 }));
-
-    setCurrentFilters({
-      search: "",
-      category: "",
-      ingredient: "",
-    });
-
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleLoadMore = () => {
+    if (!isLoading && hasMore) {
+      dispatch(loadMoreRecipesThunk({ ...filters }));
+    }
   };
 
   useEffect(() => {
@@ -113,15 +66,15 @@ export default function MainPage() {
   }, [isLoading, error]);
 
   useEffect(() => {
-    if (!isLoading && searchQuery && recipes.length === 0 && !error) {
-      toast.info(`No recipes found for "${searchQuery}"`);
+    if (!isLoading && filters.search && recipes.length === 0 && !error) {
+      toast.info(`No recipes found for "${filters.search}"`);
     }
-  }, [recipes, isLoading, error, searchQuery]);
+  }, [recipes, isLoading, error, filters.search]);
 
   return (
     <div className={css.main}>
       <Banner onSearch={handleSearch} />
-      <Filters onFiltersChange={handleFiltersChange} />
+      <Filters />
 
       {totalItems > 0 ? (
         <RecipesList />

@@ -6,7 +6,6 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 
 const AuthPage = () => {
   const { authType } = useParams();
-  console.log(authType);
 
   return (
     <div className={css.container}>

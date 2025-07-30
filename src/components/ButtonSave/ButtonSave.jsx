@@ -1,21 +1,21 @@
-
 import { useDispatch, useSelector } from "react-redux";
 
 import s from "./ButtonSave.module.css";
 import { MdSaveAlt, MdOutlineRemoveCircle } from "react-icons/md";
 import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
-import { selectFavoriteRecipes } from "../../redux/selectors/recipesSelector";
+import { selectOwnRecipes } from "../../redux/selectors/recipesSelector";
 import { useState } from "react";
-import { updateFavoriteRecipesThunk } from "../../redux/operations/recipesOperation";
+
 import AuthModal from "../AuthModal/AuthModal";
 import { useNavigate } from "react-router-dom";
+import { updateFavoriteRecipesThunk } from "../../redux/operations/userOperation";
 
 const ButtonSave = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isAuthenticated = useSelector(selectAuthIsLoggedIn);
-  const favoriteRecipes = useSelector(selectFavoriteRecipes);
+  const favoriteRecipes = useSelector(selectOwnRecipes);
 
   const [isModalOpen, setModalOpen] = useState(false);
   const isFavorite = favoriteRecipes.some((fav) => fav.id === id);

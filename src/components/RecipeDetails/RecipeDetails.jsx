@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom";
 import s from "./RecipeDetails.module.css";
 import {
@@ -30,7 +29,6 @@ const RecipeDetails = () => {
 
   if (loading) return <Loading />;
   if (!data) return <NotFound />;
-  console.log(data._id);
 
   return (
     <>
@@ -89,4 +87,3 @@ const RecipeDetails = () => {
 };
 
 export default RecipeDetails;
-

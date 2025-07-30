@@ -13,7 +13,7 @@ import IngredientList from "../IngredientList/IngredientList";
 import Loading from "../Loading/Loading";
 
 const RecipeDetails = () => {
-  // const { recipeId } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const loading = useSelector(selectRecipesIsLoading);
 
@@ -21,14 +21,11 @@ const RecipeDetails = () => {
 
   const data = recipeDetails?.data;
 
-  //  useEffect(() => {
-  //   if(data){ dispatch(fetchRecipeByIdThunk(recipeId));}
-
-  // }, [dispatch,recipeId]);
-
   useEffect(() => {
-    dispatch(fetchRecipeByIdThunk("6462a8f74c3d0ddd288980bf"));
-  }, [dispatch]);
+    if (!data || data._id !== id) {
+      dispatch(fetchRecipeByIdThunk(id));
+    }
+  }, [dispatch, id, data]);
 
   if (loading) return <Loading />;
   if (!data) return <NotFound />;

@@ -1,3 +1,4 @@
+
 import { useParams } from "react-router-dom";
 import s from "./RecipeDetails.module.css";
 import {
@@ -88,3 +89,4 @@ const RecipeDetails = () => {
 };
 
 export default RecipeDetails;
+

@@ -1,0 +1,306 @@
+/* AddRecipeForm.module.css */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 8px;
+}
+
+.uploadBlock {
+  order: -1;
+}
+
+.sectionTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--black);
+}
+.smallTitle {
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+@media (min-width: 768px) {
+  .smallTitle {
+    margin-top: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    font-size: 32px;
+  }
+}
+.imageUpload {
+  position: relative;
+  width: 100%;
+  padding-top: 383px;
+  background-color: var(--light-gray-2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.uploadItem {
+  margin-top: 4px;
+}
+.preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (min-width: 768px) {
+  .uploadItem {
+    margin-top: 10px;
+  }
+}
+@media (min-width: 1440px) {
+  .imageUpload {
+    padding-top: 374px;
+  }
+}
+.hiddenInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.placeholderPhoto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cameraIcon {
+  width: 52px;
+  height: 52px;
+}
+
+@media (min-width: 1440px) {
+  .form {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 32px;
+    row-gap: 32px;
+  }
+  .generalBlock {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .uploadBlock {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .ingredientsBlock {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .instructionsBlock {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .submitBlock {
+    grid-column: 1;
+  }
+}
+
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--darck-gray);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid var(--light-gray-3);
+  border-radius: 4px;
+  background-color: var(--white);
+  color: var(--black-2);
+  resize: none;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+.error {
+  color: var(--red);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.generalGrid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.generalItems {
+  margin-top: 16px;
+}
+@media (min-width: 768px) {
+  .generalItems {
+    margin-top: 32px;
+  }
+}
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.ingredientsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingredientInputs {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.instructionsItems {
+  margin-top: 16px;
+}
+@media (min-width: 768px) {
+  .ingredientInputs {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .addBtn {
+    grid-column: 1 / -1;
+    justify-self: end;
+    padding: 8px 12px;
+    background-color: var(--light-brown);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .addBtn:hover {
+    background-color: var(--brown);
+    transform: scale(1.05);
+  }
+  .addBtn:active {
+    background-color: var(--darck-brown);
+    transform: scale(0.97);
+  }
+}
+
+.selectedIngredients {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selectedIngredients li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--light-gray-3);
+}
+
+.selectedIngredients button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--gray-2);
+  cursor: pointer;
+}
+
+/* Button Styles with Hover Animation and Active State */
+
+.buttonPrimary,
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--light-brown);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttonPrimary:hover,
+button[type="submit"]:hover {
+  background-color: var(--brown);
+  transform: scale(1.03);
+}
+
+.buttonPrimary:active,
+button[type="submit"]:active {
+  background-color: var(--darck-brown);
+  transform: scale(0.98);
+
+
+
+}
+
+.buttonSecondary,
+button[type="button"] {
+  padding: 8px 12px;
+  background-color: var(--beige-2);
+  color: var(--darck-brown);
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttonSecondary:hover,
+button[type="button"]:hover {
+  background-color: var(--light-brown);
+  transform: scale(1.02);
+}
+
+.buttonSecondary:active,
+button[type="button"]:active {
+  background-color: var(--brown);
+  transform: scale(0.97);
+}
+
+button:focus,
+button:hover {
+  outline: none;
+}
+
+.button:active {
+  background: var(--light-brown);
+}
+.addBtn:hover {
+  background-color: var(--light-brown);
+  color: var(--white);
+}
+.buttonPrimary:hover {
+  background-color: #6d554b;
+}

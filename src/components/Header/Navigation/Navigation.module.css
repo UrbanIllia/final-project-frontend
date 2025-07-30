@@ -12,8 +12,12 @@
   padding-bottom: 4px;
   text-decoration: none;
   color: #fff;
+  transition: all 200ms ease-in-out;
 }
 
+.link:hover {
+  color: var(--beige);
+}
 .link::after {
   content: "";
   position: absolute;

@@ -1,6 +1,6 @@
-.profile {
+.profilePage {
   max-width: 100%;
-  margin: 48px 0;
+  margin: 46px 0 46px 0;
 }
 
 .title_container {
@@ -23,7 +23,7 @@ p {
 }
 
 @media (min-width: 1440px) {
-  .profile {
+  .profilePage {
     margin: 46px 0;
   }
 }

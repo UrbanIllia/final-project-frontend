@@ -7,8 +7,7 @@ import {
 } from "../operations/authOperations";
 
 const initialState = {
-  token: null,
-  isLoggedIn: false,
+  accessToken: null,
   isRefreshing: false,
   isLoading: false,
   error: null,
@@ -19,6 +18,9 @@ const authReducer = createSlice({
   initialState,
   extraReducers: (builder) =>
     builder
+      .addCase("auth/updateToken", (state, action) => {
+        state.accessToken = action.payload.accessToken;
+      })
       .addCase(logoutUserThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -32,10 +34,10 @@ const authReducer = createSlice({
       })
       .addCase(refreshUserThunk.pending, (state) => {
         state.isRefreshing = true;
+        state.isRefreshing = true;
         state.isLoading = true;
       })
       .addCase(refreshUserThunk.fulfilled, (state) => {
-        state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;
       })
@@ -61,9 +63,8 @@ const authReducer = createSlice({
         state.error = null;
       })
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.accessToken;
+        state.accessToken = payload.accessToken;
         state.isLoading = false;
-        state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(loginUserThunk.rejected, (state, { payload }) => {

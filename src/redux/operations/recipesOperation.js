@@ -76,39 +76,11 @@ export const fetchRecipeByIdThunk = createAsyncThunk(
   }
 );
 
-export const fetchFavoriteRecipesThunk = createAsyncThunk(
-  "fetchFavoriteRecipes",
-  async (_, thunkAPI) => {
-    try {
-      const { data } = await API.get("recipes/favorites");
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-// {action} means ADD or REMOVE = like a toggle
-// backend can find it in req.body
-
-export const updateFavoriteRecipesThunk = createAsyncThunk(
-  "updateFavoriteRecipes",
-  async ({ id, action }, thunkAPI) => {
-    try {
-      await API.patch("recipes/favorites", { recipeId: id, action });
-      const { data } = await API.get("recipes/favorites");
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
 export const fetchOwnRecipesThunk = createAsyncThunk(
   "fetchOwnRecipes",
   async (_, thunkAPI) => {
     try {
-      const { data } = await API.get("recipes/own");
+      const { data } = await API.get("users/own");
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

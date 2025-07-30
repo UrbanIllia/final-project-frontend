@@ -1,11 +1,9 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   addRecipeThunk,
-  fetchFavoriteRecipesThunk,
   fetchOwnRecipesThunk,
   fetchRecipeByIdThunk,
   fetchRecipesThunk,
-  updateFavoriteRecipesThunk,
   fetchRecipesByFiltersThunk,
   loadMoreRecipesThunk,
 } from "../operations/recipesOperation";
@@ -35,21 +33,23 @@ const recipesReducer = createSlice({
   },
   extraReducers: (builder) =>
     builder
-
       .addCase(addRecipeThunk.fulfilled, (state, { payload }) => {
         state.recipes.push(payload);
         state.isLoading = false;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchRecipeByIdThunk.fulfilled, (state, { payload }) => {
         state.recipeDetails = payload;
         state.isLoading = false;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchOwnRecipesThunk.fulfilled, (state, { payload }) => {
-        state.ownRecipes = payload;
+        state.ownRecipes = payload.items;
+        state.totalItems = payload.totalItems;
+        state.page = payload.page;
+        state.hasMore = payload.items.length < payload.totalItems;
         state.isLoading = false;
-        state.error = false;
+        state.error = null;
       })
       .addCase(loadMoreRecipesThunk.fulfilled, (state, { payload }) => {
         state.recipes = [...state.recipes, ...payload.data.items];
@@ -74,42 +74,24 @@ const recipesReducer = createSlice({
           state.error = false;
         }
       )
-
-      .addMatcher(
-        isAnyOf(
-          fetchFavoriteRecipesThunk.fulfilled,
-          updateFavoriteRecipesThunk.fulfilled
-        ),
-        (state, { payload }) => {
-          state.favoriteRecipes = payload;
-          state.isLoading = false;
-          state.error = false;
-        }
-      )
-
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.pending,
           addRecipeThunk.pending,
           fetchRecipeByIdThunk.pending,
-          fetchFavoriteRecipesThunk.pending,
-          updateFavoriteRecipesThunk.pending,
           fetchOwnRecipesThunk.pending,
           fetchRecipesByFiltersThunk.pending
         ),
         (state) => {
           state.isLoading = true;
-          state.error = false;
+          state.error = null;
         }
       )
-
       .addMatcher(
         isAnyOf(
           fetchRecipesThunk.rejected,
           addRecipeThunk.rejected,
           fetchRecipeByIdThunk.rejected,
-          fetchFavoriteRecipesThunk.rejected,
-          updateFavoriteRecipesThunk.rejected,
           fetchOwnRecipesThunk.rejected,
           fetchRecipesByFiltersThunk.rejected
         ),

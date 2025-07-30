@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Logo from "../Logo/Logo";
@@ -6,41 +6,43 @@ import BurgerMenu from "./BurgerMenu/BurgerMenu";
 import Navigation from "./Navigation/Navigation";
 import css from "./Header.module.css";
 import { logoutUserThunk } from "../../redux/operations/authOperations";
-import { fetchUserThunk } from "../../redux/operations/userOperation";
+// import { fetchUserThunk } from "../../redux/operations/userOperation";
 import { toast } from "react-toastify";
+import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
   const userName = useSelector((state) => state.user.user.name || "Guest");
-  const isLoading = useSelector((state) => state.user.isLoading);
-  const error = useSelector((state) => state.user.error);
+  // const isLoading = useSelector((state) => state.user.isLoading);
+  // const error = useSelector((state) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(
-      "Header useEffect: isLoggedIn =",
-      isLoggedIn,
-      "userName =",
-      userName
-    );
-    if (isLoggedIn) {
-      dispatch(fetchUserThunk())
-        .unwrap()
-        .catch((err) => {
-          console.error("Failed to fetch user:", err);
-          toast.error("Failed to load user data");
-        });
-    }
-  }, [isLoggedIn, dispatch]);
+  // useEffect(() => {
+  //   console.log(
+  //     "Header useEffect: isLoggedIn =",
+  //     isLoggedIn,
+  //     "userName =",
+  //     userName
+  //   );
+  //   if (isLoggedIn) {
+  //     dispatch(fetchUserThunk())
+  //       .unwrap()
+  //       .catch((err) => {
+  //         console.error("Failed to fetch user:", err);
+  //         toast.error("Failed to load user data");
+  //       });
+  //     console.log("this make current error");
+  //   }
+  // }, [isLoggedIn, userName, dispatch]);
 
   const handleLogout = async () => {
     try {
       await dispatch(logoutUserThunk()).unwrap();
-      toast.success("Выход выполнен успешно!");
+      toast.success("Logout successful!");
     } catch (error) {
-      toast.error("Ошибка при выходе: " + error);
+      toast.error("Logout error: " + error);
     } finally {
       setMenuOpen(false);
       navigate("/");
@@ -49,8 +51,6 @@ export default function Header() {
 
   return (
     <header className={css.header}>
-      {isLoading && <div className={css.loader}>Loading...</div>}
-      {error && <div className={css.error}>Error: {error}</div>}
       <div className={css.container}>
         <Logo />
         <BurgerMenu open={menuOpen} setOpen={setMenuOpen} />

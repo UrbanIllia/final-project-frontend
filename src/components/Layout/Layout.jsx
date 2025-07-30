@@ -9,10 +9,11 @@ const Layout = () => {
   return (
     <div className={css.container}>
       <Header />
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense>
-
+      <main className={css.main}>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+      </main>
       <Footer />
     </div>
   );

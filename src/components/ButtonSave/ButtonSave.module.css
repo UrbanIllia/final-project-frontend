@@ -25,15 +25,27 @@
     width: 393px;
     height: 56px;
   }
+
   &:hover {
     background: var(--brown);
   }
+
   &:active {
     box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px var(--white);
     background: var(--light-brown);
   }
 }
+
 .saveIcon {
   width: 25px;
   height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.flipped {
+  transform: rotate(180deg);
+}
+
+.active {
+  background: #9c6b30;
 }

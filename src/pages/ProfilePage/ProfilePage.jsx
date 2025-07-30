@@ -1,19 +1,30 @@
-import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
-import ProfileNavigation from "../../components/ProfileNavigation/ProfileNavigation";
-import RecipesList from "../../components/RecipesList/RecipesList";
-import css from "./ProfilePage.module.css";
+import { useParams, Navigate } from "react-router";
+import ProfileNavigation from "../../components/ProfileNavigation/ProfileNavigation.jsx";
+import OwnRecipes from "../../components/Profile/OwnRecipes/OwnRecipes.jsx";
+import SavedRecipes from "../../components/Profile/SavedRecipes/SavedRecipes.jsx";
+import styles from "./ProfilePage.module.css";
 
-const ProfilePage = () => (
-  <div className={css.profile}>
-    <div className={css.title_container}>
-      <h2 className={css.title}>My profile</h2>
-      <ProfileNavigation />
-      <p>96 recipes</p>
-    </div>
-    <div className={css.list_wrapper}>
-      <RecipesList />
-    </div>
-    <LoadMoreBtn />
-  </div>
-);
-export default ProfilePage;
+export default function ProfilePage() {
+  const { recipeType } = useParams();
+
+  const renderContent = () => {
+    switch (recipeType) {
+      case "own":
+        return <OwnRecipes />;
+      case "favorites":
+        return <SavedRecipes />;
+      default:
+        return <Navigate to="/profile/own" replace />;
+    }
+  };
+
+  return (
+    <section className={` ${styles.profilePage}`}>
+      <div className={styles.title_container}>
+        <h2 className={styles.title}>My Profile</h2>
+        <ProfileNavigation />
+      </div>
+      <div className={styles.content}>{renderContent()}</div>
+    </section>
+  );
+}

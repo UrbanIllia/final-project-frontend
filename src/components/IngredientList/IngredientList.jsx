@@ -29,7 +29,7 @@ const IngredientList = ({ ingredientIds }) => {
         return (
           <li key={index} className={s.ingredientsItem}>
             <RiCheckboxBlankCircleFill className={s.ingredientsIcon} />
-            {ingredient.name} — {ingredient.measure}
+            {ingredient.name}-{ingredient.measure}
           </li>
         );
       })}

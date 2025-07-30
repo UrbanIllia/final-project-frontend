@@ -58,7 +58,6 @@ const LoginForm = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     const { email, password } = values;
 
-    // Проверка перед Yup: если пустые строки — показать toast
     if (!email.trim() || !password.trim()) {
       toast.error("All fields must be filled");
       setSubmitting(false);

@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import MobileFiltersModal from "./MobileFiltersModal/MobileFiltersModal";
-import CategorySelect from "./Category/CategorySelect";
-import IngredientSelect from "./Ingredient/IngredientSelect";
-import css from "./Filters.module.css";
-import { fetchCategoriesThunk } from "../../redux/operations/categoriesOperations.js";
-import { fetchIngredientsThunk } from "../../redux/operations/ingredientsOperations.js";
 import {
   setCategory,
   setIngredient,
   resetFilters,
   setSearch,
-} from "../../redux/slices/filtersSlice.js";
-import { fetchRecipesByFiltersThunk } from "../../redux/operations/recipesOperation.js";
-import { resetRecipes } from "../../redux/slices/recipesSlice.js";
+} from "../../redux/slices/filtersSlice";
+import { fetchCategoriesThunk } from "../../redux/operations/categoriesOperations";
+import { fetchIngredientsThunk } from "../../redux/operations/ingredientsOperations";
 
-const Filters = ({ onFiltersChange }) => {
+import MobileFiltersModal from "./MobileFiltersModal/MobileFiltersModal";
+import CategorySelect from "./Category/CategorySelect";
+import IngredientSelect from "./Ingredient/IngredientSelect";
+import css from "./Filters.module.css";
+
+const Filters = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,102 +34,29 @@ const Filters = ({ onFiltersChange }) => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleDesktopCategoryChange = (e) => {
-    const selectedCategory = e.target.value;
-    dispatch(setCategory(selectedCategory));
-    dispatch(resetRecipes());
-
-    const newFilters = {
-      category: selectedCategory,
-      ingredient,
-      search,
-    };
-
-    dispatch(
-      fetchRecipesByFiltersThunk({
-        ...newFilters,
-        page: 1,
-        perPage: 12,
-      })
-    );
-
-    if (onFiltersChange) {
-      onFiltersChange(newFilters);
-    }
+    dispatch(setCategory(e.target.value));
   };
 
   const handleDesktopIngredientChange = (e) => {
-    const selectedIngredient = e.target.value;
-    dispatch(setIngredient(selectedIngredient));
-    dispatch(resetRecipes());
-
-    const newFilters = {
-      category,
-      ingredient: selectedIngredient,
-      search,
-    };
-
-    dispatch(
-      fetchRecipesByFiltersThunk({
-        ...newFilters,
-        page: 1,
-        perPage: 12,
-      })
-    );
-
-    if (onFiltersChange) {
-      onFiltersChange(newFilters);
-    }
+    dispatch(setIngredient(e.target.value));
   };
 
   const handleDesktopResetFilters = () => {
     dispatch(resetFilters());
     dispatch(setSearch(""));
-    dispatch(resetRecipes());
-
-    const resetFiltersData = { category: "", ingredient: "", search: "" };
-
-    dispatch(
-      fetchRecipesByFiltersThunk({
-        ...resetFiltersData,
-        page: 1,
-        perPage: 12,
-      })
-    );
-
-    if (onFiltersChange) {
-      onFiltersChange(resetFiltersData);
-    }
   };
 
   const handleMobileFiltersApply = (mobileFilters) => {
     dispatch(setCategory(mobileFilters.category || ""));
     dispatch(setIngredient(mobileFilters.ingredient || ""));
-    dispatch(resetRecipes());
-
-    const newFilters = {
-      category: mobileFilters.category || "",
-      ingredient: mobileFilters.ingredient || "",
-      search,
-    };
-
-    dispatch(
-      fetchRecipesByFiltersThunk({
-        ...newFilters,
-        page: 1,
-        perPage: 12,
-      })
-    );
-
-    if (onFiltersChange) {
-      onFiltersChange(newFilters);
-    }
   };
 
   return (
     <>
-          <h2 className={css.h2reception}>
-            {search ? `Search Results for “${search}”` : "Recipes"}
-          </h2>
+      <h2 className={css.h2reception}>
+        {search ? `Search Results for “${search}”` : "Recipes"}
+      </h2>
+
       <div className={css.recipeFiltering}>
         <div className={css.leftSide}>
           <p className={css.recipesCount}>

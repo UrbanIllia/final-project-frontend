@@ -30,7 +30,14 @@ API.interceptors.response.use(
     console.log("Interceptor caught error:", error.response?.status);
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/auth/refresh") &&
+      accessToken
+    ) {
       originalRequest._retry = true;
       try {
         const response = await API.post("/auth/refresh");

@@ -212,12 +212,17 @@ export default function AddRecipeForm() {
 
           <div className={styles.ingredientsBlock}>
             <label className={styles.sectionTitle}>Ingredients</label>
+            {/* ............................................... */}
             <div className={styles.ingredientInputs}>
               <div className={styles.fieldGroup}>
                 <div className={styles.smallTitle}>
                   <label>Name</label>
                 </div>
-                <Field as="select" name="ingredient">
+                <Field
+                  as="select"
+                  name="ingredient"
+                  className={styles.inputName}
+                >
                   <option value="">Select ingredient</option>
                   {ingredientsList.map((ing) => (
                     <option key={ing._id || ing.id} value={ing.name}>
@@ -230,7 +235,12 @@ export default function AddRecipeForm() {
                 <div className={styles.smallTitle}>
                   <label>Amount</label>
                 </div>
-                <Field name="amount" type="text" placeholder="100g" />
+                <Field
+                  name="amount"
+                  type="text"
+                  placeholder="100g"
+                  className={styles.inputAmount}
+                />
               </div>
               <button
                 type="button"
@@ -240,6 +250,7 @@ export default function AddRecipeForm() {
                 Add new Ingredient
               </button>
             </div>
+            {/* ................................................... */}
             <ul className={styles.selectedIngredients}>
               {selectedIngredients.length > 0 && (
                 <li className={styles.selectedIngredientsHeader}>

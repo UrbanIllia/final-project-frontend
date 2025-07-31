@@ -13,10 +13,6 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import PrivateRoute from "./routes/PrivateRoute/PrivateRoute";
 import RestrictedRoute from "./routes/RestrictedRoute/RestrictedRoute";
 
-// import { refreshUserThunk } from "./redux/operations/authOperations";
-// import { fetchUserThunk } from "./redux/operations/userOperation";
-// import { useDispatch } from "react-redux";
-
 const MainPage = lazy(() => import("./pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
   import("./pages/RecipeViewPage/RecipeViewPage")
@@ -57,23 +53,6 @@ const App = () => {
       console.log("User is not yet authorized");
     }
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
-
-  //   if (!token) {
-  //     dispatch(refreshUserThunk())
-  //       .unwrap()
-  //       .then(() => {
-  //         dispatch(fetchUserThunk());
-  //       })
-  //       .catch(() => {
-  //         console.log("Something went wrong");
-  //       });
-  //   } else {
-  //     dispatch(fetchUserThunk());
-  //   }
-  // }, [dispatch]);
 
   return (
     <div>

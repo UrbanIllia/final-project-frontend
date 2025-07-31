@@ -60,6 +60,8 @@
 }
 .hiddenInput {
   position: absolute;
+  width: 100%;
+  height: 100%;
   inset: 0;
   opacity: 0;
   z-index: 2;
@@ -78,7 +80,30 @@
   width: 52px;
   height: 52px;
 }
-
+/* ........................................................ */
+.wrapp {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  position: relative;
+}
+.inputC {
+  width: 172px;
+}
+@media (min-width: 768px) {
+  .wrapp {
+    gap: 24px;
+  }
+  .inputC {
+    width: 340px;
+  }
+}
+@media (min-width: 1440px) {
+  .inputC {
+    width: 392px;
+  }
+}
+/* ............................................................. */
 @media (min-width: 1440px) {
   .form {
     display: grid;
@@ -131,17 +156,20 @@ select {
   background-color: var(--white);
   color: var(--black);
   resize: none;
-  height: 48px;
+  height: 46px;
 }
 
 textarea {
-  min-height: 80px;
+  min-height: 144px;
 }
 
 .error {
   color: var(--red);
   font-size: 12px;
   margin-top: 2px;
+  position: absolute;
+  bottom: -14px;
+  left: 0;
 }
 
 .generalGrid {
@@ -228,7 +256,8 @@ textarea {
   align-items: center;
   border-radius: 8px;
   padding: 12px 16px;
-  width: 361px;
+  max-width: 361px;
+  width: 100%;
   height: 44px;
   background: var(--light-brown);
   color: var(--white);
@@ -252,12 +281,14 @@ textarea {
 
 @media (min-width: 768px) {
   .addBtn {
+    max-width: 249px;
     width: 249px;
     height: 36px;
   }
 }
 @media (min-width: 1440px) {
   .addBtn {
+    max-width: 258px;
     width: 258px;
     height: 23px;
     font-size: 12px;
@@ -269,6 +300,8 @@ textarea {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
+  max-width: 373px;
 }
 
 .selectedIngredients li {
@@ -285,6 +318,20 @@ textarea {
   font-size: 16px;
   color: var(--gray-2);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+}
+@media (min-width: 768px) {
+  .selectedIngredients {
+    max-width: 431px;
+  }
+}
+@media (min-width: 1440px) {
+  .selectedIngredients {
+    max-width: 332px;
+  }
 }
 /* ................................................... */
 .buttonPrimary {
@@ -316,7 +363,7 @@ textarea {
 @media (min-width: 1440px) {
   .buttonPrimary {
     max-width: 391px;
-    transform: translateY(-186px);
+    transform: translateY(-128px);
   }
 }
 /* ...................................................... */
@@ -349,4 +396,9 @@ textarea {
 .colAction {
   display: flex;
   justify-content: center;
+}
+.descriptionItem,
+.fieldGroup,
+.instructionsItems {
+  position: relative;
 }

@@ -141,39 +141,46 @@ export default function AddRecipeForm() {
                       className={styles.error}
                     />
                   </div>
-                  <div>
-                    <div className={styles.smallTitle}>
-                      <label>Calories</label>
+                  <div className={styles.wrapp}>
+                    <div>
+                      <div className={styles.smallTitle}>
+                        <label>Calories</label>
+                      </div>
+                      <Field
+                        name="calories"
+                        type="number"
+                        placeholder="150 cals"
+                        className={styles.inputC}
+                      />
+                      <ErrorMessage
+                        name="calories"
+                        component="div"
+                        className={styles.error}
+                      />
                     </div>
-                    <Field
-                      name="calories"
-                      type="number"
-                      placeholder="150 cals"
-                    />
-                    <ErrorMessage
-                      name="calories"
-                      component="div"
-                      className={styles.error}
-                    />
-                  </div>
 
-                  <div>
-                    <div className={styles.smallTitle}>
-                      <label>Category</label>
+                    <div>
+                      <div className={styles.smallTitle}>
+                        <label>Category</label>
+                      </div>
+                      <Field
+                        name="category"
+                        as="select"
+                        className={styles.inputC}
+                      >
+                        <option value="">Select category</option>
+                        {categories.map((c) => (
+                          <option key={c._id || c.id} value={c.name}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </Field>
+                      <ErrorMessage
+                        name="category"
+                        component="div"
+                        className={styles.error}
+                      />
                     </div>
-                    <Field name="category" as="select">
-                      <option value="">Select category</option>
-                      {categories.map((c) => (
-                        <option key={c._id || c.id} value={c.name}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </Field>
-                    <ErrorMessage
-                      name="category"
-                      component="div"
-                      className={styles.error}
-                    />
                   </div>
                 </div>
               </div>

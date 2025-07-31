@@ -75,14 +75,8 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />
 
-            <Route
-              path="/recipes/:id"
-              element={
-                <RestrictedRoute>
-                  <RecipeViewPage />
-                </RestrictedRoute>
-              }
-            />
+            <Route path="/recipes/:id" element={<RecipeViewPage />} />
+
             <Route
               path="/add-recipe"
               element={

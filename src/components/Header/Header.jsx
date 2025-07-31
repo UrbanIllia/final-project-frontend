@@ -6,7 +6,6 @@ import BurgerMenu from "./BurgerMenu/BurgerMenu";
 import Navigation from "./Navigation/Navigation";
 import css from "./Header.module.css";
 import { logoutUserThunk } from "../../redux/operations/authOperations";
-// import { fetchUserThunk } from "../../redux/operations/userOperation";
 import { toast } from "react-toastify";
 import { selectAuthIsLoggedIn } from "../../redux/selectors/authSelector";
 

@@ -81,11 +81,10 @@ const RegistrationForm = () => {
           password: values.password,
         })
       ).unwrap();
-      console.log("Registration successful, registerResult:", registerResult);
+
       toast.success("Registration successful! Please log in.");
       navigate("/auth/login");
     } catch (error) {
-      console.error("Registration failed:", error);
       toast.error(error || "Registration failed");
     } finally {
       setSubmitting(false);

@@ -1,18 +1,6 @@
-import { useSelector } from "react-redux";
-import {
-  selectRecipesIsLoading,
-  selectHasMore,
-} from "../../redux/selectors/recipesSelector";
 import css from "./LoadMoreBtn.module.css";
 
-const LoadMoreBtn = ({ loadMore }) => {
-  const isLoading = useSelector(selectRecipesIsLoading);
-  const hasMore = useSelector(selectHasMore);
-
-  if (!hasMore) {
-    return null;
-  }
-
+const LoadMoreBtn = ({ loadMore, isLoading }) => {
   return (
     <div className={css.button_wrapper}>
       <button

@@ -26,7 +26,6 @@ export default function MainPage() {
   const totalItems = useSelector((state) => state.recipes.totalItems || 0);
   const hasMore = useSelector((state) => state.recipes.hasMore);
 
-  // реагує на зміну фільтрів
   useEffect(() => {
     dispatch(resetRecipes());
 

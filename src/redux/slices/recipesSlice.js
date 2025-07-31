@@ -52,10 +52,17 @@ const recipesReducer = createSlice({
         state.error = null;
       })
       .addCase(loadMoreRecipesThunk.fulfilled, (state, { payload }) => {
-        state.recipes = [...state.recipes, ...payload.data.items];
+        const existingIds = new Set(state.recipes.map((r) => r._id));
+        const newItems = payload.data.items.filter(
+          (r) => !existingIds.has(r._id)
+        );
+        state.recipes = [...state.recipes, ...newItems];
         state.totalItems = payload.data.totalItems;
         state.page = payload.data.page;
-        state.hasMore = state.recipes.length < payload.data.totalItems;
+        state.hasMore =
+          payload.data.items.length > 0 &&
+          state.recipes.length + payload.data.items.length <
+            payload.data.totalItems;
         state.isLoading = false;
         state.error = false;
       })

@@ -81,7 +81,9 @@ export default function MainPage() {
         <NoResults onReset={handleResetFiltersAndScroll} />
       )}
 
-      <LoadMoreBtn loadMore={handleLoadMore} />
+      {hasMore && recipes.length > 0 && (
+        <LoadMoreBtn loadMore={handleLoadMore} isLoading={isLoading} />
+      )}
     </div>
   );
 }

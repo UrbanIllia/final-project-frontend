@@ -1,7 +1,5 @@
-import { useEffect, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
-
 import RecipesList from "../../RecipesList/RecipesList.jsx";
 import Loading from "../../Loading/Loading.jsx";
 import LoadMoreBtn from "../../LoadMoreBtn/LoadMoreBtn.jsx";
@@ -11,74 +9,46 @@ import NoResults from "../../Filters/NoResults/NoResults.jsx";
 import { fetchFavoriteRecipesThunk } from "../../../redux/operations/userOperation.js";
 import {
   selectFavoriteRecipes,
-  selectUser,
-  selectUserError,
   selectUserIsLoading,
+  selectUserError,
 } from "../../../redux/selectors/userSelector.js";
-import { resetFilters } from "../../../redux/slices/filtersSlice.js";
+import { useFilteredRecipes } from "../../../hooks/useFilteredRecipes.js";
 
 const SavedRecipes = () => {
-  const dispatch = useDispatch();
-  const favoriteRecipes = useSelector(selectFavoriteRecipes);
-  const loading = useSelector(selectUserIsLoading);
-  const error = useSelector(selectUserError);
-  const user = useSelector(selectUser);
-  const filters = useSelector((state) => state.filters);
-  const [visibleCount, setVisibleCount] = useState(12);
+  const {
+    isLoading,
+    error,
+    filteredRecipes,
+    visibleRecipes,
+    hasMore,
+    loadMore,
+    handleResetFilters,
+  } = useFilteredRecipes(
+    fetchFavoriteRecipesThunk,
+    selectFavoriteRecipes,
+    selectUserIsLoading,
+    selectUserError
+  );
 
   useEffect(() => {
-    if (user?.token) {
-      dispatch(fetchFavoriteRecipesThunk());
+    if (error) {
+      toast.error(`Error: ${error}`);
     }
-    return () => {
-      dispatch(resetFilters());
-    };
-  }, [dispatch, user?.token]);
+  }, [error]);
 
-  const filteredRecipes = useMemo(() => {
-    return favoriteRecipes.filter((recipe) => {
-      const searchMatch = filters.search
-        ? recipe.title.toLowerCase().includes(filters.search.toLowerCase())
-        : true;
-      const categoryMatch = filters.category
-        ? recipe.category === filters.category
-        : true;
-      const ingredientMatch = filters.ingredient
-        ? recipe.ingredients.some((ing) => ing.name === filters.ingredient)
-        : true;
-      return searchMatch && categoryMatch && ingredientMatch;
-    });
-  }, [favoriteRecipes, filters]);
-
-  useEffect(() => {
-    setVisibleCount(12);
-  }, [filteredRecipes]);
-
-  const visibleRecipes = filteredRecipes.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredRecipes.length;
-
-  const loadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 12);
-  };
-
-  const handleResetFilters = () => {
-    dispatch(resetFilters());
-  };
-
-  if (loading && favoriteRecipes.length === 0) return <Loading />;
-  if (error) return <p>Error: {toast.error(error)}</p>;
+  if (isLoading && filteredRecipes.length === 0) return <Loading />;
 
   return (
     <div>
       <Filters showTitle={false} totalItems={filteredRecipes.length} />
-
       {filteredRecipes.length > 0 ? (
-        <RecipesList recipes={visibleRecipes} type="favorites" />
+        <>
+          <RecipesList recipes={visibleRecipes} type="favorites" />
+          {hasMore && <LoadMoreBtn loadMore={loadMore} isLoading={isLoading} />}
+        </>
       ) : (
         <NoResults onReset={handleResetFilters} />
       )}
-
-      {hasMore && <LoadMoreBtn loadMore={loadMore} isLoading={loading} />}
     </div>
   );
 };

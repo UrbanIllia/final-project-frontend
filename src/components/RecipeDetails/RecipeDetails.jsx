@@ -27,7 +27,6 @@ const RecipeDetails = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    console.log("RecipeDetails: recipeDetails =", { data, isLoading, error });
     if (error) {
       toast.error(`Failed to load recipe: ${error.message || error}`);
     }

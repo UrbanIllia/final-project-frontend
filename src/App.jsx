@@ -37,10 +37,7 @@ const App = () => {
       }
     }
 
-    console.log("useEffect token:", accessToken);
-
     if (accessToken) {
-      console.log("time to fetch user");
       dispatch(refreshUserThunk())
         .unwrap()
         .then(({ accessToken: newToken }) => {
@@ -81,9 +78,9 @@ const App = () => {
             <Route
               path="/recipes/:id"
               element={
-                <PrivateRoute>
+                <RestrictedRoute>
                   <RecipeViewPage />
-                </PrivateRoute>
+                </RestrictedRoute>
               }
             />
             <Route
@@ -98,9 +95,9 @@ const App = () => {
             <Route
               path="/profile/:recipeType?"
               element={
-                <RestrictedRoute>
+                <PrivateRoute>
                   <ProfilePage />
-                </RestrictedRoute>
+                </PrivateRoute>
               }
             />
             <Route

@@ -14,7 +14,7 @@ import CategorySelect from "./Category/CategorySelect";
 import IngredientSelect from "./Ingredient/IngredientSelect";
 import css from "./Filters.module.css";
 
-const Filters = () => {
+const Filters = ({ showTitle = true, totalItems }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,7 +23,10 @@ const Filters = () => {
   );
   const categories = useSelector((state) => state.categories.items);
   const ingredients = useSelector((state) => state.ingredients.items);
-  const totalItems = useSelector((state) => state.recipes.totalItems || 0);
+  const defaultTotalItems = useSelector(
+    (state) => state.recipes.totalItems || 0
+  );
+  const itemsCount = totalItems !== undefined ? totalItems : defaultTotalItems;
 
   useEffect(() => {
     dispatch(fetchCategoriesThunk());
@@ -53,14 +56,16 @@ const Filters = () => {
 
   return (
     <>
-      <h2 className={css.h2reception}>
-        {search ? `Search Results for “${search}”` : "Recipes"}
-      </h2>
+      {showTitle && (
+        <h2 className={css.h2reception}>
+          {search ? `Search Results for "${search}"` : "Recipes"}
+        </h2>
+      )}
 
       <div className={css.recipeFiltering}>
         <div className={css.leftSide}>
           <p className={css.recipesCount}>
-            {totalItems} {totalItems === 1 ? "recipe" : "recipes"}
+            {itemsCount} {itemsCount === 1 ? "recipe" : "recipes"}
           </p>
         </div>
         <div className={css.rightSideContainer}>

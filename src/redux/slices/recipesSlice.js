@@ -47,7 +47,7 @@ const recipesReducer = createSlice({
         state.ownRecipes = payload.items;
         state.totalItems = payload.totalItems;
         state.page = payload.page;
-        state.hasMore = payload.items.length < payload.totalItems;
+        state.hasMore = payload.data.items.length === state.perPage;
         state.isLoading = false;
         state.error = null;
       })
@@ -59,10 +59,7 @@ const recipesReducer = createSlice({
         state.recipes = [...state.recipes, ...newItems];
         state.totalItems = payload.data.totalItems;
         state.page = payload.data.page;
-        state.hasMore =
-          payload.data.items.length > 0 &&
-          state.recipes.length + payload.data.items.length <
-            payload.data.totalItems;
+        state.hasMore = payload.data.items.length === state.perPage;
         state.isLoading = false;
         state.error = false;
       })
@@ -76,7 +73,7 @@ const recipesReducer = createSlice({
           state.recipes = payload.data.items;
           state.totalItems = payload.data.totalItems;
           state.page = payload.data.page;
-          state.hasMore = payload.data.items.length < payload.data.totalItems;
+          state.hasMore = payload.data.items.length === state.perPage;
           state.isLoading = false;
           state.error = false;
         }

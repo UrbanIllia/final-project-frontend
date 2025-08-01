@@ -51,6 +51,9 @@ API.interceptors.response.use(
       } catch (refreshError) {
         clearAuthHeader();
         localStorage.removeItem("accessToken");
+
+        console.log("Redirecting to login...");
+        window.location.href = "/auth/login";
         return Promise.reject(refreshError);
       }
     }

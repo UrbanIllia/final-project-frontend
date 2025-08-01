@@ -39,11 +39,23 @@
 .saveIcon {
   width: 25px;
   height: 24px;
-  transition: transform 0.3s ease;
+  stroke: var(--white);
+  fill: none;
 }
 
-.flipped {
-  transform: rotate(180deg);
+.active .saveIcon {
+  stroke: var(--white);
+  fill: var(--white);
+}
+
+.saveRecipeBtn:hover .saveIcon {
+  stroke: var(--white);
+  fill: none;
+}
+
+.active:hover .saveIcon {
+  stroke: var(--white);
+  fill: var(--white);
 }
 
 .active {

@@ -45,7 +45,7 @@ export default function Navigation({
       ) : (
         <>
           <NavLink
-            to="/profile/own"
+            to="/profile"
             className={({ isActive }) =>
               `${css.link} ${css.profile} ${isActive ? css.active : ""}`
             }

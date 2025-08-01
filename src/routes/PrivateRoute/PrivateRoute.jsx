@@ -9,8 +9,14 @@ const PrivateRoute = ({ children }) => {
   const isRefreshing = useSelector(selectAuthIsRefreshing);
 
   if (isRefreshing) return null;
+  console.log(
+    "PrivateRoute: isLoggedIn =",
+    isLoggedIn,
+    ", isRefreshing =",
+    isRefreshing
+  );
 
-  return isLoggedIn ? children : <Navigate to="/auth/login" />;
+  return isLoggedIn ? children : <Navigate to="/auth/login" replace />;
 };
 
 export default PrivateRoute;

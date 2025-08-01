@@ -45,12 +45,11 @@ const App = () => {
           dispatch(fetchUserThunk());
         })
         .catch(() => {
-          console.log("No access token and refresh failed");
+          localStorage.removeItem("persist:auth");
+          setAuthHeader("");
+          window.location.href = "/auth/login";
         });
       setAuthHeader(accessToken);
-    }
-    if (!accessToken) {
-      console.log("User is not yet authorized");
     }
   }, [dispatch]);
 

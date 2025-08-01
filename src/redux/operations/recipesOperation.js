@@ -31,10 +31,12 @@ export const loadMoreRecipesThunk = createAsyncThunk(
       const state = thunkAPI.getState();
       const currentPage = state.recipes.page;
       const nextPage = currentPage + 1;
-
+      const { category = "", ingredient = "", search = "" } = filters;
       const { data } = await API.get("/recipes", {
         params: {
-          ...filters,
+          categories: category,
+          ingredients: ingredient,
+          search,
           page: nextPage,
           perPage: 12,
         },

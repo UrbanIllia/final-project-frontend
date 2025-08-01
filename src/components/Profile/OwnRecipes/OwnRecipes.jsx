@@ -1,7 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
 import RecipesList from "../../RecipesList/RecipesList.jsx";
 import LoadMoreBtn from "../../LoadMoreBtn/LoadMoreBtn";
 import Loader from "../../Loading/Loading.jsx";
@@ -15,58 +14,39 @@ import {
   selectRecipesError,
   selectRecipesIsLoading,
 } from "../../../redux/selectors/recipesSelector.js";
-import { resetFilters } from "../../../redux/slices/filtersSlice.js";
+import { useFilteredRecipes } from "../../../hooks/useFilteredRecipes.js";
 
 const OwnRecipes = () => {
-  const dispatch = useDispatch();
+  const {
+    isLoading,
+    error,
+    filteredRecipes,
+    visibleRecipes,
+    hasMore,
+    loadMore,
+    handleResetFilters,
+  } = useFilteredRecipes(
+    fetchOwnRecipesThunk,
+    selectOwnRecipes,
+    selectRecipesIsLoading,
+    selectRecipesError
+  );
 
-  const [visibleCount, setVisibleCount] = useState(12);
-
-  const ownRecipes = useSelector(selectOwnRecipes);
-  const isLoading = useSelector(selectRecipesIsLoading);
-  const error = useSelector(selectRecipesError);
   const filters = useSelector((state) => state.filters);
+  const hasActiveFilters =
+    filters.search || filters.category || filters.ingredient;
 
   useEffect(() => {
-    dispatch(fetchOwnRecipesThunk({ perPage: 100 }));
-    return () => {
-      dispatch(resetFilters());
-    };
-  }, [dispatch]);
+    if (error) {
+      toast.error(`Error: ${error}`);
+    }
+  }, [error]);
 
-  const filteredRecipes = useMemo(() => {
-    return ownRecipes.filter((recipe) => {
-      const searchMatch = filters.search
-        ? recipe.title.toLowerCase().includes(filters.search.toLowerCase())
-        : true;
-      const categoryMatch = filters.category
-        ? recipe.category === filters.category
-        : true;
-      const ingredientMatch = filters.ingredient
-        ? recipe.ingredients.some((ing) => ing.name === filters.ingredient)
-        : true;
-      return searchMatch && categoryMatch && ingredientMatch;
-    });
-  }, [ownRecipes, filters]);
+  if (isLoading && filteredRecipes.length === 0) return <Loader />;
 
-  useEffect(() => {
-    setVisibleCount(12);
-  }, [filteredRecipes]);
-
-  const visibleRecipes = filteredRecipes.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredRecipes.length;
-
-  const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 12);
-  };
-
-  const handleResetFilters = () => {
-    dispatch(resetFilters());
-  };
-
-  if (isLoading && ownRecipes.length === 0) return <Loader />;
-  if (error) return <p>Error: {toast.error(error)}</p>;
-  if (!isLoading && ownRecipes.length === 0) return <NotFoundRecipes />;
+  if (filteredRecipes.length === 0 && !hasActiveFilters) {
+    return <NotFoundRecipes />;
+  }
 
   return (
     <div>
@@ -74,9 +54,7 @@ const OwnRecipes = () => {
       {filteredRecipes.length > 0 ? (
         <>
           <RecipesList recipes={visibleRecipes} />
-          {hasMore && (
-            <LoadMoreBtn loadMore={handleLoadMore} isLoading={isLoading} />
-          )}
+          {hasMore && <LoadMoreBtn loadMore={loadMore} isLoading={isLoading} />}
         </>
       ) : (
         <NoResults onReset={handleResetFilters} />

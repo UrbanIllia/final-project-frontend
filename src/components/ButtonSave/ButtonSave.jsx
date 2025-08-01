@@ -1,7 +1,7 @@
 import { useFavoriteRecipe } from "../../hooks/useFavoriteRecipe";
 import AuthModal from "../AuthModal/AuthModal";
 import s from "./ButtonSave.module.css";
-import { MdSaveAlt } from "react-icons/md";
+import SaveIcon from "../Icons/SaveIcon";
 
 const ButtonSave = ({ recipeId }) => {
   const {
@@ -19,8 +19,8 @@ const ButtonSave = ({ recipeId }) => {
         onClick={handleToggleFavorite}
         aria-label="Toggle Favorite"
       >
-        {isFavorite ? "Remove" : "Save"}
-        <MdSaveAlt className={`${s.saveIcon} ${isFavorite ? s.flipped : ""}`} />
+        {isFavorite ? "Unsave" : "Save"}
+        <SaveIcon className={s.saveIcon} />
       </button>
 
       <AuthModal

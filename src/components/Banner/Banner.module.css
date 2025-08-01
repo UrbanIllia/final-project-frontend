@@ -19,11 +19,6 @@
     margin: 0 -108px;
   }
 }
-/* .fullWidth {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-} */
-
 /* Retina Mobile */
 @media screen and (min-resolution: 192dpi),
   screen and (min-device-pixel-ratio: 2) {

@@ -27,7 +27,6 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log("Interceptor caught error:", error.response?.status);
     const originalRequest = error.config;
 
     const accessToken = localStorage.getItem("accessToken");
@@ -52,7 +51,6 @@ API.interceptors.response.use(
       } catch (refreshError) {
         clearAuthHeader();
         localStorage.removeItem("accessToken");
-        // window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }

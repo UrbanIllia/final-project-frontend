@@ -1,4 +1,3 @@
-import React from "react";
 import css from "./NoResults.module.css";
 
 const NoResults = ({ onReset }) => {

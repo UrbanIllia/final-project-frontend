@@ -3,13 +3,13 @@
   align-items: center;
   gap: 8px;
   justify-content: center;
-  color: #fff;
+  color: var(--white);
   font-weight: 600;
   font-size: 12px;
 }
 
 .avatar {
-  background-color: #9b6c43;
+  background-color: var(--light-brown);
   width: 32px;
   height: 32px;
   border-radius: 32px;
@@ -22,7 +22,7 @@
 .divider {
   width: 1px;
   height: 39px;
-  background-color: #fff;
+  background-color: var(--white);
   margin: 0 8px;
 }
 
@@ -37,6 +37,6 @@
 .logoutIcon {
   width: 17px;
   height: 17px;
-  stroke: #fff;
+  stroke: var(--white);
   transition: stroke 0.3s;
 }

@@ -45,20 +45,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  top: 20px;
-  right: 16px;
-}
-
-.closeIcon {
   width: 24px;
   height: 24px;
-  fill: #333;
-  transition: fill 0.2s ease;
+  top: 40px;
+  right: 16px;
+  stroke: #333;
+  transition: all 0.2s ease;
 }
 
-.closeIcon:hover {
-  fill: #9b6c43;
+.closeButton:hover {
+  transform: scale(1.3);
 }
 
 .btnGroup {
@@ -79,10 +75,11 @@
   align-items: center;
   justify-content: flex-start;
   color: var(--black);
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .resetBtn:hover,
 .applyBtn:hover {
   border-color: #555;
+  transform: scale(1.1);
 }

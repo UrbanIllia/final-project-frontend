@@ -9,6 +9,7 @@ import { API } from "../../axiosConfig/Api";
 import { addRecipeThunk } from "../../redux/operations/recipesOperation";
 import { selectRecipesIsLoading } from "../../redux/selectors/recipesSelector";
 import { MdDelete, MdOutlineAddAPhoto } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({
   title: Yup.string().max(64).required("Required"),
@@ -71,7 +72,7 @@ export default function AddRecipeForm() {
       const id = res.data._id || res.data.id;
       navigate(`/recipes/${id}`);
     } catch (err) {
-      alert(err.message || "Failed to create recipe");
+      toast(err.message || "Failed to create recipe");
     } finally {
       setSubmitting(false);
     }
@@ -219,7 +220,6 @@ export default function AddRecipeForm() {
 
           <div className={styles.ingredientsBlock}>
             <label className={styles.sectionTitle}>Ingredients</label>
-            {/* ............................................... */}
             <div className={styles.ingredientInputs}>
               <div className={styles.fieldGroup}>
                 <div className={styles.smallTitle}>
@@ -257,7 +257,6 @@ export default function AddRecipeForm() {
                 Add new Ingredient
               </button>
             </div>
-            {/* ................................................... */}
             <ul className={styles.selectedIngredients}>
               {selectedIngredients.length > 0 && (
                 <li className={styles.selectedIngredientsHeader}>

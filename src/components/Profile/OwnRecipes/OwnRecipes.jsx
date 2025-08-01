@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import RecipesList from "../../RecipesList/RecipesList.jsx";
 import LoadMoreBtn from "../../LoadMoreBtn/LoadMoreBtn";
@@ -15,8 +15,11 @@ import {
   selectRecipesIsLoading,
 } from "../../../redux/selectors/recipesSelector.js";
 import { useFilteredRecipes } from "../../../hooks/useFilteredRecipes.js";
+import { resetFilters } from "../../../redux/slices/filtersSlice.js";
 
 const OwnRecipes = () => {
+  const dispatch = useDispatch(); // ✅
+
   const {
     isLoading,
     error,
@@ -35,6 +38,10 @@ const OwnRecipes = () => {
   const filters = useSelector((state) => state.filters);
   const hasActiveFilters =
     filters.search || filters.category || filters.ingredient;
+
+  useEffect(() => {
+    dispatch(resetFilters());
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {

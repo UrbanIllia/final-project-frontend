@@ -33,7 +33,7 @@
 .closeIcon {
   width: 10px;
   height: 10px;
-  stroke: white;
+  stroke: var(--white);
   stroke-width: 1.3;
   stroke-linecap: round;
   fill: none;

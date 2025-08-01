@@ -105,7 +105,7 @@ const LoginForm = () => {
               return;
             }
 
-            submitForm(); // отправляем форму вручную
+            submitForm();
           };
 
           return (
